@@ -1,0 +1,34 @@
+=== izioSEO ===
+Contributors: Mathias 'United20' Schmidt
+Donate link: http://www.goizio.com/
+Tags: SEO, Plugin, Wordpress
+Requires at least: v1.0
+Tested up to: v1.0
+Stable tag: v1.0
+
+izioSEO ist ein wirkungsvolles, vollautomatisches und kostenloses standalone SEO-Plugin für ihren Wordpress-Blog 
+mit absolut legalen und aktuellen Methoden der OnPage-Optimierung.
+
+== Description ==
+
+Eine gute OnPage-Optimierung ist auch eine 
+wertvolle Grundlage für eine höhere und somit erfolgreichere Positionierung in den Suchergebnissen (SERPS) der 
+Suchmaschinen. Somit besitzen Sie für die oftmals schwierige OffPage-Optimierung eine wertvolle Basis.
+
+Dieses Wordpress-Plugin beinhaltet jetzt schon mehr als 45 verschiedene Einstellungs- und Anpassungsmöglichkeiten 
+und ist somit eine kostenlose Alternative zu anderen SEO-Plugins, welche oftmals nicht viel mehr können als 
+izioSEO. izioSEO besticht durch die dynamische und automatisierte Generierung der META-Tags und der Seitentitel 
+unter Verwendung einer Stopword-List. Diese Stopword-Liste ist frei nach Ihren Wünschen erweiterbar und anpassbar, 
+so können Sie Ihre Keywords und Seitenbeschreibungen beliebig definieren. Trotzdem können Sie jeder Seite und 
+jedes Blog-Posts individuelle META-Daten zuweisen. Und durch die Unterstützung von anderen Wordpress-Plugins wie 
+SimpleTags, Simple Tagging oder Ultimate Tag Warrior haben Sie weitere Vorteile gegenüber anderen Lösungen.
+
+== Installation ==
+
+Dieser Bereich erläutert die Installation von izioSEO
+
+1. Laden Sie izioSEO von der Website http://www.goizio.com/ herunter
+2. Entpacken Sie das ZIP-Archiv mit Winzip, Winrar oder einer anderen gängigen Packsoftware
+3. Laden Sie den Ordner 'izioSEO' in das Verzeichniss '/wp-content/plugins/' ihres Wordpress-Blogs
+4. Aktivieren Sie das Plugin unter dem Menüpunkt 'Plugins' in ihrem Wordpress-Blog
+5. Ggfs. nehmen Sie gewünschte Einstellungen unter 'Einstellungen' und danach den Menüpunkt 'izioSEO' vor
