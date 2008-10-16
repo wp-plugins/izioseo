@@ -34,12 +34,12 @@ Dieser Bereich erlaeutert die Installation von izioSEO
 
 == Screenshots ==
 
-1. Individuelle Einstellungen fuer die Seiten des Blogs, `/trunk/screenshots/seiten-einstellungen.jpg`
-2. Uebersicht der allgemeinen Einstellungen, `/trunk/screenshots/allgemeine-einstellungen.jpg`
-3. Einstellung fuer die generierung der , `/trunk/screenshots/meta-daten-generieren.jpg`
-4. Individuelles Formatieren der Seitentitel, `/trunk/screenshots/formatierung.jpg`
-5. META-Robots und rel="nofollow", `/trunk/screenshots/robots.jpg`
-6. Einfaches und schnelles editieren der robots.txt, `/trunk/screenshots/robotstxt.jpg`
+1. Individuelle Einstellungen fuer die Seiten des Blogs, `http://www.goizio.com/screenshots/seiten-einstellungen.jpg`
+2. Uebersicht der allgemeinen Einstellungen, `http://www.goizio.com/screenshots/allgemeine-einstellungen.jpg`
+3. Einstellung fuer die generierung der , `http://www.goizio.com/screenshots/meta-daten-generieren.jpg`
+4. Individuelles Formatieren der Seitentitel, `http://www.goizio.com/screenshots/formatierung.jpg`
+5. META-Robots und rel="nofollow", `http://www.goizio.com/screenshots/robots.jpg`
+6. Einfaches und schnelles editieren der robots.txt, `http://www.goizio.com/screenshots/robotstxt.jpg`
 
 == Changelog ==
 
