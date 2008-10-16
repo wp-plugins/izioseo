@@ -32,15 +32,6 @@ Dieser Bereich erlaeutert die Installation von izioSEO
 4. Aktivieren Sie das Plugin unter dem Menuepunkt 'Plugins' in ihrem Wordpress-Blog
 5. Ggfs. nehmen Sie gewünschte Einstellungen unter 'Einstellungen' und danach den Menuepunkt 'izioSEO' vor
 
-== Screenshots ==
-
-1. Individuelle Einstellungen fuer die Seiten des Blogs, `http://www.goizio.com/screenshots/seiten-einstellungen.jpg`
-2. Uebersicht der allgemeinen Einstellungen, `http://www.goizio.com/screenshots/allgemeine-einstellungen.jpg`
-3. Einstellung fuer die generierung der , `http://www.goizio.com/screenshots/meta-daten-generieren.jpg`
-4. Individuelles Formatieren der Seitentitel, `http://www.goizio.com/screenshots/formatierung.jpg`
-5. META-Robots und rel="nofollow", `http://www.goizio.com/screenshots/robots.jpg`
-6. Einfaches und schnelles editieren der robots.txt, `http://www.goizio.com/screenshots/robotstxt.jpg`
-
 == Changelog ==
 
 Version 1.01 vom 15.09.2008
