@@ -1,15 +1,19 @@
 <? if (isset($message)) : ?>
 	<? if ($message == 'settings') : ?>
 		<div id="message" class="updated fade">
-			<p><? _e('Die Einstellungen f&uuml;r izioSEO wurden gespeichert.', izioseo) ?></p>
+			<p><? _e('Die Einstellungen f&uuml;r izioSEO wurden gespeichert.', 'izioseo') ?></p>
 		</div>
 	<? elseif ($message == 'merge') : ?>
 		<div id="message" class="updated fade">
-			<p><? _e('Die Stopwordliste und alle dazuegh&ouml;rigen Dateien wurden verschmolzen und gespeichert.', izioseo) ?></p>
+			<p><? _e('Die Stopword-Liste und alle dazuegh&ouml;rigen Dateien wurden verschmolzen und gespeichert.', 'izioseo') ?></p>
+		</div>
+	<? elseif ($message == 'robots') : ?>
+		<div id="message" class="updated fade">
+			<p><? _e('robots.txt wurde erfolgreich gespeichert.', 'izioseo') ?></p>
 		</div>
 	<? else : ?>
 		<div id="notice" class="error fade">
-			<p><? _e('Es trat ein Fehler auf.', izioseo) ?></p>
+			<p><? _e('Es trat ein Fehler auf.', 'izioseo') ?></p>
 		</div>
 	<? endif; ?>
 <? endif; ?>
@@ -25,7 +29,7 @@
 			<input name="tax" value="0" type="hidden">
 			<input name="lc" value="DE" type="hidden">
 			<input name="bn" value="PP-DonationsBF" type="hidden">
-			<input alt="Jetzt einfach, schnell und sicher online bezahlen – mit PayPal." name="submit" src="https://www.paypal.com/de_DE/DE/i/btn/x-click-butcc-donate.gif" type="image">
+			<input alt="Jetzt einfach, schnell und sicher online bezahlen mit PayPal." name="submit" src="https://www.paypal.com/de_DE/DE/i/btn/x-click-butcc-donate.gif" type="image">
 			<img src="https://www.paypal.com/de_DE/i/scr/pixel.gif" alt="" width="1" border="0" height="1"><br>
 		</p>
 		<p style="float:right; width: 885px; padding:7px 0px;"><? _e('Sie finden izioSEO super gelungen und m&ouml;chten uns helfen weitere Features und Funktionen f&uuml;r dieses Wordpress Plugin umzusetzen. Dann sagen Sie uns ihre W&uuml;nsche und Vorschl&auml;ge f&uuml;r izioSEO. Und spenden Sie uns den Betrag, wie Sie meinen, was izioSEO Ihnen wert ist!'); ?></p>
@@ -172,6 +176,17 @@
 					</select>
 					<div style="max-width: 750px; text-align: left; width: 100%;">
 						<? _e('Was soll als Standardwerte verwendet werden, wenn keine META-Daten festgelegt wurden sind.', 'izioseo'); ?>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row" style="text-align:right; vertical-align:top;">
+					<label for="izioseo_collect_keywords"><? _e('Keywords sammeln:', 'izioseo') ?></label>
+				</th>
+				<td>
+					<input type="checkbox" name="izioseo[izioseo_collect_keywords]" id="izioseo_collect_keywords"<? if ($data['izioseo_collect_keywords'] == 'on') : ?> checked<? endif; ?> />
+					<div style="max-width: 750px; text-align: left; width: 100%">
+						<? _e('Sollen die Keywords in der keywords.txt - Datei gesammelt werden, wenn die Generierung der META-Keywords und META-Description f&uuml;r die jeweilige Unterseite aktiviert ist. Dadurch k&ouml;nnen Sie auf einfache Weise ihre Stopword-Liste individuell erweitern.', 'izioseo'); ?>
 					</div>
 				</td>
 			</tr>
@@ -435,9 +450,73 @@
 			</tr>
 		</table>
 	</div>
+	<div class="wrap" style="padding-top: 35px;">
+		<h2><? _e('Links auf rel="nofollow" setzen', 'izioseo'); ?></h2>
+	</div>
+	<div class="wrap">
+		<p><? _e('Setzen Sie verschiedene Bereiche ihres Blogs auf rel="nofollow".', 'izioseo') ?></p>
+		<table class="form-table">
+			<tr>
+				<th scope="row" style="text-align:right; vertical-align:top;">
+					<label for="izioseo_nofollow_categories"><? _e('Kategorieliste', 'izioseo') ?></label>
+				</th>
+				<td>
+					<input type="checkbox" name="izioseo[izioseo_nofollow_categories]" id="izioseo_nofollow_categories"<? if ($data['izioseo_nofollow_categories'] == 'on') : ?> checked<? endif; ?> />
+					<div style="max-width: 750px; text-align: left; width: 100%">
+						<? _e('In der Liste der Kategorien werden alle Links auf rel="nofollow" gesetzt. Sowie die Liste der Kategorien f&uuml;r einen Blogbeitrag.', 'izioseo'); ?>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row" style="text-align:right; vertical-align:top;">
+					<label for="izioseo_nofollow_bookmarks"><? _e('Blogroll', 'izioseo') ?></label>
+				</th>
+				<td>
+					<input type="checkbox" name="izioseo[izioseo_nofollow_bookmarks]" id="izioseo_nofollow_bookmarks"<? if ($data['izioseo_nofollow_bookmarks'] == 'on') : ?> checked<? endif; ?> />
+					<div style="max-width: 750px; text-align: left; width: 100%">
+						<? _e('Setzt die Blogroll komplett auf rel="nofollow".', 'izioseo'); ?>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row" style="text-align:right; vertical-align:top;">
+					<label for="izioseo_nofollow_bookmarks"><? _e('Tagcloud', 'izioseo') ?></label>
+				</th>
+				<td>
+					<input type="checkbox" name="izioseo[izioseo_nofollow_tags]" id="izioseo_nofollow_tags"<? if ($data['izioseo_nofollow_tags'] == 'on') : ?> checked<? endif; ?> />
+					<div style="max-width: 750px; text-align: left; width: 100%">
+						<? _e('Alle Tags der Tagcloud werden auf rel="nofollow" gesetzt.', 'izioseo'); ?>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
 	<div class="wrap">
 		<p class="submit">
 			<input type="submit" value="<? _e('Speichern', 'izioseo')?> &raquo;" />
+		</p>
+	</div>
+</form>
+<form method="post">
+	<div class="wrap" style="padding-top: 35px;">
+		<h2><? _e('robots.txt bearbeiten', 'izioseo'); ?></h2>
+	</div>
+	<div class="wrap">
+		<p><? _e('&Uuml;ber das Textfeld ist es m&ouml;glich die robots.txt, welche im Root der Wordpress-Installation liegt und Regeln f&uuml;r Suchmaschinenbots festlegt. Mehr Informationen zum Aufbau einer robots.txt finden sie unter: <a href="http://www.robotstxt.org" target="_blank">http://www.robotstxt.org/</a>', 'izioseo'); ?></p>
+		<table class="form-table">
+			<tr>
+				<th scope="row" style="text-align:right; vertical-align:top;">
+					<label for="file_robotstxt"><? _e('Inhalt robots.txt', 'izioseo') ?></label>
+				</th>
+				<td>
+					<textarea name="robotstxt" id="file_robotstxt" style="width: 450px; height: 150px;"><?= $robotsTxt ?></textarea>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="wrap">
+		<p class="submit">
+			<input type="submit" value="<? _e('robots.txt speichern', 'izioseo')?> &raquo;" />
 		</p>
 	</div>
 </form>
@@ -447,7 +526,7 @@
 			<h2><? _e('Stopwords mit Keywords verschmelzen', 'izioseo'); ?></h2>
 		</div>
 		<div class="wrap">
-			<p><? _e('Bearbeiten Sie die Stopwordlist und die Liste mit den Keywords und Akronymen. Dadurch k&ouml;nnen Sie geziehlt steuern, welche W&ouml;rter f&uuml;r die Generierung von META-Daten verwendet werden sollen.', 'izioseo'); ?></p>
+			<p><? _e('Bearbeiten Sie die Stopword-Liste und die Liste mit den Keywords und Akronymen. Dadurch k&ouml;nnen Sie geziehlt steuern, welche W&ouml;rter f&uuml;r die Generierung von META-Daten verwendet werden sollen.', 'izioseo'); ?></p>
 			<table class="form-table">
 				<tr>
 					<th scope="row" style="text-align:right; vertical-align:top;">
