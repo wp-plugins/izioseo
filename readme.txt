@@ -1,9 +1,9 @@
 === izioSEO ===
 Contributors: Mathias 'United20' Schmidt
 Donate link: http://www.goizio.com/
-Tags: SEO, Plugin, Wordpress, Suchmaschinenoptimierung, Wordpress SEO Plugin, Google
+Tags: seo, plugin, suchmaschinenoptimierung, google, meta, robots, description, keywords, analytics
 Requires at least: 2.3
-Tested up to: 2.3
+Tested up to: 2.6.2
 Stable tag: 1.02
 
 izioSEO ist ein wirkungsvolles, vollautomatisches und kostenloses standalone SEO-Plugin fuer ihren Wordpress-Blog.
