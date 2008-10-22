@@ -1,3 +1,25 @@
+<script type="text/javascript" language="JavaScript">
+<!--
+
+	function toggleDisplay(id)
+	{
+		var a = document.getElementById('link_' + id);
+		var d = document.getElementById('placeholder_' + id);
+		if (d.style.display == 'none')
+		{
+			a.innerHTML = '<?= __('verbergen', 'izioseo') ?>';
+			d.style.display = 'block';
+		}
+		else
+		{
+			a.innerHTML = '<?= __('anzeigen', 'izioseo') ?>';
+			d.style.display = 'none';
+		}
+	}
+
+//-->
+</script>
+
 <? if (isset($message)) : ?>
 	<? if ($message == 'settings') : ?>
 		<div id="message" class="updated fade">
@@ -60,7 +82,7 @@
 				<td>
 					<input type="text" name="izioseo[izioseo_title]" id="izioseo_title" style="width: 450px;" value="<?= $data['izioseo_title'] ?> " />
 					<div style="max-width: 750px; text-align: left; width: 100%;">
-						<? _e('Definieren Sie hier den Titel f&uuml;r die Startseite und den Standardwert f&uuml;r die Unterseiten, falls keine seitenspezifischen Daten vorhanden sind. (empfohlene maximale L&auml;nge von ca. 60 Zeichen)', 'izioseo'); ?>
+						<? _e('Definieren Sie den Titel f&uuml;r die Startseite und den Standardwert f&uuml;r die Unterseiten, falls keine seitenspezifischen Daten vorhanden sind. (empfohlene maximale L&auml;nge von ca. 60 Zeichen)', 'izioseo'); ?>
 					</div>
 				</td>
 			</tr>
@@ -82,7 +104,7 @@
 				<td>
 					<input type="text" name="izioseo[izioseo_keywords]" id="izioseo_keywords" style="width: 450px;" value="<?= $data['izioseo_keywords'] ?>" />
 					<div style="max-width: 750px; text-align: left; width: 100%;">
-						<? _e('Tragen Sie hier die Keywords f&uuml;r die Startseite ein. Diese Keywords werden als Standardwerte verwendet falls keine Keywords vorhanden sind. (empfohlene maximale L&auml;nge von ca. 100 Zeichen)', 'izioseo'); ?>
+						<? _e('Tragen Sie die Keywords (Komma separiert) f&uuml;r die Startseite ein. Diese Keywords werden als Standardwerte verwendet, falls keine Keywords vorhanden sind oder generiert werden konnten. (empfohlene maximale L&auml;nge von ca. 100 Zeichen)', 'izioseo'); ?>
 					</div>
 				</td>
 			</tr>
@@ -93,7 +115,7 @@
 				<td>
 					<input type="text" name="izioseo[izioseo_lang_id]" id="izioseo_lang_id" size="2" value="<?= $data['izioseo_lang_id'] ?>" />
 					<div style="max-width: 750px; text-align: left; width: 100%;">
-						<? _e('Die L&auml;nderk&uuml;rzel nach ISO-Norm, wie z.B. \'de\' f&uuml;r Deutschland.', 'izioseo'); ?>
+						<? _e('Das L&auml;nderk&uuml;rzel, wie z.B. \'de\' f&uuml;r Deutschland.', 'izioseo'); ?>
 					</div>
 				</td>
 			</tr>
@@ -119,7 +141,7 @@
 				<td>
 					<input type="text" name="izioseo[izioseo_wptools]" id="izioseo_wptools" style="width: 450px;" value="<?= $data['izioseo_wptools'] ?>" />
 					<div style="max-width: 750px; text-align: left; width: 100%;">
-						<? _e('Geben Sie die TrackingID f&uuml;r die Google Webmastertools ein. Dies geschieht nach dem Schema \'x6mHzfnvj849fJKVFjdmcie8rijXn/gW3SmElKgTH9Q=\'.', 'izioseo'); ?>
+						<? _e('Geben Sie die TrackingID f&uuml;r die Google Webmastertools ein. Diese wird dann in einem META-Tag angegeben.', 'izioseo'); ?>
 					</div>
 				</td>
 			</tr>
@@ -162,7 +184,7 @@
 		<h2><? _e('META-Tag generieren', 'izioseo'); ?></h2>
 	</div>
 	<div class="wrap">
-		<p><? _e('Einstellungen zum automatischen Generieren von META-Tags. Diese Optionen werden vorallem dann verwendet, wenn keine oder keine brauchbaren META-Tags worhanden sind.', 'izioseo') ?></p>
+		<p><? _e('Einstellungen zum automatischen Generieren von META-Tags. Diese Optionen werden dann verwendet, wenn keine oder keine relevanten META-Tags vorhanden sind.', 'izioseo') ?></p>
 		<table class="form-table">
 			<tr>
 				<th scope="row" style="text-align:right; vertical-align:top;">
@@ -175,7 +197,7 @@
 						<option value="generate"<? if ($data['izioseo_use_default'] == 'generate') : ?> selected<? endif; ?>><? _e('META-Daten aus Inhalt generieren', true) ?></option>
 					</select>
 					<div style="max-width: 750px; text-align: left; width: 100%;">
-						<? _e('Was soll als Standardwerte verwendet werden, wenn keine META-Daten festgelegt wurden sind.', 'izioseo'); ?>
+						<? _e('Was soll als Standardwerte verwendet werden, unter der Bedingung das keine META-Daten festgelegt wurden sind.', 'izioseo'); ?>
 					</div>
 				</td>
 			</tr>
@@ -186,7 +208,7 @@
 				<td>
 					<input type="checkbox" name="izioseo[izioseo_collect_keywords]" id="izioseo_collect_keywords"<? if ($data['izioseo_collect_keywords'] == 'on') : ?> checked<? endif; ?> />
 					<div style="max-width: 750px; text-align: left; width: 100%">
-						<? _e('Sollen die Keywords in der keywords.txt - Datei gesammelt werden, wenn die Generierung der META-Keywords und META-Description f&uuml;r die jeweilige Unterseite aktiviert ist. Dadurch k&ouml;nnen Sie auf einfache Weise ihre Stopword-Liste individuell erweitern.', 'izioseo'); ?>
+						<? _e('Sollen die Keywords in der "keywords.txt" Datei gesammelt werden, wenn die Generierung der META-Keywords und META-Description f&uuml;r die jeweilige Unterseite aktiviert ist. Dadurch k&ouml;nnen Sie auf einfache Weise ihre Stopword-Liste individuell erweitern.', 'izioseo'); ?>
 					</div>
 				</td>
 			</tr>
@@ -197,7 +219,7 @@
 				<td>
 					<input type="text" name="izioseo[izioseo_lenght_description]" id="izioseo_lenght_description" size="3" value="<?= $data['izioseo_lenght_description'] ?>" />
 					<div style="max-width: 750px; text-align: left; width: 100%;">
-						<? _e('Legen Sie die maximale L&auml;nge f&uuml;r die generierten META-Beschreibungen fest, wenn die META-Beschreibungen genieriert werden. Es wird eine maximale L&auml;nge von ca. 170 Zeichen empfohlen.', 'izioseo'); ?>
+						<? _e('Legen Sie die maximale L&auml;nge f&uuml;r die generierten META-Beschreibungen fest. Es wird eine maximale L&auml;nge von ca. 170 Zeichen empfohlen.', 'izioseo'); ?>
 					</div>
 				</td>
 			</tr>
@@ -208,29 +230,29 @@
 				<td>
 					<input type="text" name="izioseo[izioseo_lenght_keywords]" id="izioseo_lenght_keywords" size="3" value="<?= $data['izioseo_lenght_keywords'] ?>" />
 					<div style="max-width: 750px; text-align: left; width: 100%;">
-						<? _e('Legen Sie die maximale Anzahl f&uuml;r die generierten META-Keywords fest, wenn die META-Keywords genieriert werden. Es werden zwischen 5 und 7 Keywords empfohlen.', 'izioseo'); ?>
+						<? _e('Legen Sie die maximale Anzahl f&uuml;r die generierten META-Keywords fest. Maximale empfohlene Anzahl an Keywords zwischen 5 und 7 Keywords.', 'izioseo'); ?>
 					</div>
 				</td>
 			</tr>
 			<tr>
 				<th scope="row" style="text-align:right; vertical-align:top;">
-					<label for="izioseo_use_categories"><? _e('Kategorien f&uuml;r Keywords mit einbeziehen:', 'izioseo') ?></label>
+					<label for="izioseo_use_categories"><? _e('Kategorien in die Keywords mit einbeziehen:', 'izioseo') ?></label>
 				</th>
 				<td>
 					<input type="checkbox" name="izioseo[izioseo_use_categories]" id="izioseo_use_categories"<? if ($data['izioseo_use_categories'] == 'on') : ?> checked<? endif; ?> />
 					<div style="max-width: 750px; text-align: left; width: 100%">
-						<? _e('Mit dem Aktivieren dieser Funktion beziehen Sie die Kategorien in die generierung der Keywords mit ein.', 'izioseo'); ?>
+						<? _e('Mit dem Aktivieren dieser Funktion beziehen Sie die Kategorien in die Generierung der Keywords mit ein.', 'izioseo'); ?>
 					</div>
 				</td>
 			</tr>
 			<tr>
 				<th scope="row" style="text-align:right; vertical-align:top;">
-					<label for="izioseo_use_tags"><? _e('Tags f&uuml;r Keywords mit einbeziehen:', 'izioseo') ?></label>
+					<label for="izioseo_use_tags"><? _e('Tags in die Keywords mit einbeziehen:', 'izioseo') ?></label>
 				</th>
 				<td>
 					<input type="checkbox" name="izioseo[izioseo_use_tags]" id="izioseo_use_tags"<? if ($data['izioseo_use_tags'] == 'on') : ?> checked<? endif; ?> />
 					<div style="max-width: 750px; text-align: left; width: 100%">
-						<? _e('Mit dem Aktivieren dieser Funktion beziehen Sie die Tags in die generierung der Keywords mit ein.', 'izioseo'); ?>
+						<? _e('Mit dem Aktivieren dieser Funktion werden die Tags in die Generierung der Keywords mit einbezogen.', 'izioseo'); ?>
 					</div>
 				</td>
 			</tr>
@@ -262,7 +284,7 @@
 		<h2><? _e('Formatierung der Seitentitel', 'izioseo'); ?></h2>
 	</div>
 	<div class="wrap">
-		<p><? _e('Legen Sie die Anordung und das Aussehen der Seitentitel fest und passen Sie diese nach ihren W&uuml;nschen und Vorstellungen an. Weitere Informationen zu Platzhaltern und Formatierungsm&ouml;glichkeiten finden sie auf der Website von <a href="http://www.izio-media.com/izioseo/" target="_blank">izioSEO</a>.', 'izioseo') ?></p>
+		<p><? _e('Legen Sie die Anordung und das Aussehen der Seitentitel fest und passen Sie diese nach ihren W&uuml;nschen und Vorstellungen an. Es k&ouml;nnen die folgenden Platzhalter verwendet werden:', 'izioseo') ?></p>
 		<table class="form-table">
 			<tr>
 				<th scope="row" style="text-align:right; vertical-align:top;">
@@ -270,6 +292,19 @@
 				</th>
 				<td>
 					<input type="text" name="izioseo[izioseo_format_title_post]" id="izioseo_format_title_post" style="width: 450px;" value="<?= $data['izioseo_format_title_post'] ?>" />
+					<div style="max-width: 750px; text-align: left; width: 100%">
+						<? _e('Zu verwendende Platzhalter', 'izioseo') ?> <a href="javascript:void(0);" onclick="javascript:toggleDisplay('izioseo_format_title_post')" id="link_izioseo_format_title_post"><? _e('anzeigen', 'izioseo') ?></a>
+						<ul id="placeholder_izioseo_format_title_post" style="list-style-image: none; list-style-type: none; display:none;">
+							<li><b>%blog_title%</b> - <? _e('Titel des gesamten Blogs', 'izioseo') ?></li>
+							<li><b>%blog_description%</b> - <? _e('Beschreibung aus dem Wordpress Blog', 'izioseo') ?></li>
+							<li><b>%post_title%</b> - <? _e('Titel des Blogbeitrages', 'izioseo') ?></li>
+							<li><b>%post_author_login%</b> - <? _e('Loginname des Autors', 'izioseo') ?></li>
+							<li><b>%post_author_nicename%</b> - <? _e('Benutzername des Autors', 'izioseo') ?></li>
+							<li><b>%post_author_firstname%</b> - <? _e('Vorname des Autors', 'izioseo') ?></li>
+							<li><b>%post_author_lastname%</b> - <? _e('Nachname des Autors', 'izioseo') ?></li>
+							<li><b>%category_title%</b> - <? _e('Name der Kategorie', 'izioseo') ?></li>
+						</ul>
+					</div>
 				</td>
 			</tr>
 			<tr>
@@ -278,6 +313,18 @@
 				</th>
 				<td>
 					<input type="text" name="izioseo[izioseo_format_title_page]" id="izioseo_format_title_page" style="width: 450px;" value="<?= $data['izioseo_format_title_page'] ?>" />
+					<div style="max-width: 750px; text-align: left; width: 100%">
+						<? _e('Zu verwendende Platzhalter', 'izioseo') ?> <a href="javascript:void(0);" onclick="javascript:toggleDisplay('izioseo_format_title_page')" id="link_izioseo_format_title_page"><? _e('anzeigen', 'izioseo') ?></a>
+						<ul id="placeholder_izioseo_format_title_page" style="list-style-image: none; list-style-type: none; display:none;">
+							<li><b>%blog_title%</b> - <? _e('Titel des gesamten Blogs', 'izioseo') ?></li>
+							<li><b>%blog_description%</b> - <? _e('Beschreibung aus dem Wordpress Blog', 'izioseo') ?></li>
+							<li><b>%page_title%</b> - <? _e('Name der statischen Seite', 'izioseo') ?></li>
+							<li><b>%page_author_login%</b> - <? _e('Loginname des Autors', 'izioseo') ?></li>
+							<li><b>%page_author_nicename%</b> - <? _e('Benutzername des Autors', 'izioseo') ?></li>
+							<li><b>%page_author_firstname%</b> - <? _e('Vorname des Autors', 'izioseo') ?></li>
+							<li><b>%page_author_lastname%</b> - <? _e('Nachname des Autors', 'izioseo') ?></li>
+						</ul>
+					</div>
 				</td>
 			</tr>
 			<tr>
@@ -286,6 +333,14 @@
 				</th>
 				<td>
 					<input type="text" name="izioseo[izioseo_format_title_search]" id="izioseo_format_title_search" style="width: 450px;" value="<?= $data['izioseo_format_title_search'] ?>" />
+					<div style="max-width: 750px; text-align: left; width: 100%">
+						<? _e('Zu verwendende Platzhalter', 'izioseo') ?> <a href="javascript:void(0);" onclick="javascript:toggleDisplay('izioseo_format_title_search')" id="link_izioseo_format_title_search"><? _e('anzeigen', 'izioseo') ?></a>
+						<ul id="placeholder_izioseo_format_title_search" style="list-style-image: none; list-style-type: none; display:none;">
+							<li><b>%blog_title%</b> - <? _e('Titel des gesamten Blogs', 'izioseo') ?></li>
+							<li><b>%blog_description%</b> - <? _e('Beschreibung aus dem Wordpress Blog', 'izioseo') ?></li>
+							<li><b>%search%</b> - <? _e('Suchbegriff aus der Suche', 'izioseo') ?></li>
+						</ul>
+					</div>
 				</td>
 			</tr>
 			<tr>
@@ -294,6 +349,15 @@
 				</th>
 				<td>
 					<input type="text" name="izioseo[izioseo_format_title_category]" id="izioseo_format_title_category" style="width: 450px;" value="<?= $data['izioseo_format_title_category'] ?>" />
+					<div style="max-width: 750px; text-align: left; width: 100%">
+						<? _e('Zu verwendende Platzhalter', 'izioseo') ?> <a href="javascript:void(0);" onclick="javascript:toggleDisplay('izioseo_format_title_category')" id="link_izioseo_format_title_category"><? _e('anzeigen', 'izioseo') ?></a>
+						<ul id="placeholder_izioseo_format_title_category" style="list-style-image: none; list-style-type: none; display:none;">
+							<li><b>%blog_title%</b> - <? _e('Titel des gesamten Blogs', 'izioseo') ?></li>
+							<li><b>%blog_description%</b> - <? _e('Beschreibung aus dem Wordpress Blog', 'izioseo') ?></li>
+							<li><b>%category_title%</b> - <? _e('Name der Kategorie', 'izioseo') ?></li>
+							<li><b>%category_description%</b> - <? _e('Beschreibung der Kategorie', 'izioseo') ?></li>
+						</ul>
+					</div>
 				</td>
 			</tr>
 			<tr>
@@ -302,6 +366,14 @@
 				</th>
 				<td>
 					<input type="text" name="izioseo[izioseo_format_title_paged]" id="izioseo_format_title_paged" style="width: 450px;" value="<?= $data['izioseo_format_title_paged'] ?>" />
+					<div style="max-width: 750px; text-align: left; width: 100%">
+						<? _e('Zu verwendende Platzhalter', 'izioseo') ?> <a href="javascript:void(0);" onclick="javascript:toggleDisplay('izioseo_format_title_paged')" id="link_izioseo_format_title_paged"><? _e('anzeigen', 'izioseo') ?></a>
+						<ul id="placeholder_izioseo_format_title_paged" style="list-style-image: none; list-style-type: none; display:none;">
+							<li><b>%blog_title%</b> - <? _e('Titel des gesamten Blogs', 'izioseo') ?></li>
+							<li><b>%blog_description%</b> - <? _e('Beschreibung aus dem Wordpress Blog', 'izioseo') ?></li>
+							<li><b>%page%</b> - <? _e('Seitenzahl', 'izioseo') ?></li>
+						</ul>
+					</div>
 				</td>
 			</tr>
 			<tr>
@@ -310,6 +382,14 @@
 				</th>
 				<td>
 					<input type="text" name="izioseo[izioseo_format_title_tag]" id="izioseo_format_title_tag" style="width: 450px;" value="<?= $data['izioseo_format_title_tag'] ?>" />
+					<div style="max-width: 750px; text-align: left; width: 100%">
+						<? _e('Zu verwendende Platzhalter', 'izioseo') ?> <a href="javascript:void(0);" onclick="javascript:toggleDisplay('izioseo_format_title_tag')" id="link_izioseo_format_title_tag"><? _e('anzeigen', 'izioseo') ?></a>
+						<ul id="placeholder_izioseo_format_title_tag" style="list-style-image: none; list-style-type: none; display:none;">
+							<li><b>%blog_title%</b> - <? _e('Titel des gesamten Blogs', 'izioseo') ?></li>
+							<li><b>%blog_description%</b> - <? _e('Beschreibung aus dem Wordpress Blog', 'izioseo') ?></li>
+							<li><b>%tag%</b> - <? _e('Tag / Schlagwort', 'izioseo') ?></li>
+						</ul>
+					</div>
 				</td>
 			</tr>
 			<tr>
@@ -318,6 +398,14 @@
 				</th>
 				<td>
 					<input type="text" name="izioseo[izioseo_format_title_archive]" id="izioseo_format_title_archive" style="width: 450px;" value="<?= $data['izioseo_format_title_archive'] ?>" />
+					<div style="max-width: 750px; text-align: left; width: 100%">
+						<? _e('Zu verwendende Platzhalter', 'izioseo') ?> <a href="javascript:void(0);" onclick="javascript:toggleDisplay('izioseo_format_title_archive')" id="link_izioseo_format_title_archive"><? _e('anzeigen', 'izioseo') ?></a>
+						<ul id="placeholder_izioseo_format_title_archive" style="list-style-image: none; list-style-type: none; display:none;">
+							<li><b>%blog_title%</b> - <? _e('Titel des gesamten Blogs', 'izioseo') ?></li>
+							<li><b>%blog_description%</b> - <? _e('Beschreibung aus dem Wordpress Blog', 'izioseo') ?></li>
+							<li><b>%date%</b> - <? _e('Datum des Archivs', 'izioseo') ?></li>
+						</ul>
+					</div>
 				</td>
 			</tr>
 			<tr>
@@ -326,6 +414,15 @@
 				</th>
 				<td>
 					<input type="text" name="izioseo[izioseo_format_title_404]" id="izioseo_format_title_404" style="width: 450px;" value="<?= $data['izioseo_format_title_404'] ?>" />
+					<div style="max-width: 750px; text-align: left; width: 100%">
+						<? _e('Zu verwendende Platzhalter', 'izioseo') ?> <a href="javascript:void(0);" onclick="javascript:toggleDisplay('izioseo_format_title_404')" id="link_izioseo_format_title_404"><? _e('anzeigen', 'izioseo') ?></a>
+						<ul id="placeholder_izioseo_format_title_404" style="list-style-image: none; list-style-type: none; display:none;">
+							<li><b>%blog_title%</b> - <? _e('Titel des gesamten Blogs', 'izioseo') ?></li>
+							<li><b>%blog_description%</b> - <? _e('Beschreibung aus dem Wordpress Blog', 'izioseo') ?></li>
+							<li><b>%request_url%</b> - <? _e('URL von Fehlerseite', 'izioseo') ?></li>
+							<li><b>%request_words%</b> - <? _e('Extrahierten W&ouml;rter aus der URL', 'izioseo') ?></li>
+						</ul>
+					</div>
 				</td>
 			</tr>
 		</table>
@@ -334,7 +431,7 @@
 		<h2><? _e('Formatierung der Beschreibung', 'izioseo'); ?></h2>
 	</div>
 	<div class="wrap">
-		<p><? _e('Passen Sie den Aufbau der Beschreibung an. Weitere Informationen finden Sie auf der Homepage von  <a href="http://www.izio-media.com/izioseo/" target="_blank">izioSEO</a>.', 'izioseo') ?></p>
+		<p><? _e('Passen Sie den Aufbau der Beschreibung an.', 'izioseo') ?></p>
 		<table class="form-table">
 			<tr>
 				<th scope="row" style="text-align:right; vertical-align:top;">
@@ -342,6 +439,16 @@
 				</th>
 				<td>
 					<input type="text" name="izioseo[izioseo_format_description]" id="izioseo_format_description" style="width: 450px;" value="<?= $data['izioseo_format_description'] ?>" />
+					<div style="max-width: 750px; text-align: left; width: 100%">
+						<? _e('Zu verwendende Platzhalter', 'izioseo') ?> <a href="javascript:void(0);" onclick="javascript:toggleDisplay('izioseo_format_description')" id="link_izioseo_format_description"><? _e('anzeigen', 'izioseo') ?></a>
+						<ul id="placeholder_izioseo_format_description" style="list-style-image: none; list-style-type: none; display:none;">
+							<li><b>%description%</b> - <? _e('META-Beschreibung', 'izioseo') ?></li>
+							<li><b>%wp_title%</b> - <? _e('Titel der aktuellen Seite', 'izioseo') ?></li>
+							<li><b>%blog_title%</b> - <? _e('Titel des gesamten Blogs', 'izioseo') ?></li>
+							<li><b>%blog_description%</b> - <? _e('Beschreibung aus dem Wordpress Blog', 'izioseo') ?></li>
+							<li><b>%category%</b> - <? _e('Beschreibung der aktuellen Kategorie', 'izioseo') ?></li>
+						</ul>
+					</div>
 				</td>
 			</tr>
 		</table>
@@ -366,7 +473,7 @@
 			</tr>
 			<tr>
 				<th scope="row" style="text-align:right; vertical-align:top;">
-					<label for="izioseo_robots_post"><? _e('Blogbeitrag:', 'izioseo') ?></label>
+					<label for="izioseo_robots_post"><? _e('Blogbeitrag', 'izioseo') ?></label>
 				</th>
 				<td>
 					<select name="izioseo[izioseo_robots_post]" id="izioseo_robots_post">
@@ -378,7 +485,7 @@
 			</tr>
 			<tr>
 				<th scope="row" style="text-align:right; vertical-align:top;">
-					<label for="izioseo_robots_page"><? _e('Statische Seiten:', 'izioseo') ?></label>
+					<label for="izioseo_robots_page"><? _e('Statische Seiten', 'izioseo') ?></label>
 				</th>
 				<td>
 					<select name="izioseo[izioseo_robots_page]" id="izioseo_robots_page">
@@ -390,7 +497,7 @@
 			</tr>
 			<tr>
 				<th scope="row" style="text-align:right; vertical-align:top;">
-					<label for="izioseo_robots_search"><? _e('Suchergebnisse:', 'izioseo') ?></label>
+					<label for="izioseo_robots_search"><? _e('Suchergebnisse', 'izioseo') ?></label>
 				</th>
 				<td>
 					<select name="izioseo[izioseo_robots_search]" id="izioseo_robots_search">
@@ -402,7 +509,7 @@
 			</tr>
 			<tr>
 				<th scope="row" style="text-align:right; vertical-align:top;">
-					<label for="izioseo_robots_category"><? _e('Kategorie:', 'izioseo') ?></label>
+					<label for="izioseo_robots_category"><? _e('Kategorie', 'izioseo') ?></label>
 				</th>
 				<td>
 					<select name="izioseo[izioseo_robots_category]" id="izioseo_robots_category">
@@ -414,7 +521,7 @@
 			</tr>
 			<tr>
 				<th scope="row" style="text-align:right; vertical-align:top;">
-					<label for="izioseo_robots_tag"><? _e('Tag:', 'izioseo') ?></label>
+					<label for="izioseo_robots_tag"><? _e('Tag', 'izioseo') ?></label>
 				</th>
 				<td>
 					<select name="izioseo[izioseo_robots_tag]" id="izioseo_robots_tag">
@@ -454,7 +561,7 @@
 		<h2><? _e('Links auf rel="nofollow" setzen', 'izioseo'); ?></h2>
 	</div>
 	<div class="wrap">
-		<p><? _e('Setzen Sie verschiedene Bereiche ihres Blogs auf rel="nofollow".', 'izioseo') ?></p>
+		<p><? _e('Setzen Sie verschiedene Funktionen ihres Blogs auf rel="nofollow".', 'izioseo') ?></p>
 		<table class="form-table">
 			<tr>
 				<th scope="row" style="text-align:right; vertical-align:top;">
@@ -502,7 +609,7 @@
 		<h2><? _e('robots.txt bearbeiten', 'izioseo'); ?></h2>
 	</div>
 	<div class="wrap">
-		<p><? _e('&Uuml;ber das Textfeld ist es m&ouml;glich die robots.txt, welche im Root der Wordpress-Installation liegt und Regeln f&uuml;r Suchmaschinenbots festlegt. Mehr Informationen zum Aufbau einer robots.txt finden sie unter: <a href="http://www.robotstxt.org" target="_blank">http://www.robotstxt.org/</a>', 'izioseo'); ?></p>
+		<p><? _e('&Uuml;ber das Textfeld ist es m&ouml;glich die robots.txt, welche im Root von Wordpress liegt, zu editieren und diverse Regeln f&uuml;r Suchmaschinenbots festzulegen. Mehr Informationen zum Aufbau einer robots.txt finden sie unter: <a href="http://www.robotstxt.org" target="_blank">http://www.robotstxt.org/</a>', 'izioseo'); ?></p>
 		<table class="form-table">
 			<tr>
 				<th scope="row" style="text-align:right; vertical-align:top;">

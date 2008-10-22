@@ -4,7 +4,7 @@
 Plugin Name: izioSeo
 Plugin URI: http://www.goizio.com/
 Description: Ein umfangreiches Plugin zur Suchmaschinenoptimierung f&uuml;r Wordpress. Einfache "on-the-fly" SEO-L&ouml;sung.
-Version: 1.02
+Version: 1.02 Rev1
 Author: Mathias 'United20' Schmidt
 Author URI: http://www.goizio.com/
 */
@@ -1318,6 +1318,7 @@ class izioSeo
 		$description = str_replace('%blog_title%', get_bloginfo('name'), $description);
 		$description = str_replace('%blog_description%', get_bloginfo('description'), $description);
 		$description = str_replace('%wp_title%', $this->getOriginalTitle(), $description);
+		$description = str_replace('%category%', category_description, $description);
 		return $description;
 	}
 
