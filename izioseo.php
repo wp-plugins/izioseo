@@ -4,7 +4,7 @@
 Plugin Name: izioSeo
 Plugin URI: http://www.goizio.com/
 Description: Ein umfangreiches Plugin zur Suchmaschinenoptimierung f&uuml;r Wordpress. Einfache "on-the-fly" SEO-L&ouml;sung.
-Version: 1.02 Rev1
+Version: 1.02 Rev2
 Author: Mathias 'United20' Schmidt
 Author URI: http://www.goizio.com/
 */
@@ -1045,7 +1045,7 @@ class izioSeo
 	 * 
 	 * @params array $keywords
 	 */
-	public function collectKeywords($keywords)
+	function collectKeywords($keywords)
 	{
 		$this->keywordList = dirname(__FILE__) . '/' . trim($this->keywordList, '/');
 		$file = array();
