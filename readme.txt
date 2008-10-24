@@ -59,4 +59,4 @@ Version 1.02 Rev1 vom 22.10.2008
 
 Version 1.02 Rev2 vom 24.10.2008
 
- * Bugfix: Inkompatibilitat mit PHP4
+ * Bugfix: Inkompatibilitaet mit PHP4
