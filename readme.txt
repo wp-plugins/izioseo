@@ -1,10 +1,10 @@
-=== izioSEO ===
+﻿=== izioSEO ===
 Contributors: Mathias 'United20' Schmidt
 Donate link: http://www.goizio.com/
 Tags: seo, plugin, suchmaschinenoptimierung, google, meta, robots, description, keywords, analytics
 Requires at least: 2.3
-Tested up to: 2.6.2
-Stable tag: 1.02 Rev2
+Tested up to: 2.6.3
+Stable tag: 1.03
 
 izioSEO ist ein wirkungsvolles, vollautomatisches und kostenloses standalone SEO-Plugin fuer ihren Wordpress-Blog.
 
@@ -45,7 +45,7 @@ Version 1.01 vom 15.09.2008
 
 Version 1.02 vom 16.10.2008
 
- * Bug bei der generierung der Keywords von Blogseiten behoben
+ * Bug bei der Generierung der Keywords von Blogseiten behoben
  * Verbesserung der Generierung von META-Daten
  * aktivieren und deaktivieren von rel="nofollow" fuer die Tagcloud, die Kategorieliste, die Auflistung der 
    Kategorien fuer einen Kommentar und die Blogroll
@@ -60,3 +60,9 @@ Version 1.02 Rev1 vom 22.10.2008
 Version 1.02 Rev2 vom 24.10.2008
 
  * Bugfix: Inkompatibilitaet mit PHP4
+
+Version 1.03 vom 09.11.2008
+
+ * Behebung eines Fehlers in der Generierung von Keywords
+ * META-Daten von "All In One SEO Pack" werden jetzt mit uebernommen
+

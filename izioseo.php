@@ -4,7 +4,7 @@
 Plugin Name: izioSeo
 Plugin URI: http://www.goizio.com/
 Description: Ein umfangreiches Plugin zur Suchmaschinenoptimierung f&uuml;r Wordpress. Einfache "on-the-fly" SEO-L&ouml;sung.
-Version: 1.02 Rev2
+Version: 1.03
 Author: Mathias 'United20' Schmidt
 Author URI: http://www.goizio.com/
 */
@@ -270,7 +270,7 @@ class izioSeo
 		$analytics = $this->getAnalyticsCode(); // Analytics Code generieren
 
 		// Wenn die METAs fuer die Seite/den Post deaktiviert sind
-		if ((is_single() || is_page()) && get_post_meta($post->ID, 'izioseo_post_disable', true) == 'on')
+		if ((is_single() || is_page()) && (get_post_meta($post->ID, 'izioseo_post_disable', true) == 'on' || get_post_meta($post->ID, 'aiosp_disable', true) == 'on'))
 		{
 			if (! empty($webmastertools) && strlen(trim($webmastertools)))
 			{
@@ -470,7 +470,11 @@ class izioSeo
 			$title = get_option('izioseo_title');
 			if (empty($title))
 			{
-				$title = get_option('blogname');
+				$title = get_option('aiosp_home_title');
+				if (empty($title))
+				{
+					$title = get_option('blogname');
+				}
 			}
 			$title = $this->getPagedTitle($title);
 			return $this->replaceTitle($header, $title);
@@ -483,10 +487,14 @@ class izioSeo
 			$title = get_post_meta($post->ID, 'izioseo_post_title', true);
 			if (! $title)
 			{
-				$title = get_post_meta($post->ID, 'izioseo_post_title_tag', true);
+				$title = get_post_meta($post->ID, 'title', true);
 				if (! $title)
 				{
-					$title = wp_title('', false);
+					$title = get_post_meta($post->ID, 'izioseo_post_title_tag', true);
+					if (! $title)
+					{
+						$title = wp_title('', false);
+					}
 				}
 			}
 			$format = get_option('izioseo_format_title_post');
@@ -540,7 +548,11 @@ class izioSeo
 			$title = get_post_meta($post->ID, 'izioseo_post_title', true);
 			if (! $title)
 			{
-				$title = $post->post_title;
+				$title = get_post_meta($post->ID, 'title', true);
+				if (! $title)
+				{
+					$title = $post->post_title;
+				}
 			}
 			$format = get_option('izioseo_format_title_page');
 			$new = str_replace('%blog_title%', get_bloginfo('name'), $format);
@@ -795,19 +807,20 @@ class izioSeo
 	{
 		$post = $this->getCurPost();
 		$default = get_option('izioseo_keywords');
+		if (empty($default))
+		{
+			$default = get_option('aiosp_home_keywords');
+		}
 		if (! is_paged() && ! is_404())
 		{
+
 			if ((is_home() || $this->isStaticFrontpage()) && $default && ! $this->isStaticPostpage())
 			{
 				$keywords = $default;
 			}
-			elseif (get_post_meta($post->ID, 'izioseo_post_use', true) != 'none')
-			{
-				$keywords = $this->getAllKeywords($default);
-			}
 			else
 			{
-				$keywords = '';
+				$keywords = $this->getAllKeywords($default);
 			}
 		}
 		else
@@ -836,6 +849,19 @@ class izioSeo
 				{
 					// die angegebenen Keywords des Posts holen
 					$postKeywords = get_post_meta($post->ID, 'izioseo_post_keywords', true);
+					if ($postKeywords)
+					{
+						$list = explode(',', $this->stripHtml($postKeywords));
+						foreach ($list as $keyword)
+						{
+							if (! in_array($keyword, $keywords))
+							{
+								$keywords[] = trim($keyword);
+							}
+						}
+					}
+					// optionales Feld "keywords" mit einbeziehen, da andere Plugins dieses nutzen, u.a. All In One SEO
+					$postKeywords = get_post_meta($post->ID, 'keywords', true);
 					if ($postKeywords)
 					{
 						$list = explode(',', $this->stripHtml($postKeywords));
@@ -897,19 +923,6 @@ class izioSeo
 							$keywords[] = $keyword;
 						}
 					}
-					// optionales Feld "keywords" mit einbeziehen, da andere Plugins dieses nutzen
-					$postKeywords = get_post_meta($post->ID, 'keywords', true);
-					if ($postKeywords)
-					{
-						$list = explode(',', $this->stripHtml($postKeywords));
-						foreach ($list as $keyword)
-						{
-							if (! in_array($keyword, $keywords))
-							{
-								$keywords[] = trim($keyword);
-							}
-						}
-					}
 				}
 			}
 		}
@@ -932,10 +945,6 @@ class izioSeo
 						$keywords = array_merge($keywords, explode(',', $this->stripHtml($default)));
 					}
 				}
-			}
-			else
-			{
-				$keywords = array();
 			}
 		}
 		return $this->getUniqueKeywords($keywords, $this->keywordLen);
@@ -1106,11 +1115,19 @@ class izioSeo
 			if ((is_home() && ! $this->isStaticPostpage()) || $this->isStaticFrontpage())
 			{
 				$description = get_option('izioseo_description');
+				if (empty($description))
+				{
+					$description = get_option('aiosp_home_description');
+				}
 			}
 			elseif (is_single() || is_page())
 			{
 				$post = $this->getCurPost();
 				$description = get_post_meta($post->ID, 'izioseo_post_description', true);
+				if (empty($description))
+				{
+					$description = get_post_meta($post->ID, 'description', true);
+				}
 			}
 			elseif (is_category())
 			{
@@ -1127,6 +1144,10 @@ class izioSeo
 				elseif ($use == 'default')
 				{
 					$description = get_option('izioseo_description');
+					if (empty($description))
+					{
+						$description = get_option('aiosp_home_description');
+					}
 				}
 				else
 				{
@@ -1318,7 +1339,7 @@ class izioSeo
 		$description = str_replace('%blog_title%', get_bloginfo('name'), $description);
 		$description = str_replace('%blog_description%', get_bloginfo('description'), $description);
 		$description = str_replace('%wp_title%', $this->getOriginalTitle(), $description);
-		$description = str_replace('%category%', category_description, $description);
+		/* $description = str_replace('%category%', category_description, $description); */
 		return $description;
 	}
 
@@ -1626,6 +1647,7 @@ class izioSeo
 			'izioseo_collect_keywords' => htmlspecialchars(stripcslashes(get_option('izioseo_collect_keywords', true)))
 		);
 		$robotsTxt = $this->loadRobotsTxt();
+		$data = $this->aiospLoadGlobals($data);
 		if (get_option('izioseo_collect_keywords', true) == 'on')
 		{
 			$this->loadKeywords(true);
@@ -1781,6 +1803,7 @@ class izioSeo
 				'use' => get_option('izioseo_use_default', true)
 			);
 		}
+		$data = $this->aiospLoadPost($post->ID, $data);
 		$select = array(
 			'', 
 			'index,follow', 
@@ -1941,6 +1964,57 @@ class izioSeo
 			return 'robots';
 		}
 		return false;
+	}
+
+	/**
+	 * laden der zusaetzlichen Felder aus All In One Seo
+	 * 
+	 * @param integer $id
+	 * @param array $data
+	 * @return array
+	 */
+	function aiospLoadPost($id, $data)
+	{
+		if (!$id)
+		{
+			$data['disable'] = htmlspecialchars(stripcslashes(get_post_meta($id, 'aiosp_disable', true)));
+		}
+		if (!strlen(trim($data['title'])))
+		{
+			$data['title'] = htmlspecialchars(stripcslashes(get_post_meta($id, 'title', true)));
+		}
+		if (!strlen(trim($data['keywords'])))
+		{
+			$data['keywords'] = htmlspecialchars(stripcslashes(get_post_meta($id, 'keywords', true)));
+		}
+		if (!strlen(trim($data['description'])))
+		{
+			$data['description'] = htmlspecialchars(stripcslashes(get_post_meta($id, 'description', true)));
+		}
+		return $data;
+	}
+
+	/**
+	 * laden der globalen Einstellungen von All In One Seo
+	 * 
+	 * @param array $data
+	 * @return array
+	 */
+	public function aiospLoadGlobals($data)
+	{
+		if (!strlen(trim($data['izioseo_title'])))
+		{
+			$data['izioseo_title'] = htmlspecialchars(stripcslashes(get_option('aiosp_home_titles', true)));
+		}
+		if (!strlen(trim($data['izioseo_keywords'])))
+		{
+			$data['izioseo_keywords'] = htmlspecialchars(stripcslashes(get_option('aiosp_home_keywords', true)));
+		}
+		if (!strlen(trim($data['izioseo_description'])))
+		{
+			$data['izioseo_description'] = htmlspecialchars(stripcslashes(get_option('aiosp_home_description', true)));
+		}
+		return $data;
 	}
 
 }
