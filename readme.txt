@@ -64,5 +64,4 @@ Version 1.02 Rev2 vom 24.10.2008
 Version 1.03 vom 09.11.2008
 
  * Behebung eines Fehlers in der Generierung von Keywords
- * META-Daten von "All In One SEO Pack" werden jetzt mit uebernommen
-
+ * META-Daten werden von "All In One SEO Pack" mit uebernommen
