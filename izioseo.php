@@ -1521,8 +1521,8 @@ class izioSeo
 			$type = strtolower(get_option('izioseo_analytics_type', true));
 			if ($type == 'urchin')
 			{
-				return '	<script src="http://www.google-analytics.com/urchin.js" type="text/javascript" language="JavaScript"></script>
-	<script type="text/javascript" language="JavaScript">
+				return '	<script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+	<script type="text/javascript">
 	<!--
 		_uacct = "' . $trackingId . '";
 		urchinTracker();
@@ -1531,13 +1531,13 @@ class izioSeo
 			}
 			elseif ($type == 'ga')
 			{
-				return '	<script type="text/javascript" language="JavaScript">
+				return '	<script type="text/javascript">
 	<!--
 		var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
 		document.write(unescape("%3Cscript src=\'" + gaJsHost + "google-analytics.com/ga.js\' type=\'text/javascript\'%3E%3C/script%3E"));
 	//-->
 	</script>
-	<script type="text/javascript" language="JavaScript">
+	<script type="text/javascript">
 	<!--
 		var pageTracker = _gat._getTracker("' . $trackingId . '");
 		pageTracker._trackPageview();
