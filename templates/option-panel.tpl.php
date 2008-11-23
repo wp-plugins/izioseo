@@ -21,40 +21,48 @@
 </script>
 
 <? if (isset($message)) : ?>
-	<? if ($message == 'settings') : ?>
-		<div id="message" class="updated fade">
-			<p><? _e('Die Einstellungen f&uuml;r izioSEO wurden gespeichert.', 'izioseo') ?></p>
-		</div>
-	<? elseif ($message == 'merge') : ?>
-		<div id="message" class="updated fade">
-			<p><? _e('Die Stopword-Liste und alle dazuegh&ouml;rigen Dateien wurden verschmolzen und gespeichert.', 'izioseo') ?></p>
-		</div>
-	<? elseif ($message == 'robots') : ?>
-		<div id="message" class="updated fade">
-			<p><? _e('robots.txt wurde erfolgreich gespeichert.', 'izioseo') ?></p>
-		</div>
-	<? else : ?>
-		<div id="notice" class="error fade">
-			<p><? _e('Es trat ein Fehler auf.', 'izioseo') ?></p>
-		</div>
-	<? endif; ?>
+	<div class="wrap">
+		<? if ($message == 'settings') : ?>
+			<div id="message" class="updated fade">
+				<p><? _e('Die Einstellungen f&uuml;r izioSEO wurden gespeichert.', 'izioseo') ?></p>
+			</div>
+		<? elseif ($message == 'merge') : ?>
+			<div id="message" class="updated fade">
+				<p><? _e('Die Stopword-Liste und alle dazuegh&ouml;rigen Dateien wurden verschmolzen und gespeichert.', 'izioseo') ?></p>
+			</div>
+		<? elseif ($message == 'robots') : ?>
+			<div id="message" class="updated fade">
+				<p><? _e('robots.txt wurde erfolgreich gespeichert.', 'izioseo') ?></p>
+			</div>
+		<? else : ?>
+			<div id="notice" class="error fade">
+				<p><? _e('Es trat ein Fehler auf.', 'izioseo') ?></p>
+			</div>
+		<? endif; ?>
+	</div>
 <? endif; ?>
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 	<div class="wrap">
-		<p style="float:left; width: 75px;">
-			<input name="cmd" value="_donations" type="hidden">
-			<input name="business" value="united20@united20.de" type="hidden">
-			<input name="item_name" value="goizio.com Softwareprodukte" type="hidden">
-			<input name="no_shipping" value="0" type="hidden">
-			<input name="no_note" value="1" type="hidden">
-			<input name="currency_code" value="EUR" type="hidden">
-			<input name="tax" value="0" type="hidden">
-			<input name="lc" value="DE" type="hidden">
-			<input name="bn" value="PP-DonationsBF" type="hidden">
-			<input alt="Jetzt einfach, schnell und sicher online bezahlen mit PayPal." name="submit" src="https://www.paypal.com/de_DE/DE/i/btn/x-click-butcc-donate.gif" type="image">
-			<img src="https://www.paypal.com/de_DE/i/scr/pixel.gif" alt="" width="1" border="0" height="1"><br>
-		</p>
-		<p style="float:right; width: 885px; padding:7px 0px;"><? _e('Sie finden izioSEO super gelungen und m&ouml;chten uns helfen weitere Features und Funktionen f&uuml;r dieses Wordpress Plugin umzusetzen. Dann sagen Sie uns ihre W&uuml;nsche und Vorschl&auml;ge f&uuml;r izioSEO. Und spenden Sie uns den Betrag, wie Sie meinen, was izioSEO Ihnen wert ist!'); ?></p>
+		<table class="form-table">
+			<tr>
+				<td style="width: 75px;">
+					<input name="cmd" value="_donations" type="hidden">
+					<input name="business" value="united20@united20.de" type="hidden">
+					<input name="item_name" value="goizio.com Softwareprodukte" type="hidden">
+					<input name="no_shipping" value="0" type="hidden">
+					<input name="no_note" value="1" type="hidden">
+					<input name="currency_code" value="EUR" type="hidden">
+					<input name="tax" value="0" type="hidden">
+					<input name="lc" value="DE" type="hidden">
+					<input name="bn" value="PP-DonationsBF" type="hidden">
+					<input alt="Jetzt einfach, schnell und sicher online bezahlen mit PayPal." name="submit" src="https://www.paypal.com/de_DE/DE/i/btn/x-click-butcc-donate.gif" type="image">
+					<img src="https://www.paypal.com/de_DE/i/scr/pixel.gif" alt="" width="1" border="0" height="1"><br>
+				</td>
+				<td style="width: 885px; padding:7px 0px;">
+					<? _e('Sie finden izioSEO super gelungen und m&ouml;chten uns helfen weitere Features und Funktionen f&uuml;r dieses Wordpress Plugin umzusetzen. Dann sagen Sie uns ihre W&uuml;nsche und Vorschl&auml;ge f&uuml;r izioSEO. Und spenden Sie uns den Betrag, wie Sie meinen, was izioSEO Ihnen wert ist!'); ?>
+				</td>
+			</tr>
+		</table>
 	</div>
 </form>
 <form method="post">

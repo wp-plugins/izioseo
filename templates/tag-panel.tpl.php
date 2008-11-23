@@ -1,5 +1,5 @@
-<? if (substr($wpVersion, 0, 3) >= '2.5') : ?>
-	<div id="postaiosp" class="postbox closed">
+<? if ((float)substr($wpVersion, 0, 3) >= 2.5) : ?>
+	<div class="postbox closed">
 		<h3><?= _e('izioSEO METAs', 'izioseo') ?></h3>
 		<div class="inside">
 			<div id="post">
@@ -26,25 +26,25 @@
 	<tr>
 		<th scope="row" style="text-align: left;"><label for="izioseo_post_title"><?= _e('Seitentitel', 'izioseo') ?></label></th>
 		<td>
-			<input type="text" name="izioseo[izioseo_post_title]" id="izioseo_post_title" style="width:450px;" value="<?= $data['title'] ?>" />
+			<input type="text" name="izioseo[izioseo_post_title]" id="izioseo_post_title" style="width:<? if ((float)substr($wpVersion, 0, 3) >= 2.7) : ?>334px;<? else : ?>504px;<? endif; ?>" value="<?= $data['title'] ?>" />
 		</td>
 	</tr>
 	<tr>
 		<th scope="row" style="text-align: left;"><label for="izioseo_post_description"><?= _e('META-Beschreibung:', 'izioseo') ?></label></th>
 		<td>
-			<textarea name="izioseo[izioseo_post_description]" id="izioseo_post_description" style="width:450px; height:100px;"><?= $data['description'] ?></textarea>
+			<textarea name="izioseo[izioseo_post_description]" id="izioseo_post_description" style="width:<? if ((float)substr($wpVersion, 0, 3) >= 2.7) : ?>334px;<? else : ?>504px;<? endif; ?> height:100px;"><?= $data['description'] ?></textarea>
 		</td>
 	</tr>
 	<tr>
 		<th scope="row" style="text-align: left;"><label for="izioseo_post_keywords"><?= _e('META-Keywords:<br />(durch Kommas getrennt)', 'izioseo') ?></label></th>
 		<td>
-			<input type="text" name="izioseo[izioseo_post_keywords]" id="izioseo_post_keywords" style="width:450px;" value="<?= $data['keywords'] ?>" />
+			<input type="text" name="izioseo[izioseo_post_keywords]" id="izioseo_post_keywords" style="width:<? if ((float)substr($wpVersion, 0, 3) >= 2.7) : ?>334px;<? else : ?>504px;<? endif; ?>" value="<?= $data['keywords'] ?>" />
 		</td>
 	</tr>
 	<tr>
 		<th scope="row" style="text-align: left"><label for="izioseo_post_robots"><?= _e('META-Robots:', 'izioseo') ?></label></th>
 		<td>
-			<select name="izioseo[izioseo_post_robots]" id="izioseo_post_robots" style="width:460px;">
+			<select name="izioseo[izioseo_post_robots]" id="izioseo_post_robots" style="width:<? if ((float)substr($wpVersion, 0, 3) >= 2.7) : ?>334px;<? else : ?>514px;<? endif; ?>">
 			<? foreach ($select as $option) : ?>
 				<option value="<?= $option ?>"<? if ($data['robots'] == $option) : ?> selected<? endif; ?>><?= $option ?></option>
 			<? endforeach; ?>
@@ -54,7 +54,7 @@
 	<tr>
 		<th scope="row" style="text-align: left;"><label for="izioseo_post_use"><?= _e('Verwendung:<br />(bei keinen META-Daten)', 'izioseo') ?></label></th>
 		<td>
-			<select name="izioseo[izioseo_post_use]" id="izioseo_post_use" style="width:460px;">
+			<select name="izioseo[izioseo_post_use]" id="izioseo_post_use" style="width:<? if ((float)substr($wpVersion, 0, 3) >= 2.7) : ?>334px;<? else : ?>514px;<? endif; ?>">
 			<? foreach ($use as $value => $option) : ?>
 				<option value="<?= $value ?>"<? if ($data['use'] == $value) : ?> selected<? endif; ?>><?= $option ?></option>
 			<? endforeach; ?>
@@ -62,7 +62,7 @@
 		</td>
 	</tr>
 </table>
-<? if (substr($wpVersion, 0, 3) >= '2.5') : ?>
+<? if ((float)substr($wpVersion, 0, 3) >= 2.5) : ?>
 			</div>
 		</div>
 	</div>
