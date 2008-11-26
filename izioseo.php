@@ -812,7 +812,7 @@ class izioSeo
 		{
 			$default = get_option('aiosp_home_keywords');
 		}
-		if (! is_paged() && ! is_404())
+		if (! is_paged() && ! is_404() && $this->getUse($post->ID) != 'none')
 		{
 
 			if ((is_home() || $this->isStaticFrontpage()) && $default && ! $this->isStaticPostpage())
