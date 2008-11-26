@@ -680,8 +680,9 @@ class izioSeo
 		$text = str_replace('&nbsp;', ' ', $text);
 		$text = str_replace("\r\n", ' ', $text);
 		$text = str_replace("\n", ' ', $text);
-		$text = preg_replace('/[^0-9a-zA-Z-., \x80-\xFF]/', ' ', $text);
+		$text = preg_replace('/[^0-9a-zA-Z-&.,;#!?\/ \x80-\xFF]/', ' ', $text);
 		$text = preg_replace('/\s\s+/', ' ', $text);
+		$text = str_replace(' . ', '. ', $text);
 		return trim($text);
 	}
 
@@ -1832,7 +1833,7 @@ class izioSeo
 	function saveMetaTags($id)
 	{
 		$data = isset($_POST['izioseo']) && is_array($_POST['izioseo']) ? $_POST['izioseo'] : null;
-		$data['izioseo_post_disable'] = isset($data['izioseo_post_disable']) && $data['izioseo_post_disable'] == 'on' ? 'off' : 'on';
+		$data['izioseo_post_disable'] = !isset($data['izioseo_post_disable']) || $data['izioseo_post_disable'] == 'off' ? 'on' : 'off';
 		if (! empty($id) && ! empty($data) && is_array($data))
 		{
 			foreach ($data as $key => $value)
