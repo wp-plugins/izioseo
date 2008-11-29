@@ -69,8 +69,8 @@ Version 1.03 vom 09.11.2008
 Version 1.04 vom 29.11.2008
 
  * izioSEO mit Wordpress 2.7.0 kompatibel gemacht
- * Aenderung der RegEx zur entfernung verschiedener Zeichen in der Funktion stripHTML()
- * Einfuehrung dr minimalen Laenge fuer die META-Beschreibung
+ * Aenderung der RegEx zur Entfernung verschiedener Zeichen in der Funktion stripHTML()
+ * Einfuehrung der minimalen Laenge fuer die META-Beschreibung
  * Anpassung der Generierung der META-Beschreibung an die minimale Laenge der META-Beschreibung und einiger RegEx 
    Funktionen
  * Fehlerbehebung bei der Unterstuetzung von All In One SEO Pack
