@@ -3,8 +3,8 @@ Contributors: Mathias 'United20' Schmidt
 Donate link: http://www.goizio.com/
 Tags: seo, plugin, suchmaschinenoptimierung, google, meta, robots, description, keywords, analytics
 Requires at least: 2.3
-Tested up to: 2.6.3
-Stable tag: 1.03
+Tested up to: 2.7.0
+Stable tag: 1.04
 
 izioSEO ist ein wirkungsvolles, vollautomatisches und kostenloses standalone SEO-Plugin fuer ihren Wordpress-Blog.
 
@@ -14,7 +14,7 @@ Eine gute OnPage-Optimierung ist auch eine wertvolle Grundlage fuer eine hoehere
 Positionierung in den Suchergebnissen (SERPS) der Suchmaschinen. Somit besitzen Sie fuer die oftmals schwierige 
 OffPage-Optimierung eine wertvolle Basis.
 
-Dieses Wordpress-Plugin beinhaltet jetzt schon mehr als 45 verschiedene Einstellungs- und Anpassungsmoeglichkeiten 
+Dieses Wordpress-Plugin beinhaltet jetzt schon mehr als 50 verschiedene Einstellungs- und Anpassungsmoeglichkeiten 
 und ist somit eine kostenlose Alternative zu anderen SEO-Plugins, welche oftmals nicht viel mehr koennen als 
 izioSEO. izioSEO besticht durch die dynamische und automatisierte Generierung der META-Tags und der Seitentitel 
 unter Verwendung einer Stopword-List. Diese Stopword-Liste ist frei nach Ihren Wuenschen erweiterbar und anpassbar, 
@@ -65,3 +65,12 @@ Version 1.03 vom 09.11.2008
 
  * Behebung eines Fehlers in der Generierung von Keywords
  * META-Daten werden von "All In One SEO Pack" mit uebernommen
+
+Version 1.04 vom 29.11.2008
+
+ * izioSEO mit Wordpress 2.7.0 kompatibel gemacht
+ * Aenderung der RegEx zur entfernung verschiedener Zeichen in der Funktion stripHTML()
+ * Einfuehrung dr minimalen Laenge fuer die META-Beschreibung
+ * Anpassung der Generierung der META-Beschreibung an die minimale Laenge der META-Beschreibung und einiger RegEx 
+   Funktionen
+ * Fehlerbehebung bei der Unterstuetzung von All In One SEO Pack

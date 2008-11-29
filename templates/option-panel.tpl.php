@@ -222,12 +222,13 @@
 			</tr>
 			<tr>
 				<th scope="row" style="text-align:right; vertical-align:top;">
-					<label for="izioseo_lenght_description"><? _e('Maximale Beschreibungsl&auml;nge:', 'izioseo') ?></label>
+					<label for="izioseo_lenght_description"><? _e('Beschreibungsl&auml;nge:', 'izioseo') ?></label>
 				</th>
 				<td>
-					<input type="text" name="izioseo[izioseo_lenght_description]" id="izioseo_lenght_description" size="3" value="<?= $data['izioseo_lenght_description'] ?>" />
+					<? _e('minimale L&auml;nge:', 'izioseo') ?> <input type="text" name="izioseo[izioseo_lenght_description_min]" id="izioseo_lenght_description_min" size="3" value="<?= $data['izioseo_lenght_description_min'] ?>" /> <? _e('Zeichen', 'izioseo') ?>,
+					<? _e('maximale L&auml;nge:', 'izioseo') ?> <input type="text" name="izioseo[izioseo_lenght_description]" id="izioseo_lenght_description" size="3" value="<?= $data['izioseo_lenght_description'] ?>" /> <? _e('Zeichen', 'izioseo') ?>
 					<div style="max-width: 750px; text-align: left; width: 100%;">
-						<? _e('Legen Sie die maximale L&auml;nge f&uuml;r die generierten META-Beschreibungen fest. Es wird eine maximale L&auml;nge von ca. 170 Zeichen empfohlen.', 'izioseo'); ?>
+						<? _e('Legen Sie die maximale und minimale L&auml;nge f&uuml;r die generierten META-Beschreibungen fest. Es wird eine maximale L&auml;nge von ca. 170 Zeichen empfohlen. Wird die minimale L&auml;nge der Beschreibung unterschritten, so werden aus dem Text, je nachdem wie Lang die maximale Beschreibungsl&auml;nge ist, die ersten S&auml;tze extrahiert.', 'izioseo'); ?>
 					</div>
 				</td>
 			</tr>
@@ -236,7 +237,7 @@
 					<label for="izioseo_lenght_keywords"><? _e('Maximale Anzahl an Keywords:', 'izioseo') ?></label>
 				</th>
 				<td>
-					<input type="text" name="izioseo[izioseo_lenght_keywords]" id="izioseo_lenght_keywords" size="3" value="<?= $data['izioseo_lenght_keywords'] ?>" />
+					<input type="text" name="izioseo[izioseo_lenght_keywords]" id="izioseo_lenght_keywords" size="3" value="<?= $data['izioseo_lenght_keywords'] ?>" /> <? _e('W&ouml;rter', 'izioseo') ?>
 					<div style="max-width: 750px; text-align: left; width: 100%;">
 						<? _e('Legen Sie die maximale Anzahl f&uuml;r die generierten META-Keywords fest. Maximale empfohlene Anzahl an Keywords zwischen 5 und 7 Keywords.', 'izioseo'); ?>
 					</div>

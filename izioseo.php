@@ -4,7 +4,7 @@
 Plugin Name: izioSeo
 Plugin URI: http://www.goizio.com/
 Description: Ein umfangreiches Plugin zur Suchmaschinenoptimierung f&uuml;r Wordpress. Einfache "on-the-fly" SEO-L&ouml;sung.
-Version: 1.03
+Version: 1.04
 Author: Mathias 'United20' Schmidt
 Author URI: http://www.goizio.com/
 */
@@ -12,8 +12,8 @@ Author URI: http://www.goizio.com/
 /**
  * Options erstellen
  */
-add_option('izioseo_log', 'on', 'Das Log-System von IzioSeo an-/ausschalten.', 'yes');
-add_option('izioseo_rewrite_titles', 'on', 'Sollen die Titel der Seiten durch izioSeo umgeschrieben werden.', 'yes');
+add_option('izioseo_log', 'on', 'Das Log-System von izioSEO an-/ausschalten.', 'yes');
+add_option('izioseo_rewrite_titles', 'on', 'Sollen die Titel der Seiten durch izioSEO umgeschrieben werden.', 'yes');
 add_option('izioseo_title', '', 'Der Titel fuer die Startseite des Blogs und als alternativer Titel fuer Unterseiten.', 'yes');
 add_option('izioseo_keywords', '', 'Die META-Keywords fuer die Startseite des Blogs und als alternative Keywords fuer Unterseiten.', 'yes');
 add_option('izioseo_description', '', 'Die META-Beschreibung fuer die Startseite des Blogs und als alternative Beschreibung fuer Unterseiten.', 'yes');
@@ -24,11 +24,12 @@ add_option('izioseo_wptools', '', 'Die ID fuer die Identifikation der Google Web
 add_option('izioseo_google_adsection', 'on', 'Relevante Bereiche fuer Google AdSense markieren.', 'yes');
 add_option('izioseo_noindex_rssfeed', 'on', 'RSS Feeds nicht fuer Suchmaschinen indizieren.', 'yes');
 add_option('izioseo_collect_keywords', 'off', 'Keywords in eine seperate Datei speichern, wo daraus Stopwords gefiltert werden koennen.', 'yes');
-add_option('izioseo_lenght_description', '170', 'Maximale laenge der META-Beschreibung.', 'yes');
+add_option('izioseo_lenght_description', '170', 'Maximale Laenge der META-Beschreibung.', 'yes');
+add_option('izioseo_lenght_description_min', '100', 'Minimale Laenge der META-Beschreibung.', 'yes');
 add_option('izioseo_lenght_keywords', '6', 'Anzahl der zu generierenden Keywords.', 'yes');
 add_option('izioseo_use_default', 'generate', 'Was soll als default Werte verwendet werden. (none = META-Tags werden weggelassen, generate = META-Tags werden aus Text und Tags generiert, default = die Werte fuer die Startseite)', 'yes');
 add_option('izioseo_use_tags', 'off', 'izioSeo bezieht in die Generierung der Keywords die Tags mit ein.', 'yes');
-add_option('izioseo_use_categories', 'off', 'izioSeo bezieht in die Generierung der Keywords die Kategorien mit ein.', 'yes');
+add_option('izioseo_use_categories', 'off', 'izioSEO bezieht in die Generierung der Keywords die Kategorien mit ein.', 'yes');
 add_option('izioseo_format_title_post', '%post_title% - %blog_title%', 'Das Format des Titels fuer einen einzelnen Post.', 'yes');
 add_option('izioseo_format_title_page', '%page_title% - %blog_title%', 'Format des Titels einer statischen Seite.', 'yes');
 add_option('izioseo_format_title_search', 'Suchergebnisse zu %search% - %blog_title%', 'Das Format des Titels fuer Suchergebnisse.', 'yes');
@@ -108,6 +109,7 @@ if (get_option('izioseo_nofollow_tags', true) == 'on')
 	/**
 	 * @todo Fix fuer die Funktion the_tags() erarbeiten. Wordpress laesst auf diese Funktion keinen Filter zu.
 	 */
+	add_filter('the_tags', array($izioseo, 'setNofollowLinks'));
 }
 
 class izioSeo
@@ -118,7 +120,21 @@ class izioSeo
 	 *
 	 * @var string
 	 */
-	var $version = '1.03';
+	var $version = '1.04';
+
+	/**
+	 * Minimale PHP Version fuer HTML Tidy
+	 *
+	 * @var string
+	 */
+	var $requirePHPVersion = '5.0.0';
+
+	/**
+	 * PHP 5 kompatibel
+	 *
+	 * @var boolean
+	 */
+	var $php5 = false;
 
 	/**
 	 * Website of izioSEO
@@ -154,6 +170,13 @@ class izioSeo
 	 * @var integer
 	 */
 	var $descrLen = 170;
+
+	/**
+	 * maximale Laenge der META-Beschreibung
+	 *
+	 * @var integer
+	 */
+	var $minDescrLen = 100;
 
 	/**
 	 * maximale Anzahl an Keywords fuer die META-Keywords
@@ -216,6 +239,8 @@ class izioSeo
 	 */
 	function izioSeo()
 	{
+		$this->php5 = $this->checkPHP5();
+
 		$this->getWordpressVersion();
 		$this->setLenght();
 		$this->activateLog(get_option('izioseo_log', true) > 0);
@@ -237,6 +262,7 @@ class izioSeo
 	{
 		$this->descrLen = get_option('izioseo_lenght_description', true);
 		$this->keywordLen = get_option('izioseo_lenght_keywords', true);
+		$this->minDescrLen = get_option('izioseo_lenght_description_min', true);
 	}
 
 	/**
@@ -1190,7 +1216,7 @@ class izioSeo
 				$keywords = $this->extractKeywords(implode(' ', $title) . ' ' . implode(' ', $content));
 				$description = $this->extractDescription(implode(' ', $content), $keywords);
 			}
-			if (! strlen(trim($description)))
+			if (strlen(trim($description)) < $this->minDescrLen)
 			{
 				$description = $this->truncate($this->cleanDescription(implode(' ', $content)), $this->descrLen);
 			}
@@ -1207,7 +1233,7 @@ class izioSeo
 	function extractDescription($text, $keywords)
 	{
 		$text = $this->stripHtml($text);
-		$split = explode('.', $this->encodeAcronyms($text));
+		$split = explode('. ', $this->encodeAcronyms($text));
 		$sentences = array();
 		foreach ($split as $row)
 		{
@@ -1238,11 +1264,9 @@ class izioSeo
 		if (count($description))
 		{
 			$description = implode('. ', $description);
-			$description = preg_replace('/[^0-9a-zA-Z-., \x80-\xFF]/', ' ', $description);
 			$description = str_replace(' ,', ',', $description);
 			$description = str_replace(' .', '.', $description);
 			$description = str_replace(',,', ',', $description);
-			$description = preg_replace('/\s\s+/', ' ', $description);
 			$description = str_replace('..', '.', $description);
 			return $this->decodeAcronyms($description);
 		}
@@ -1617,6 +1641,7 @@ class izioSeo
 			'izioseo_google_adsection' => htmlspecialchars(stripcslashes(get_option('izioseo_google_adsection', true))),
 			'izioseo_noindex_rssfeed' => htmlspecialchars(stripcslashes(get_option('izioseo_noindex_rssfeed', true))),
 			'izioseo_lenght_description' => htmlspecialchars(stripcslashes(get_option('izioseo_lenght_description', true))),
+			'izioseo_lenght_description_min' => htmlspecialchars(stripcslashes(get_option('izioseo_lenght_description_min', true))),
 			'izioseo_lenght_keywords' => htmlspecialchars(stripcslashes(get_option('izioseo_lenght_keywords', true))),
 			'izioseo_use_default' => htmlspecialchars(stripcslashes(get_option('izioseo_use_default', true))),
 			'izioseo_use_tags' => htmlspecialchars(stripcslashes(get_option('izioseo_use_tags', true))),
@@ -1645,7 +1670,7 @@ class izioSeo
 			'izioseo_nofollow_categories' => htmlspecialchars(stripcslashes(get_option('izioseo_nofollow_categories', true))),
 			'izioseo_nofollow_bookmarks' => htmlspecialchars(stripcslashes(get_option('izioseo_nofollow_bookmarks', true))),
 			'izioseo_nofollow_tags' => htmlspecialchars(stripcslashes(get_option('izioseo_nofollow_tags', true))),
-			'izioseo_collect_keywords' => htmlspecialchars(stripcslashes(get_option('izioseo_collect_keywords', true)))
+			'izioseo_collect_keywords' => htmlspecialchars(stripcslashes(get_option('izioseo_collect_keywords', true))),
 		);
 		$robotsTxt = $this->loadRobotsTxt();
 		$data = $this->aiospLoadGlobals($data);
@@ -1661,6 +1686,7 @@ class izioSeo
 			);
 		}
 		$robots = array('index,follow', 'noindex,follow', 'index,nofollow', 'noindex,nofollow');
+		$php5 = $this->php5;
 		require_once (dirname(__FILE__) . '/templates/option-panel.tpl.php');
 	}
 
@@ -2029,6 +2055,16 @@ class izioSeo
 			$data['izioseo_description'] = htmlspecialchars(stripcslashes(get_option('aiosp_home_description', '')));
 		}
 		return $data;
+	}
+
+	/**
+	 * Pruefen der aktuellen PHP Version, ob diese mit PHP 5 kompatibel ist
+	 *
+	 * @return boolean
+	 */
+	function checkPHP5()
+	{
+		return version_compare($this->requirePHPVersion, phpversion(), '<');
 	}
 
 }
