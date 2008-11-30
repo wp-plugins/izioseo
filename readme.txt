@@ -4,7 +4,7 @@ Donate link: http://www.goizio.com/
 Tags: seo, plugin, suchmaschinenoptimierung, google, meta, robots, description, keywords, analytics
 Requires at least: 2.3
 Tested up to: 2.7.0
-Stable tag: 1.04
+Stable tag: 1.05
 
 izioSEO ist ein wirkungsvolles, vollautomatisches und kostenloses standalone SEO-Plugin fuer ihren Wordpress-Blog.
 
