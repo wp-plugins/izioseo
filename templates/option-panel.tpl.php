@@ -74,6 +74,17 @@
 		<table class="form-table">
 			<tr>
 				<th scope="row" style="text-align:right; vertical-align:top;">
+					<label for="izioseo_redirect_permalink"><? _e('301-Redirect f&uuml;r ge&auml;nderte URL\'s', 'izioseo') ?></label>
+				</th>
+				<td>
+					<input type="checkbox" name="izioseo[izioseo_redirect_permalink]" id="izioseo_redirect_permalink"<? if ($data['izioseo_redirect_permalink'] == 'on') : ?> checked<? endif; ?> />
+					<div style="max-width: 750px; text-align: left; width: 100%">
+						<? _e('Es wird bei einer ge&auml;nderten Permalinkstruktur ein &quot;HTTP/1.1 301 Moved Permanently&quot; Header gesendet, damit Google die ge&auml;nderte Permalinkstruktur erkennt.', 'izioseo'); ?>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row" style="text-align:right; vertical-align:top;">
 					<label for="izioseo_rewrite_titles"><? _e('Seitentitel umschreiben:', 'izioseo') ?></label>
 				</th>
 				<td>

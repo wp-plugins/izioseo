@@ -74,3 +74,9 @@ Version 1.04 vom 29.11.2008
  * Anpassung der Generierung der META-Beschreibung an die minimale Laenge der META-Beschreibung und einiger RegEx 
    Funktionen
  * Fehlerbehebung bei der Unterstuetzung von All In One SEO Pack
+
+Version 1.05 vom 30.11.2008
+
+ * 301-Redirect fuer geanderte Permalinks
+ * noarchive - Tag wurde zu den Robots hinzugefuegt
+ 

@@ -4,7 +4,7 @@
 Plugin Name: izioSeo
 Plugin URI: http://www.goizio.com/
 Description: Ein umfangreiches Plugin zur Suchmaschinenoptimierung f&uuml;r Wordpress. Einfache "on-the-fly" SEO-L&ouml;sung.
-Version: 1.04
+Version: 1.05
 Author: Mathias 'United20' Schmidt
 Author URI: http://www.goizio.com/
 */
@@ -52,6 +52,8 @@ add_option('izioseo_robots_noydir', 'off', 'Die Robots fuer das Yahoo! Directory
 add_option('izioseo_nofollow_categories', 'off', 'Links der Kategorieauflistung auf nofollow setzen.', 'yes');
 add_option('izioseo_nofollow_bookmarks', 'off', 'Links der Blogroll auf nofollow setzen.', 'yes');
 add_option('izioseo_nofollow_tags', 'off', 'Links der Tagcloud auf auf nofollow setzen.', 'yes');
+add_option('izioseo_redirect_permalink', 'on', 'Weiterleiten von geanderten Permalinks.', 'yes');
+
 
 /**
  * Verwendete META-felder fuer die jeweilige Seite und den Post:
@@ -66,9 +68,13 @@ add_option('izioseo_nofollow_tags', 'off', 'Links der Tagcloud auf auf nofollow 
  */
 
 /*
- * Initialiseiren der Klasse
+ * Initialisieren der Klasse
  */
-$izioseo = new izioSeo();
+$izioseo = new izioSEO();
+if (get_option('izioseo_redirect_permalink'))
+{
+	add_action('template_redirect', array($izioseo, 'redirectPermalink') );
+}
 add_action('wp_head', array($izioseo, 'wp_head'));
 add_action('template_redirect', array($izioseo, 'template_redirect'));
 add_action('init', array($izioseo, 'init'));
@@ -112,7 +118,7 @@ if (get_option('izioseo_nofollow_tags', true) == 'on')
 	add_filter('the_tags', array($izioseo, 'setNofollowLinks'));
 }
 
-class izioSeo
+class izioSEO
 {
 
 	/**
@@ -120,11 +126,12 @@ class izioSeo
 	 *
 	 * @var string
 	 */
-	var $version = '1.04';
+	var $version = '1.05';
 
 	/**
-	 * Minimale PHP Version fuer HTML Tidy
+	 * Minimale PHP 5 Version
 	 *
+	 * @ignore
 	 * @var string
 	 */
 	var $requirePHPVersion = '5.0.0';
@@ -132,6 +139,7 @@ class izioSeo
 	/**
 	 * PHP 5 kompatibel
 	 *
+	 * @ignore
 	 * @var boolean
 	 */
 	var $php5 = false;
@@ -1671,6 +1679,7 @@ class izioSeo
 			'izioseo_nofollow_bookmarks' => htmlspecialchars(stripcslashes(get_option('izioseo_nofollow_bookmarks', true))),
 			'izioseo_nofollow_tags' => htmlspecialchars(stripcslashes(get_option('izioseo_nofollow_tags', true))),
 			'izioseo_collect_keywords' => htmlspecialchars(stripcslashes(get_option('izioseo_collect_keywords', true))),
+			'izioseo_redirect_permalink' => htmlspecialchars(stripcslashes(get_option('izioseo_redirect_permalink', true)))
 		);
 		$robotsTxt = $this->loadRobotsTxt();
 		$data = $this->aiospLoadGlobals($data);
@@ -1685,7 +1694,16 @@ class izioSeo
 				'file_acronyms' => htmlspecialchars(stripcslashes(implode("\r\n", $this->acronyms)))
 			);
 		}
-		$robots = array('index,follow', 'noindex,follow', 'index,nofollow', 'noindex,nofollow');
+		$robots = array(
+			'index,follow',
+			'noindex,follow',
+			'index,nofollow',
+			'noindex,nofollow',
+			'index,follow,noarchive',
+			'index,nofollow,noarchive',
+			'noindex,follow,noarchive',
+			'noindex,nofollow,noarchive'
+		);
 		$php5 = $this->php5;
 		require_once (dirname(__FILE__) . '/templates/option-panel.tpl.php');
 	}
@@ -1733,6 +1751,7 @@ class izioSeo
 			$data['izioseo_nofollow_bookmarks'] = isset($data['izioseo_nofollow_bookmarks']) && $data['izioseo_nofollow_bookmarks'] == 'on' ? 'on' : 'off';
 			$data['izioseo_nofollow_tags'] = isset($data['izioseo_nofollow_tags']) && $data['izioseo_nofollow_tags'] == 'on' ? 'on' : 'off';
 			$data['izioseo_collect_keywords'] = isset($data['izioseo_collect_keywords']) && $data['izioseo_collect_keywords'] == 'on' ? 'on' : 'off';
+			$data['izioseo_redirect_permalink'] = isset($data['izioseo_redirect_permalink']) && $data['izioseo_redirect_permalink'] == 'on' ? 'on' : 'off';
 			foreach ($data as $key => $value)
 			{
 				if (strlen(trim($value)))
@@ -1840,7 +1859,11 @@ class izioSeo
 			'index,follow',
 			'index,nofollow',
 			'noindex,follow',
-			'noindex,nofollow'
+			'noindex,nofollow',
+			'index,follow,noarchive',
+			'index,nofollow,noarchive',
+			'noindex,follow,noarchive',
+			'noindex,nofollow,noarchive'
 		);
 		$use = array(
 			'none' => 'keine Nutzen',
@@ -2060,11 +2083,43 @@ class izioSeo
 	/**
 	 * Pruefen der aktuellen PHP Version, ob diese mit PHP 5 kompatibel ist
 	 *
+	 * @ignore
 	 * @return boolean
 	 */
 	function checkPHP5()
 	{
 		return version_compare($this->requirePHPVersion, phpversion(), '<');
+	}
+
+	/**
+	 * Weiterleiten von Permalinks
+	 */
+	function redirectPermalink()
+	{
+		if (is_404())
+		{
+		 	$url = basename($_SERVER['REQUEST_URI']);
+		 	if ($postId = $this->getPostIdByUrl($url))
+		 	{
+		 		$permalink = get_permalink($postId);
+				header('HTTP/1.1 301 Moved Permanently');
+				header('Location: ' . $permalink);
+				exit;
+		 	}
+		}
+	}
+
+	/**
+	 * Holt die ID des weiter zu leitenden Posts
+	 *
+	 * @param string $url
+	 * @return integer
+	 */
+	function getPostIdByUrl($url)
+	{
+	 	global $wpdb;
+
+	 	return $wpdb->get_var('SELECT ID FROM ' . $wpdb->posts . ' WHERE post_name="' . $url . '" AND post_status="publish" ');
 	}
 
 }
