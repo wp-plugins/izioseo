@@ -2063,7 +2063,7 @@ class izioSEO
 	 * @param array $data
 	 * @return array
 	 */
-	public function aiospLoadGlobals($data)
+	function aiospLoadGlobals($data)
 	{
 		if (!strlen(trim($data['izioseo_title'])))
 		{
