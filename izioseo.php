@@ -1314,7 +1314,14 @@ class izioSEO
 			$text = preg_replace('/([\w\x88-\xFF]+)/', '$1', $text);
 			foreach ($this->acronyms as $key => $acronym)
 			{
-				$text = str_ireplace(trim(trim($acronym), '.') . '.', '{{' . $key . '}}', $text);
+				if (function_exists('str_ireplace'))
+				{
+					$text = str_ireplace(trim(trim($acronym), '.') . '.', '{{' . $key . '}}', $text);
+				}
+				else
+				{
+					$text = str_replace(trim(trim($acronym), '.') . '.', '{{' . $key . '}}', $text);
+				}
 			}
 		}
 		return $text;
@@ -1334,7 +1341,14 @@ class izioSEO
 			$text = preg_replace('/([\w\x88-\xFF]+)/', '$1', $text);
 			foreach ($this->acronyms as $key => $acronym)
 			{
-				$text = str_ireplace('{{' . $key . '}}', trim(trim($acronym), '.') . '.', $text);
+				if (function_exists('str_ireplace'))
+				{
+					$text = str_ireplace('{{' . $key . '}}', trim(trim($acronym), '.') . '.', $text);
+				}
+				else
+				{
+					$text = str_replace('{{' . $key . '}}', trim(trim($acronym), '.') . '.', $text);
+				}
 			}
 		}
 		return $text;
