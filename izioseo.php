@@ -4,7 +4,7 @@
 Plugin Name: izioSeo
 Plugin URI: http://www.goizio.com/
 Description: Ein umfangreiches Plugin zur Suchmaschinenoptimierung f&uuml;r Wordpress. Einfache "on-the-fly" SEO-L&ouml;sung.
-Version: 1.05
+Version: 1.1
 Author: Mathias 'United20' Schmidt
 Author URI: http://www.goizio.com/
 */
@@ -81,13 +81,13 @@ add_action('init', array($izioseo, 'init'));
 add_action('admin_menu', array($izioseo, 'adminMenu'));
 if (substr($izioseo->wpVersion, 0, 3) >= '2.5')
 {
-	add_action('edit_form_advanced', array($izioseo, 'addMetaTags'));
-	add_action('edit_page_form', array($izioseo, 'addMetaTags'));
+	add_action('edit_form_advanced', array($izioseo, 'addMetaTags'), 1);
+	add_action('edit_page_form', array($izioseo, 'addMetaTags'), 1);
 }
 else
 {
-	add_action('dbx_post_advanced', array($izioseo, 'addMetaTags'));
-	add_action('dbx_page_advanced', array($izioseo, 'addMetaTags'));
+	add_action('dbx_post_advanced', array($izioseo, 'addMetaTags'), 1);
+	add_action('dbx_page_advanced', array($izioseo, 'addMetaTags'), 1);
 }
 add_action('edit_post', array($izioseo, 'saveMetaTags'));
 add_action('publish_post', array($izioseo, 'saveMetaTags'));
@@ -112,10 +112,6 @@ if (get_option('izioseo_nofollow_bookmarks', true) == 'on')
 if (get_option('izioseo_nofollow_tags', true) == 'on')
 {
 	add_filter('wp_generate_tag_cloud', array($izioseo, 'setNofollowLinks'));
-	/**
-	 * @todo Fix fuer die Funktion the_tags() erarbeiten. Wordpress laesst auf diese Funktion keinen Filter zu.
-	 */
-	add_filter('the_tags', array($izioseo, 'setNofollowLinks'));
 }
 
 class izioSEO
@@ -126,7 +122,7 @@ class izioSEO
 	 *
 	 * @var string
 	 */
-	var $version = '1.05';
+	var $version = '1.1';
 
 	/**
 	 * Minimale PHP 5 Version
@@ -694,10 +690,26 @@ class izioSEO
 		if (is_paged())
 		{
 			$part = get_option('izioseo_format_title_paged');
-			if (isset($part) || ! empty($part))
+			if (! empty($part))
 			{
-				$title .= ' ' . str_replace('%page%', $paged, trim($part));
+				$part = str_replace('%page%', $paged, trim($part));
 			}
+			else
+			{
+				$part = '';
+			}
+			if (substr_count($title, '%page%'))
+			{
+				$title = str_replace('%page%', $part, trim($title));
+			}
+			else
+			{
+				$title .= ' ' . $part;
+			}
+		}
+		else
+		{
+			$title = str_replace('%page%', '', trim($title));
 		}
 		return $title;
 	}
@@ -714,7 +726,7 @@ class izioSEO
 		$text = str_replace('&nbsp;', ' ', $text);
 		$text = str_replace("\r\n", ' ', $text);
 		$text = str_replace("\n", ' ', $text);
-		$text = preg_replace('/[^0-9a-zA-Z-&.,;#!?\/ \x80-\xFF]/', ' ', $text);
+		$text = preg_replace('/[^0-9a-zA-Z-&.,;#!?\/\' \x80-\xFF]/', ' ', $text);
 		$text = preg_replace('/\s\s+/', ' ', $text);
 		$text = str_replace(' . ', '. ', $text);
 		return trim($text);
@@ -1386,7 +1398,6 @@ class izioSEO
 		$description = str_replace('%blog_title%', get_bloginfo('name'), $description);
 		$description = str_replace('%blog_description%', get_bloginfo('description'), $description);
 		$description = str_replace('%wp_title%', $this->getOriginalTitle(), $description);
-		/* $description = str_replace('%category%', category_description, $description); */
 		return $description;
 	}
 
@@ -1399,8 +1410,10 @@ class izioSEO
 	{
 		$post = $this->getCurPost();
 		$robots = null;
-		if (isset($post->ID))
+		if (isset($post->ID) && $post->ID && !is_archive())
+		{
 			$robots = get_post_meta($post->ID, 'izioseo_post_robots', true);
+		}
 		if (empty($robots))
 		{
 			if (is_home() || $this->isStaticFrontpage() || $this->isStaticFrontpage())
@@ -1426,6 +1439,10 @@ class izioSEO
 			elseif (function_exists('is_tag') && is_tag())
 			{
 				$robots = get_option('izioseo_robots_tag', true);
+			}
+			elseif (is_archive())
+			{
+				$robots = get_option('izioseo_robots_archive', true);
 			}
 			elseif (is_404())
 			{
@@ -1768,10 +1785,7 @@ class izioSEO
 			$data['izioseo_redirect_permalink'] = isset($data['izioseo_redirect_permalink']) && $data['izioseo_redirect_permalink'] == 'on' ? 'on' : 'off';
 			foreach ($data as $key => $value)
 			{
-				if (strlen(trim($value)))
-				{
-					update_option($key, trim($value));
-				}
+				update_option($key, trim($value));
 			}
 			if (function_exists('wp_cache_flush'))
 			{

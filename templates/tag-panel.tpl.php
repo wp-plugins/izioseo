@@ -1,22 +1,22 @@
-<? if ((float)substr($wpVersion, 0, 3) >= 2.5) : ?>
-	<div class="postbox closed">
+<? if ((float)substr($wpVersion, 0, 3) >= 2.7) : // Wordpress ab 2.7 ?>
+	<div id="normal-sortables" class="meta-box-sortables ui-sortable" style="position: relative;">
+		<div id="commentstatusdiv" class="postbox">
+			<div class="handlediv" title="Klicken zum Umschalten"><br /></div>
+			<h3 class="hndle"><span><?= _e('izioSEO METAs', 'izioseo') ?></span></h3>
+			<div class="inside">
+<? elseif ((float)substr($wpVersion, 0, 3) >= 2.5) : // Wordpress ab 2.5 bis 2.6 ?>
+	<div class="postbox">
 		<h3><?= _e('izioSEO METAs', 'izioseo') ?></h3>
 		<div class="inside">
-			<div id="post">
-<? else : ?>
+<? else : // Wordpress bis 2.4 ?>
 	<div class="dbx-b-ox-wrapper">
 		<fieldset id="seodiv" class="dbx-box">
-			<div class="dbx-h-andle-wrapper">
-				<h3 class="dbx-handle"><?= _e('izioSEO METAs', 'izioseo') ?></h3>
-			</div>
+			<div class="dbx-h-andle-wrapper"><h3 class="dbx-handle"><?= _e('izioSEO METAs', 'izioseo') ?></h3></div>
 			<div class="dbx-c-ontent-wrapper">
 				<div class="dbx-content">
 <? endif; ?>
 
-<table style="margin-bottom:40px">
-	<tr>
-		<th style="text-align:left;" colspan="2">&nbsp;</th>
-	</tr>
+<table>
 	<tr>
 		<th scope="row" style="text-align: left; vertical-align:top;"><label for="izioseo_post_disable"><?= _e('META-Tags benutzen:', 'izioseo')?></label></th>
 		<td>
@@ -45,9 +45,9 @@
 		<th scope="row" style="text-align: left"><label for="izioseo_post_robots"><?= _e('META-Robots:', 'izioseo') ?></label></th>
 		<td>
 			<select name="izioseo[izioseo_post_robots]" id="izioseo_post_robots" style="width:<? if ((float)substr($wpVersion, 0, 3) >= 2.7) : ?>334px;<? else : ?>514px;<? endif; ?>">
-			<? foreach ($select as $option) : ?>
-				<option value="<?= $option ?>"<? if ($data['robots'] == $option) : ?> selected<? endif; ?>><?= $option ?></option>
-			<? endforeach; ?>
+				<? foreach ($select as $option) : ?>
+					<option value="<?= $option ?>"<? if ($data['robots'] == $option) : ?> selected<? endif; ?>><?= $option ?></option>
+				<? endforeach; ?>
 			</select>
 		</td>
 	</tr>
@@ -55,18 +55,23 @@
 		<th scope="row" style="text-align: left;"><label for="izioseo_post_use"><?= _e('Verwendung:<br />(bei keinen META-Daten)', 'izioseo') ?></label></th>
 		<td>
 			<select name="izioseo[izioseo_post_use]" id="izioseo_post_use" style="width:<? if ((float)substr($wpVersion, 0, 3) >= 2.7) : ?>334px;<? else : ?>514px;<? endif; ?>">
-			<? foreach ($use as $value => $option) : ?>
-				<option value="<?= $value ?>"<? if ($data['use'] == $value) : ?> selected<? endif; ?>><?= $option ?></option>
-			<? endforeach; ?>
+				<? foreach ($use as $value => $option) : ?>
+					<option value="<?= $value ?>"<? if ($data['use'] == $value) : ?> selected<? endif; ?>><?= $option ?></option>
+				<? endforeach; ?>
 			</select>
 		</td>
 	</tr>
 </table>
-<? if ((float)substr($wpVersion, 0, 3) >= 2.5) : ?>
+
+<? if ((float)substr($wpVersion, 0, 3) >= 2.7) : // Wordpress ab 2.7 ?>
 			</div>
 		</div>
 	</div>
-<? else : ?>
+<? elseif ((float)substr($wpVersion, 0, 3) >= 2.5) : // Wordpress ab 2.5 bis 2.6 ?>
+		</div>
+	</div>
+<? else : // Wordpress bis 2.4 ?>
+				</div>
 			</div>
 		</fieldset>
 	</div>

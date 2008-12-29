@@ -6,12 +6,17 @@
 &ouml;
 &szlig;
 &uuml;
-10
-39
 Auml
+Ca.
+Ca.
+D.h.
+Etc.
+Ggf.
 NULL
 Ouml
+Usw.
 Uuml
+Z.B.
 a
 aber
 about
@@ -83,6 +88,7 @@ auml
 aus
 ausfüllen
 außer
+außerhalb
 aw
 az
 b
@@ -107,6 +113,7 @@ below
 beside
 besides
 bessere
+besten
 between
 beyond
 bf
@@ -115,6 +122,7 @@ bh
 bi
 billion
 bin
+birgt
 bis
 bist
 bj
@@ -134,6 +142,7 @@ bz
 bzw
 c
 ca
+ca.
 can
 can\'t
 cannot
@@ -165,7 +174,6 @@ cy
 cz
 d
 d.h.
-d.h.
 da
 dabei
 dadurch
@@ -179,6 +187,7 @@ darum
 das
 dass
 dasselbe
+davor
 dazu
 daß
 de
@@ -238,7 +247,9 @@ ec
 edu
 ee
 eg
+egal
 eh
+eher
 eight
 eighty
 ein
@@ -247,6 +258,8 @@ einem
 einen
 einer
 eines
+einfach
+einfache
 einig
 einige
 einigem
@@ -262,6 +275,7 @@ ending
 enough
 entweder
 er
+erst
 erste
 es
 et
@@ -284,6 +298,7 @@ everywhere
 except
 f
 falls
+fast
 few
 fi
 fifty
@@ -294,6 +309,7 @@ fj
 fk
 fm
 fo
+folgenden
 for
 former
 formerly
@@ -309,11 +325,17 @@ fx
 für
 g
 ga
+ganz
+ganzen
 gb
 gd
 ge
 gegen
+gegenüber
+genauso
 genäht
+gerade
+gern
 gesetzlichen
 get
 gewesen
@@ -426,6 +448,7 @@ into
 io
 iq
 ir
+irgendwie
 is
 isn
 isn\'t
@@ -440,8 +463,10 @@ je
 jede
 jedem
 jeden
+jedenfalls
 jeder
 jedes
+jedoch
 jene
 jenem
 jenen
@@ -465,18 +490,23 @@ keines
 kg
 kh
 ki
+kleine
+kleines
 km
 kn
+konnte
 kp
 kr
 kw
 ky
 kz
+könne
 können
 könnt
 könnte
 l
 la
+lang
 last
 later
 latter
@@ -484,6 +514,7 @@ latterly
 lb
 lc
 least
+leider
 length
 less
 let
@@ -520,12 +551,14 @@ me
 meantime
 meanwhile
 mehr
+mehreren
 mein
 meine
 meinem
 meinen
 meiner
 meines
+meist
 mg
 mh
 mich
@@ -560,6 +593,7 @@ muss
 musst
 musste
 must
+mutet
 muß
 mußt
 mv
@@ -568,6 +602,7 @@ mx
 my
 myself
 mz
+möglich
 müssen
 müsst
 müßt
@@ -581,10 +616,12 @@ nbsp
 nc
 ncht
 ne
+neben
 nein
 neither
 net
 netscape
+neuen
 never
 nevertheless
 new
@@ -614,12 +651,14 @@ nu
 nun
 nur
 nz
+nächsten
 o
 ob
 oder
 of
 off
 often
+oftmals
 ohne
 om
 on
@@ -671,6 +710,7 @@ reserved
 ring
 ro
 ru
+rund
 rw
 s
 sa
@@ -678,6 +718,7 @@ sagte
 same
 sb
 sc
+schnellen
 schon
 sd
 se
@@ -686,6 +727,7 @@ seemed
 seeming
 seems
 sehr
+sei
 seid
 seien
 sein
@@ -694,6 +736,9 @@ seinem
 seinen
 seiner
 seines
+seit
+seitdem
+selber
 selbst
 seven
 seventy
@@ -721,6 +766,7 @@ sl
 sm
 sn
 so
+soeben
 sofortigen
 sogar
 solche
@@ -733,6 +779,7 @@ sollen
 sollst
 sollt
 sollte
+sollten
 some
 somehow
 someone
@@ -740,6 +787,7 @@ something
 sometime
 sometimes
 somewhere
+somit
 sondern
 sonst
 soweit
@@ -749,6 +797,7 @@ st
 steuern
 still
 stop
+ständig
 su
 such
 sv
@@ -818,6 +867,7 @@ trillion
 trinken
 trotzdem
 tt
+tun
 tv
 tw
 twenty
@@ -831,6 +881,7 @@ uk
 um
 und
 under
+ungemein
 unless
 unlike
 unlikely
@@ -899,6 +950,9 @@ welcher
 welches
 welcome
 well
+wenig
+wenigen
+weniger
 wenn
 wer
 werde
@@ -985,6 +1039,7 @@ yourselves
 yt
 yu
 z
+z.B.
 z.b.
 za
 zm
@@ -995,6 +1050,7 @@ zur
 zurück
 zurückzahlen
 zwar
+zweiten
 zwischen
 ß
 ä

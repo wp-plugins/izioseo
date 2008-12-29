@@ -323,6 +323,7 @@
 							<li><b>%post_author_firstname%</b> - <? _e('Vorname des Autors', 'izioseo') ?></li>
 							<li><b>%post_author_lastname%</b> - <? _e('Nachname des Autors', 'izioseo') ?></li>
 							<li><b>%category_title%</b> - <? _e('Name der Kategorie', 'izioseo') ?></li>
+							<li><b>%page%</b> - <? _e('Seitenzahl positionieren. Wird diese Variable nicht gesetzt, so wird die Seitenzahl an den Titel angehangen.', 'izioseo') ?></li>
 						</ul>
 					</div>
 				</td>
@@ -343,6 +344,7 @@
 							<li><b>%page_author_nicename%</b> - <? _e('Benutzername des Autors', 'izioseo') ?></li>
 							<li><b>%page_author_firstname%</b> - <? _e('Vorname des Autors', 'izioseo') ?></li>
 							<li><b>%page_author_lastname%</b> - <? _e('Nachname des Autors', 'izioseo') ?></li>
+							<li><b>%page%</b> - <? _e('Seitenzahl positionieren. Wird diese Variable nicht gesetzt, so wird die Seitenzahl an den Titel angehangen.', 'izioseo') ?></li>
 						</ul>
 					</div>
 				</td>
@@ -359,6 +361,7 @@
 							<li><b>%blog_title%</b> - <? _e('Titel des gesamten Blogs', 'izioseo') ?></li>
 							<li><b>%blog_description%</b> - <? _e('Beschreibung aus dem Wordpress Blog', 'izioseo') ?></li>
 							<li><b>%search%</b> - <? _e('Suchbegriff aus der Suche', 'izioseo') ?></li>
+							<li><b>%page%</b> - <? _e('Seitenzahl positionieren. Wird diese Variable nicht gesetzt, so wird die Seitenzahl an den Titel angehangen.', 'izioseo') ?></li>
 						</ul>
 					</div>
 				</td>
@@ -376,6 +379,7 @@
 							<li><b>%blog_description%</b> - <? _e('Beschreibung aus dem Wordpress Blog', 'izioseo') ?></li>
 							<li><b>%category_title%</b> - <? _e('Name der Kategorie', 'izioseo') ?></li>
 							<li><b>%category_description%</b> - <? _e('Beschreibung der Kategorie', 'izioseo') ?></li>
+							<li><b>%page%</b> - <? _e('Seitenzahl positionieren. Wird diese Variable nicht gesetzt, so wird die Seitenzahl an den Titel angehangen.', 'izioseo') ?></li>
 						</ul>
 					</div>
 				</td>
@@ -389,8 +393,6 @@
 					<div style="max-width: 750px; text-align: left; width: 100%">
 						<? _e('Zu verwendende Platzhalter', 'izioseo') ?> <a href="javascript:void(0);" onclick="javascript:toggleDisplay('izioseo_format_title_paged')" id="link_izioseo_format_title_paged"><? _e('anzeigen', 'izioseo') ?></a>
 						<ul id="placeholder_izioseo_format_title_paged" style="list-style-image: none; list-style-type: none; display:none;">
-							<li><b>%blog_title%</b> - <? _e('Titel des gesamten Blogs', 'izioseo') ?></li>
-							<li><b>%blog_description%</b> - <? _e('Beschreibung aus dem Wordpress Blog', 'izioseo') ?></li>
 							<li><b>%page%</b> - <? _e('Seitenzahl', 'izioseo') ?></li>
 						</ul>
 					</div>
@@ -408,6 +410,7 @@
 							<li><b>%blog_title%</b> - <? _e('Titel des gesamten Blogs', 'izioseo') ?></li>
 							<li><b>%blog_description%</b> - <? _e('Beschreibung aus dem Wordpress Blog', 'izioseo') ?></li>
 							<li><b>%tag%</b> - <? _e('Tag / Schlagwort', 'izioseo') ?></li>
+							<li><b>%page%</b> - <? _e('Seitenzahl positionieren. Wird diese Variable nicht gesetzt, so wird die Seitenzahl an den Titel angehangen.', 'izioseo') ?></li>
 						</ul>
 					</div>
 				</td>
@@ -424,6 +427,7 @@
 							<li><b>%blog_title%</b> - <? _e('Titel des gesamten Blogs', 'izioseo') ?></li>
 							<li><b>%blog_description%</b> - <? _e('Beschreibung aus dem Wordpress Blog', 'izioseo') ?></li>
 							<li><b>%date%</b> - <? _e('Datum des Archivs', 'izioseo') ?></li>
+							<li><b>%page%</b> - <? _e('Seitenzahl positionieren. Wird diese Variable nicht gesetzt, so wird die Seitenzahl an den Titel angehangen.', 'izioseo') ?></li>
 						</ul>
 					</div>
 				</td>
@@ -441,6 +445,7 @@
 							<li><b>%blog_description%</b> - <? _e('Beschreibung aus dem Wordpress Blog', 'izioseo') ?></li>
 							<li><b>%request_url%</b> - <? _e('URL von Fehlerseite', 'izioseo') ?></li>
 							<li><b>%request_words%</b> - <? _e('Extrahierten W&ouml;rter aus der URL', 'izioseo') ?></li>
+							<li><b>%page%</b> - <? _e('Seitenzahl positionieren. Wird diese Variable nicht gesetzt, so wird die Seitenzahl an den Titel angehangen.', 'izioseo') ?></li>
 						</ul>
 					</div>
 				</td>
