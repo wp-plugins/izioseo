@@ -4,7 +4,7 @@
 Plugin Name: izioSeo
 Plugin URI: http://www.goizio.com/
 Description: Ein umfangreiches Plugin zur Suchmaschinenoptimierung f&uuml;r Wordpress. Einfache "on-the-fly" SEO-L&ouml;sung.
-Version: 1.1
+Version: 1.05
 Author: Mathias 'United20' Schmidt
 Author URI: http://www.goizio.com/
 */
@@ -75,19 +75,19 @@ if (get_option('izioseo_redirect_permalink'))
 {
 	add_action('template_redirect', array($izioseo, 'redirectPermalink') );
 }
-add_action('wp_head', array($izioseo, 'wp_head'));
+add_action('wp_head', array($izioseo, 'wp_head'), 0);
 add_action('template_redirect', array($izioseo, 'template_redirect'));
 add_action('init', array($izioseo, 'init'));
 add_action('admin_menu', array($izioseo, 'adminMenu'));
 if (substr($izioseo->wpVersion, 0, 3) >= '2.5')
 {
-	add_action('edit_form_advanced', array($izioseo, 'addMetaTags'), 1);
-	add_action('edit_page_form', array($izioseo, 'addMetaTags'), 1);
+	add_action('edit_form_advanced', array($izioseo, 'addMetaTags'));
+	add_action('edit_page_form', array($izioseo, 'addMetaTags'));
 }
 else
 {
-	add_action('dbx_post_advanced', array($izioseo, 'addMetaTags'), 1);
-	add_action('dbx_page_advanced', array($izioseo, 'addMetaTags'), 1);
+	add_action('dbx_post_advanced', array($izioseo, 'addMetaTags'));
+	add_action('dbx_page_advanced', array($izioseo, 'addMetaTags'));
 }
 add_action('edit_post', array($izioseo, 'saveMetaTags'));
 add_action('publish_post', array($izioseo, 'saveMetaTags'));
@@ -122,7 +122,7 @@ class izioSEO
 	 *
 	 * @var string
 	 */
-	var $version = '1.1';
+	var $version = '1.05';
 
 	/**
 	 * Minimale PHP 5 Version

@@ -2,9 +2,9 @@
 Contributors: Mathias 'United20' Schmidt
 Donate link: http://www.goizio.com/
 Tags: seo, plugin, suchmaschinenoptimierung, google, meta, robots, description, keywords, analytics, search engine optimization, posts, title, meta description, meta keywords
-Requires at least: 2.5
+Requires at least: 2.3
 Tested up to: 2.7.0
-Stable tag: 1.1
+Stable tag: 1.05
 
 izioSEO ist ein wirkungsvolles, vollautomatisches und kostenloses standalone SEO-Plugin fuer ihren Wordpress-Blog.
 
@@ -79,11 +79,3 @@ Version 1.05 vom 30.11.2008
 
  * 301-Redirect fuer geanderte Permalinks
  * noarchive - Tag wurde zu den Robots hinzugefuegt
-
-Version 1.1 vom xx.12.2008
-
- * Seitenzahl frei positionierbar im Seitentitel
- * Bugfix: Leere Felder wurden nicht uebernommen, wenn diese vorher einen Wert besassen
- * Bugfix: Archiv-Seiten werden jetzt mit beruecksichtigt bei den META-Robots
- * Bugfix: Templateueberarbeitung fuer Wordpress 2.5, 2.6 und 2.7
-
