@@ -123,4 +123,4 @@ Version 1.1 vom 22.01.2009
  * Add: Detailierte Statistik fuer die Suchanfragen, Referers und Keywords
  * Add: csv-Export fuer die Statistiken
  * Add: Automatischer Versionshinweis mit Updatelink auf der Uebersichtsseite
- * Remove: <meta name="language" ... /> wurde entfernt
+ * Remove: &lt;meta name="language" ... /&gt; wurde entfernt
