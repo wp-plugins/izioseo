@@ -3,8 +3,8 @@
 /*
 Plugin Name: izioSeo
 Plugin URI: http://www.goizio.com/
-Description: Ein umfangreiches Plugin zur Suchmaschinenoptimierung f&uuml;r Wordpress. Einfache "on-the-fly" SEO-L&ouml;sung.
-Version: 1.05
+Description: Ein umfangreiches Plugin zur Suchmaschinenoptimierung f&uuml;r Wordpress. Einfache "on-the-fly" SEO-L&ouml;sung mit vielen m&ouml;glichen <a href="options-general.php?page=izioseo/izioseo.php">Einstellungen</a>.
+Version: 1.1
 Author: Mathias 'United20' Schmidt
 Author URI: http://www.goizio.com/
 */
@@ -12,94 +12,113 @@ Author URI: http://www.goizio.com/
 /**
  * Options erstellen
  */
-add_option('izioseo_log', 'on', 'Das Log-System von izioSEO an-/ausschalten.', 'yes');
-add_option('izioseo_rewrite_titles', 'on', 'Sollen die Titel der Seiten durch izioSEO umgeschrieben werden.', 'yes');
-add_option('izioseo_title', '', 'Der Titel fuer die Startseite des Blogs und als alternativer Titel fuer Unterseiten.', 'yes');
-add_option('izioseo_keywords', '', 'Die META-Keywords fuer die Startseite des Blogs und als alternative Keywords fuer Unterseiten.', 'yes');
-add_option('izioseo_description', '', 'Die META-Beschreibung fuer die Startseite des Blogs und als alternative Beschreibung fuer Unterseiten.', 'yes');
-add_option('izioseo_lang_id', 'de', 'Die Sprache der Website. (Laenderkuerzel z.B. "de")', 'yes');
-add_option('izioseo_analytics_type', 'urchin', 'Ueber welchen Trackingcode soll Google Analytics eingebunden werden. (alt = urchin, neu = ga)', 'yes');
-add_option('izioseo_analytics_tracking_id', '', 'ID fuer den Trackingcode fuer das Google Analytics Tracking.', 'yes');
-add_option('izioseo_wptools', '', 'Die ID fuer die Identifikation der Google Webmaster Tools.', 'yes');
-add_option('izioseo_google_adsection', 'on', 'Relevante Bereiche fuer Google AdSense markieren.', 'yes');
-add_option('izioseo_noindex_rssfeed', 'on', 'RSS Feeds nicht fuer Suchmaschinen indizieren.', 'yes');
-add_option('izioseo_collect_keywords', 'off', 'Keywords in eine seperate Datei speichern, wo daraus Stopwords gefiltert werden koennen.', 'yes');
-add_option('izioseo_lenght_description', '170', 'Maximale Laenge der META-Beschreibung.', 'yes');
-add_option('izioseo_lenght_description_min', '100', 'Minimale Laenge der META-Beschreibung.', 'yes');
-add_option('izioseo_lenght_keywords', '6', 'Anzahl der zu generierenden Keywords.', 'yes');
-add_option('izioseo_use_default', 'generate', 'Was soll als default Werte verwendet werden. (none = META-Tags werden weggelassen, generate = META-Tags werden aus Text und Tags generiert, default = die Werte fuer die Startseite)', 'yes');
-add_option('izioseo_use_tags', 'off', 'izioSeo bezieht in die Generierung der Keywords die Tags mit ein.', 'yes');
-add_option('izioseo_use_categories', 'off', 'izioSEO bezieht in die Generierung der Keywords die Kategorien mit ein.', 'yes');
-add_option('izioseo_format_title_post', '%post_title% - %blog_title%', 'Das Format des Titels fuer einen einzelnen Post.', 'yes');
-add_option('izioseo_format_title_page', '%page_title% - %blog_title%', 'Format des Titels einer statischen Seite.', 'yes');
-add_option('izioseo_format_title_search', 'Suchergebnisse zu %search% - %blog_title%', 'Das Format des Titels fuer Suchergebnisse.', 'yes');
-add_option('izioseo_format_title_category', '%category_title% - %blog_title%', 'Das Format des Titels fuer eine Kategorie.', 'yes');
-add_option('izioseo_format_title_paged', ' - Seite %page%', 'Der zusaetzliche Teil des Seitentitels fuer Seiten mit Seitenzahl.', 'yes');
-add_option('izioseo_format_title_tag', '%tag% - %blog_title%', 'Das Format des Titels der Seite fuer einen Tag.', 'yes');
-add_option('izioseo_format_title_archive', '%date% - %blog_title%', 'Die Formatierung des Archivtitels.', 'yes');
-add_option('izioseo_format_title_404', 'Seite %request_words% wurde nicht gefunden - %blog_title%', 'Der Titel fuer die 404 Fehlerseite.', 'yes');
-add_option('izioseo_format_description', '%description%', 'Das Format der META-Beschreibung.', 'yes');
-add_option('izioseo_robots_home', 'index,follow', 'Die META-Robots fuer die Startseite bzw. den Blog.', 'yes');
-add_option('izioseo_robots_post', 'index,follow', 'Die META-Robots fuer einen Blogpost.', 'yes');
-add_option('izioseo_robots_page', 'index,follow', 'Die META-Robots fuer eine Seite des Blogs.', 'yes');
-add_option('izioseo_robots_search', 'noindex,follow', 'Die META-Robots fuer die Suchergebnissseiten.', 'yes');
-add_option('izioseo_robots_category', 'noindex,follow', 'Die META-Robots fuer die KAtegorieseiten.', 'yes');
-add_option('izioseo_robots_archive', 'noindex,follow', 'Die META-Robots fuer die Archiv-Seiten.', 'yes');
-add_option('izioseo_robots_tag', 'noindex,follow', 'Die META-Robots fuer die Tag-Seiten.', 'yes');
-add_option('izioseo_robots_404', 'noindex,follow', 'Die META-Robots fuer die Fehlerseiten.', 'yes');
-add_option('izioseo_robots_noodp', 'off', 'Die Robots fuer das Open Directory Project.', 'yes');
-add_option('izioseo_robots_noydir', 'off', 'Die Robots fuer das Yahoo! Directory.', 'yes');
-add_option('izioseo_nofollow_categories', 'off', 'Links der Kategorieauflistung auf nofollow setzen.', 'yes');
-add_option('izioseo_nofollow_bookmarks', 'off', 'Links der Blogroll auf nofollow setzen.', 'yes');
-add_option('izioseo_nofollow_tags', 'off', 'Links der Tagcloud auf auf nofollow setzen.', 'yes');
-add_option('izioseo_redirect_permalink', 'on', 'Weiterleiten von geanderten Permalinks.', 'yes');
-
+add_option('izioseo_log', 'on', 'Logs aktivieren/deaktivieren', 'yes');
+add_option('izioseo_rewrite_titles', 'on', 'Umschreiben der Seitentitel', 'yes');
+add_option('izioseo_title', '', 'Titel fuer die Startseite und als standard Titel', 'yes');
+add_option('izioseo_keywords', '', 'Hauptkeywords fuer die Startseite und als standard Keywords', 'yes');
+add_option('izioseo_description', '', 'Beschreibung fuer die Startseite und als standard Beschreibung', 'yes');
+add_option('izioseo_analytics_type', 'urchin', 'Typ des Google Analytics Tracking Codes (urchin = alter Code, ga = neuer Code)', 'yes');
+add_option('izioseo_analytics_tracking_id', '', 'Google Analytics Tracking ID', 'yes');
+add_option('izioseo_wptools', '', 'Google Webmastertools Identifikations ID', 'yes');
+add_option('izioseo_google_adsection', 'on', 'Relevante Bereiche fuer Google AdSense markieren', 'yes');
+add_option('izioseo_noindex_rssfeed', 'on', 'RSS Feeds nicht fuer Suchmaschinen indizieren', 'yes');
+add_option('izioseo_collect_keywords', 'off', 'Generierte Keywords in eine seperate Datei speichern', 'yes');
+add_option('izioseo_lenght_description_min', '100', 'Minimale Laenge der META-Beschreibung', 'yes');
+add_option('izioseo_lenght_description', '170', 'Maximale Laenge der META-Beschreibung', 'yes');
+add_option('izioseo_lenght_keywords', '6', 'Anzahl der maximalen Keywords', 'yes');
+add_option('izioseo_use_default', 'generate', 'Was soll als default Werte verwendet werden (none = META-Tags werden weggelassen, generate = META-Tags werden aus Text und Tags generiert, default = die Werte fuer die Startseite)', 'yes');
+add_option('izioseo_use_tags', 'off', 'Tags fuer Keywords mit einbeziehen', 'yes');
+add_option('izioseo_use_categories', 'off', 'Kategoriename fuer Keywords mit einbeziehen', 'yes');
+add_option('izioseo_use_referers', 'off', 'Bezieht in die Generierung der Keywords den Referer mit ein', 'yes');
+add_option('izioseo_format_title_post', '%post_title% - %blog_title%', 'Formatierung des Titels fuer einen Artikel', 'yes');
+add_option('izioseo_format_title_page', '%page_title% - %blog_title%', 'Formatierung des Titels fuer eine Seite', 'yes');
+add_option('izioseo_format_title_search', 'Suchergebnisse zu %search% - %blog_title%', 'Formatierung des Titels fuer Suchergebnisse', 'yes');
+add_option('izioseo_format_title_category', '%category_title% - %blog_title%', 'Formatierung des Titels fuer eine Kategorie', 'yes');
+add_option('izioseo_format_title_paged', ' - Seite %page%', 'Formatierung des zusaetzlichen Titels fuer Seitenzahlen', 'yes');
+add_option('izioseo_format_title_tag', '%tag% - %blog_title%', 'Formatierung des Titels fuer einen Tag', 'yes');
+add_option('izioseo_format_title_archive', '%date% - %blog_title%', 'Formatierung des Titels fuer eine Archivseite', 'yes');
+add_option('izioseo_format_title_404', 'Seite %request_words% wurde nicht gefunden - %blog_title%', 'Formatierung des Titels fuer die 404 Fehlerseite', 'yes');
+add_option('izioseo_format_description', '%description%', 'Formatierung der META-Beschreibung.', 'yes');
+add_option('izioseo_robots_home', 'index,follow', 'META-Robots fuer den Blog', 'yes');
+add_option('izioseo_robots_post', 'index,follow', 'META-Robots fuer einen Artikel', 'yes');
+add_option('izioseo_robots_page', 'index,follow', 'META-Robots fuer eine Seite', 'yes');
+add_option('izioseo_robots_search', 'noindex,follow', 'META-Robots fuer die Suchergebnissseiten ', 'yes');
+add_option('izioseo_robots_category', 'noindex,follow', 'META-Robots fuer eine Kategorie', 'yes');
+add_option('izioseo_robots_archive', 'noindex,follow', 'META-Robots fuer eine Archivseite', 'yes');
+add_option('izioseo_robots_tag', 'noindex,follow', 'META-Robots fuer einen Tag', 'yes');
+add_option('izioseo_robots_404', 'noindex,follow', 'META-Robots fuer die 404 Fehlerseite', 'yes');
+add_option('izioseo_robots_noodp', 'off', 'META-Robots fuer das Open Directory Project', 'yes');
+add_option('izioseo_robots_noydir', 'off', 'META-Robots fuer das Yahoo! Directory', 'yes');
+add_option('izioseo_nofollow_categories', 'off', 'Kategorieauflistung auf nofollow setzen', 'yes');
+add_option('izioseo_nofollow_bookmarks', 'off', 'Blogroll auf nofollow setzen', 'yes');
+add_option('izioseo_nofollow_tags', 'off', 'Tagcloud auf nofollow setzen', 'yes');
+add_option('izioseo_redirect_permalink', 'on', '301-Weiterleitung verwenden bei geanderten Permalinks', 'yes');
+add_option('izioseo_image_use', 'on', 'Suchmaschinenfreundliche Bilder verwenden', 'yes');
+add_option('izioseo_image_alt', '%image_title% in %post_title%', 'Formatierung des alt-Textes eines Bildes', 'yes');
 
 /**
- * Verwendete META-felder fuer die jeweilige Seite und den Post:
- *
- * 	izioseo_post_disable: Sollen META-Daten ueberhaupt generiert werden.
- * 	izioseo_post_title: Individueller Titel der Seite
- * 	izioseo_post_description: Individuelle Beschreibung der Seite
- * 	izioseo_post_keywords: Individuelle Keywords der Seite
- * 	izioseo_post_robots: Individuelle Robots fuer eine Seite
- * 	izioseo_post_use: gibt an wie sich izioSeo verhalten soll, wenn keine META-Daten vorhanden sind (none = kompletten META-Daten weglassen, generate = META-Daten aus Text generieren und mit default Werten und Tags kombinieren, default = die Standardwerte nutzen)
- *
+ * Statusvariablen
  */
+add_option('__izioseo_firstrun_v11', 'on', 'izioSEO v1.1 wurde noch nie ausgefuehrt', 'yes');
+add_option('__izioseo_reset_export', '0', 'Datum des letzten Exports', 'yes');
 
 /*
  * Initialisieren der Klasse
  */
 $izioseo = new izioSEO();
-if (get_option('izioseo_redirect_permalink'))
+
+/**
+ * Action-Hooks setzen
+ */
+if (isset($_GET['export']) && isset($_GET['page']) && $_GET['page'] == 'reset')
 {
-	add_action('template_redirect', array($izioseo, 'redirectPermalink') );
+	add_action('init', array($izioseo, 'exportOptions'), 1);
 }
-add_action('wp_head', array($izioseo, 'wp_head'), 0);
-add_action('template_redirect', array($izioseo, 'template_redirect'));
+if (isset($_GET['export']) && $_GET['export'] == 'keywords-csv' && isset($_GET['page']) && $_GET['page'] == 'statistic')
+{
+	add_action('init', array($izioseo, 'exportKeywords'), 1);
+}
+if (isset($_GET['export']) && $_GET['export'] == 'request-csv' && isset($_GET['page']) && $_GET['page'] == 'statistic')
+{
+	add_action('init', array($izioseo, 'exportRequests'), 1);
+}
+if (isset($_GET['export']) && $_GET['export'] == 'referer-csv' && isset($_GET['page']) && $_GET['page'] == 'statistic')
+{
+	add_action('init', array($izioseo, 'exportReferers'), 1);
+}
+if (isset($_GET['flash']) && isset($_GET['page']) && $_GET['page'] == 'statistic')
+{
+	add_action('init', array($izioseo, 'flashData'), 1);
+}
+if (get_option('izioseo_redirect_permalink', true) == 'on')
+{
+	add_action('template_redirect', array($izioseo, 'redirectPermalink'));
+}
+
 add_action('init', array($izioseo, 'init'));
 add_action('admin_menu', array($izioseo, 'adminMenu'));
-if (substr($izioseo->wpVersion, 0, 3) >= '2.5')
-{
-	add_action('edit_form_advanced', array($izioseo, 'addMetaTags'));
-	add_action('edit_page_form', array($izioseo, 'addMetaTags'));
-}
-else
-{
-	add_action('dbx_post_advanced', array($izioseo, 'addMetaTags'));
-	add_action('dbx_page_advanced', array($izioseo, 'addMetaTags'));
-}
 add_action('edit_post', array($izioseo, 'saveMetaTags'));
-add_action('publish_post', array($izioseo, 'saveMetaTags'));
-add_action('save_post', array($izioseo, 'saveMetaTags'));
 add_action('edit_page_form', array($izioseo, 'saveMetaTags'));
+add_action('save_post', array($izioseo, 'saveMetaTags'));
+add_action('publish_post', array($izioseo, 'saveMetaTags'));
+add_action('edit_form_advanced', array($izioseo, 'addMetaTags'));
+add_action('edit_page_form', array($izioseo, 'addMetaTags'));
+
+add_action('wp_head', array($izioseo, 'wp_head'), 0);
+add_action('template_redirect', array($izioseo, 'template_redirect'));
 add_action('rss_head', array($izioseo, 'noindexRSSFeed'));
 add_action('rss2_head', array($izioseo, 'noindexRSSFeed'));
+
 
 /**
  * Filter setzen
  */
 add_filter('the_content', array($izioseo, 'setGoogleAdsFilter'));
+add_filter('the_content', array($izioseo, 'seoImages'), 1000000);
+if ((float)substr($izioseo->wpVersion, 0, 3) >= 2.7)
+{
+	add_filter('contextual_help', array($izioseo, 'showHelp'));
+}
 if (get_option('izioseo_nofollow_categories', true) == 'on')
 {
 	add_filter('wp_list_categories', array($izioseo, 'setNofollowLinks'));
@@ -114,6 +133,11 @@ if (get_option('izioseo_nofollow_tags', true) == 'on')
 	add_filter('wp_generate_tag_cloud', array($izioseo, 'setNofollowLinks'));
 }
 
+/**
+ * izioSEO Klasse
+ *
+ * @author Mathias Schmidt
+ */
 class izioSEO
 {
 
@@ -122,7 +146,7 @@ class izioSEO
 	 *
 	 * @var string
 	 */
-	var $version = '1.05';
+	var $version = '1.1';
 
 	/**
 	 * Minimale PHP 5 Version
@@ -141,11 +165,18 @@ class izioSEO
 	var $php5 = false;
 
 	/**
-	 * Website of izioSEO
+	 * Website von izioSEO
 	 *
 	 * @var string
 	 */
 	var $website = 'http://www.goizio.com/';
+
+	/**
+	 * Newsfeed fuer das Dashboard
+	 *
+	 * @var string
+	 */
+	var $rss = 'http://www.goizio.com/feed/';
 
 	/**
 	 * Worpress Version
@@ -173,14 +204,14 @@ class izioSEO
 	 *
 	 * @var integer
 	 */
-	var $descrLen = 170;
+	var $minDescrLen = 100;
 
 	/**
 	 * maximale Laenge der META-Beschreibung
 	 *
 	 * @var integer
 	 */
-	var $minDescrLen = 100;
+	var $descrLen = 170;
 
 	/**
 	 * maximale Anzahl an Keywords fuer die META-Keywords
@@ -211,6 +242,27 @@ class izioSEO
 	var $keywords = array();
 
 	/**
+	 * Datei mit den Akronymen
+	 *
+	 * @var string
+	 */
+	var $acronymList = '/acronyms.txt';
+
+	/**
+	 * Datei fuer die Keywords
+	 *
+	 * @var string
+	 */
+	var $keywordList = '/keywords.txt';
+
+	/**
+	 * Datei mit den Stopwords
+	 *
+	 * @var string
+	 */
+	var $stopwordList = '/stopwords.txt';
+
+	/**
 	 * Variable mit den Daten des aktuellen Posts
 	 *
 	 * @var array
@@ -225,29 +277,95 @@ class izioSEO
 	var $author = null;
 
 	/**
-	 * Die aktuellen Kategorien
+	 * aktuellen Kategorien
 	 *
 	 * @var array
 	 */
 	var $categories = null;
 
 	/**
-	 * Datei fuer die Keywords
+	 * das Datenbankobjekt von Wordpress
+	 *
+	 * @var object
+	 */
+	var $db = null;
+
+	/**
+	 * Bilder Pfad
 	 *
 	 * @var string
 	 */
-	var $keywordList = '/keywords.txt';
+	var $images = '/images/';
+
+	/**
+	 * aktuelle Referer URL
+	 *
+	 * @var string
+	 */
+	var $referer = null;
+
+	/**
+	 * aktuelle Referer URL
+	 *
+	 * @var string
+	 */
+	var $url = null;
+
+	/**
+	 * Template fuer das Backend
+	 *
+	 * @var string
+	 */
+	var $template = '2.7';
+
+	/**
+	 * Suchmaschinen
+	 *
+	 * @var array
+	 */
+	var $searchengines = array(
+		array('google', 'q', 'Google', '#d01f3c'),
+		array('alltheweb', 'query', 'All The Web', '#34558a'),
+		array('altavista', 'q', 'AltaVista', '#990000'),
+		array('aol', 'query', 'AOL', '#facb0f'),
+		array('excite', 'search', 'Excite', '#221e1f'),
+		array('hotbot', 'query', 'Hotbot', '#99ff32'),
+		array('lycos', 'query', 'Lycos', '#cccccc'),
+		array('yahoo', 'p', 'Yahoo!', '#ff0033'),
+		array('t-online', 'q', 'T-Online', '#e20074'),
+		array('msn', 'q', 'MSN', '#38b859'),
+		array('netscape', 'search', 'Netscape', '#18929C'),
+		array('cuil', 'q', 'Cuil', '#115bf8'),
+		array('ask', 'q', 'Ask', '#cc0000'),
+		array('live', 'q', 'Live', '#549c00')
+	);
 
 	/**
 	 * Konstruktor der Klasse
 	 */
-	function izioSeo()
+	function izioSEO()
 	{
 		$this->php5 = $this->checkPHP5();
 
 		$this->getWordpressVersion();
+		$this->initWpDB();
+		$this->firstrun();
 		$this->setLenght();
-		$this->activateLog(get_option('izioseo_log', true) > 0);
+		$this->activateLog();
+		$this->setImagesDir();
+		$this->getCurUrl();
+		$this->getReferer();
+	}
+
+	/**
+	 * Pruefen der aktuellen PHP Version, ob diese mit PHP 5 kompatibel ist
+	 *
+	 * @ignore
+	 * @return boolean
+	 */
+	function checkPHP5()
+	{
+		return version_compare($this->requirePHPVersion, phpversion(), '<');
 	}
 
 	/**
@@ -260,26 +378,373 @@ class izioSEO
 	}
 
 	/**
+	 * initialisieren des Datenbankobjektes
+	 */
+	function initWpDB()
+	{
+		global $wpdb;
+		if (! defined('DB_PREFIX'))
+		{
+			define('DB_PREFIX', $wpdb->prefix);
+		}
+		$this->db = $wpdb;
+	}
+
+	/**
+	 * fuehrt einen MySQL-Query aus
+	 *
+	 * @param string $query
+	 * @return ressource
+	 */
+	function query($query)
+	{
+		return $this->db->query($this->replacePrefix($query));
+	}
+
+	/**
+	 * Loeschen eines oder mehrerer Datensaetze aus der Datenbank
+	 *
+	 * @param string $table
+	 * @param string $where
+	 * @return integer
+	 */
+	function delete($table, $where)
+	{
+		return $this->query('DELETE FROM ' . $table . ' WHERE ' . $where);
+	}
+
+	/**
+	 * Update eines Datensatzes
+	 *
+	 * @param string $table
+	 * @param string/array $fields
+	 * @param string $where
+	 * @return integer
+	 */
+	function update($table, $fields, $where)
+	{
+		$query = 'UPDATE ' . $table . ' SET ';
+		if (is_array($fields))
+		{
+			$values = array();
+			foreach ($fields as $field => $value)
+			{
+				$values[] = $field . '="' . addslashes($value) . '"';
+			}
+			$query .= implode(',', $values);
+		}
+		else
+		{
+			$query .= $fields . ' ';
+		}
+		$query .= $where;
+		return $this->query($query);
+	}
+
+	/**
+	 * Fuegt einen Datensatz in eine Datenbanktabelle ein
+	 *
+	 * @param string $table
+	 * @param array $fields
+	 * @param array $options
+	 * @return integer
+	 */
+	function insert($table, $fields, $options = array())
+	{
+		$query = 'INSERT ';
+		if (isset($options['ignore']) && $options['ignore'] == true)
+		{
+			$query .= 'IGNORE ';
+		}
+		$query .= 'INTO ' . $table . ' SET ';
+		$queryFields = array();
+		foreach ($fields as $key => $value)
+		{
+			if (preg_match('/^[0-9]+$/', $key))
+			{
+				$queryFields[] = addslashes($value);
+			}
+			else
+			{
+				$queryFields[] = $key . '="' . addslashes($value) . '"';
+			}
+		}
+		$this->query($query . implode(', ', $queryFields));
+		return mysql_insert_id();
+	}
+
+	/**
+	 * gibt die Resultate eines Queries zurueck
+	 *
+	 * @param string $query
+	 * @return array
+	 */
+	function fetchResults($query)
+	{
+		return $this->db->get_results($this->replacePrefix($query));
+	}
+
+	/**
+	 * gibt einen Wert eines Queries zurueck
+	 *
+	 * @param string $query
+	 * @return mixed
+	 */
+	function fetchOne($query)
+	{
+		return $this->db->get_var($this->replacePrefix($query));
+	}
+
+	/**
+	 * ersetzen des Platzhalters # in einem Query
+	 *
+	 * @param string $query
+	 * @return string
+	 */
+	function replacePrefix($query)
+	{
+		return str_replace('#', DB_PREFIX, $query);
+	}
+
+	/**
+	 * Es werden diverse Funktionen beim ersten Aufruf der jeweiligen Version ausgefuehrt
+	 */
+	function firstrun()
+	{
+		if ((float)$this->version >= 1.1 && get_option('__izioseo_firstrun_v11', true) == 'on')
+		{
+			// Options und Post-Options updaten
+			$adsection = get_option('izioseo_google_adsection', true);
+			$image = array(
+				'use' => get_option('izioseo_image_use', true),
+				'alt' => get_option('izioseo_image_alt', true)
+			);
+			$posts = $this->fetchResults('SELECT DISTINCT post_id FROM #postmeta WHERE meta_key="izioseo_post_disable" AND meta_value="off"');
+			foreach ($posts as $post)
+			{
+				add_post_meta($post->post_id, 'izioseo_post_google_adsection', $adsection, true);
+				add_post_meta($post->post_id, 'izioseo_post_image_use', $image['use'], true);
+				add_post_meta($post->post_id, 'izioseo_post_image_alt', $image['alt'], true);
+			}
+
+			// Tabellen erstellen
+			if (! is_int($this->query('SELECT * FROM #izioseo_referers')))
+			{
+				$this->query('
+					CREATE TABLE IF NOT EXISTS #izioseo_referers (
+						referer_id int(10) unsigned NOT NULL auto_increment,
+						post_id int(10) unsigned NOT NULL default "0",
+						post_url varchar(255) NOT NULL,
+						referer_searchengine varchar(50) NOT NULL,
+						referer_url varchar(255) NOT NULL,
+						referer_request varchar(255) NOT NULL,
+						referer_date int(10) unsigned NOT NULL default "0",
+						PRIMARY KEY  (referer_id),
+						KEY izioseo_unique_referer (post_id,referer_url)
+					) ENGINE=MyISAM DEFAULT CHARSET=' . DB_CHARSET . ' AUTO_INCREMENT=1 ;
+				');
+			}
+			if (! is_int($this->query('SELECT * FROM #izioseo_referers_keywords')))
+			{
+				$this->query('
+					CREATE TABLE IF NOT EXISTS #izioseo_referers_keywords (
+						referer_id int(10) unsigned NOT NULL default "0",
+						referer_keyword varchar(255) NOT NULL,
+						UNIQUE KEY izioseo_unique_keyword (referer_id,referer_keyword)
+					) ENGINE=MyISAM DEFAULT CHARSET=' . DB_CHARSET . ';
+				');
+			}
+
+			// Status setzen
+			update_option('__izioseo_firstrun_v11', 'off');
+		}
+	}
+
+	/**
 	 * setzen der Laenge fuer Beschreibung und Keywords
 	 */
 	function setLenght()
 	{
+		$this->minDescrLen = get_option('izioseo_lenght_description_min', true);
 		$this->descrLen = get_option('izioseo_lenght_description', true);
 		$this->keywordLen = get_option('izioseo_lenght_keywords', true);
-		$this->minDescrLen = get_option('izioseo_lenght_description_min', true);
 	}
 
 	/**
 	 * das Logsystem aktivieren und den Logfile setzen
-	 *
-	 * @param boolean $use soll das Log-System verwendet werden?
 	 */
-	function activateLog($use = false)
+	function activateLog()
 	{
-		if ($this->useLog = $use)
+		$this->useLog = (get_option('izioseo_log', true) > 0);
+		$this->logFile = dirname(__FILE__) . '/' . trim($this->logFile, '/');
+	}
+
+	/**
+	 * setzt den Pfad zu den Bildern fuer izioSEO
+	 *
+	 * @return string
+	 */
+	function setImagesDir()
+	{
+		$this->images = WP_PLUGIN_URL . '/' . plugin_basename( dirname(__FILE__)) . '/' . trim($this->images, '/') . '/';
+		return $this->images;
+	}
+
+	/**
+	 * holt die aktuelle Url von Wordpress ohne die Domain
+	 *
+	 * @return string
+	 */
+	function getCurUrl()
+	{
+		$this->url = $_SERVER['REQUEST_URI'];
+		return $this->url;
+	}
+
+	/**
+	 * gibt den Referer einer externen URL zurueck
+	 *
+	 * @return string
+	 */
+	function getReferer()
+	{
+		$blogUrl = get_option('siteurl', true);
+		if (isset($_SERVER['HTTP_REFERER']) && strlen(trim($_SERVER['HTTP_REFERER'])) && substr($_SERVER['HTTP_REFERER'], 0, strlen($blogUrl)) != $blogUrl)
 		{
-			$this->logFile = dirname(__FILE__) . '/' . trim($this->logFile, '/');
+			$this->referer = $_SERVER['HTTP_REFERER'];
+			$search = $this->analyseReferer($this->referer);
+			if (! empty($search))
+			{
+				$this->saveSearchKeywords($search);
+			}
+			elseif (!$this->isSearchengine($this->referer))
+			{
+				$this->saveReferer();
+			}
+			return $this->referer;
 		}
+		return null;
+	}
+
+	/**
+	 * Ueberprueft, ob der Referer eine Suchmaschine ist
+	 *
+	 * @param string $referer
+	 * @return boolean
+	 */
+	function isSearchengine($referer)
+	{
+		$domain = explode('/', $referer);
+		for($n = 0; $n < count($this->searchengines); $n++)
+		{
+		    if (eregi($this->searchengines[$n][0], $referer))
+		    {
+				return true;
+		    }
+		}
+		return false;
+	}
+
+	/**
+	 * Holt wichtige Keywords aus dem Referer und wichtet bestehende Keywords staerker als alle anderen
+	 *
+	 * @param array $keywords
+	 * @return array
+	 */
+	function getRefererKeywords($keywords)
+	{
+		$referers = $this->fetchResults('SELECT referer_keyword, COUNT(referer_keyword) AS referer_keyword_count FROM #izioseo_referers_keywords AS rk INNER JOIN #izioseo_referers AS r ON r.referer_id=rk.referer_id WHERE r.post_url="' . $this->url . '" GROUP BY rk.referer_keyword');
+		$weighting = 1 / array_sum($keywords);
+		foreach ($referers as $referer)
+		{
+			if (isset($keywords[$referer->referer_keyword]))
+			{
+				$keywords[$referer->referer_keyword] += ($referer->referer_keyword_count * $weighting);
+			}
+			else
+			{
+				$keywords[$referer->referer_keyword] = ($referer->referer_keyword_count * $weighting);
+			}
+		}
+		return $keywords;
+	}
+
+	/**
+	 * speichert den Suchstring in der Datenbank und extrahiert daraus alle Relevanten Keywords
+	 *
+	 * @param array $search
+	 */
+	function saveSearchKeywords($search)
+	{
+		$search['request'] = utf8_encode($search['request']);
+		$keywords = $this->extractKeywords($search['request']);
+		if (is_array($keywords) && count($keywords))
+		{
+			$post = $this->getCurPost();
+			$insert = array(
+				'post_id' => isset($post->ID) ? $post->ID : 0,
+				'post_url' => $this->url,
+				'referer_searchengine' => $search['searchengine'],
+				'referer_request' => $search['request'],
+				'referer_url' => $this->referer,
+				'referer_date' => time()
+			);
+			$id = $this->insert('#izioseo_referers', $insert, array('ignore' => true));
+			if ($id)
+			{
+				foreach ($keywords as $keyword)
+				{
+					$insert = array(
+						'referer_id' => $id,
+						'referer_keyword' => utf8_encode($keyword)
+					);
+					$this->insert('#izioseo_referers_keywords', $insert, array('ignore' => true));
+				}
+			}
+		}
+	}
+
+	/**
+	 * Speichert den aktuellen Referer, auch wenn er keine Suchmaschine ist
+	 *
+	 * @return integer
+	 */
+	function saveReferer()
+	{
+		$post = $this->getCurPost();
+		$insert = array(
+			'post_id' => isset($post->ID) ? $post->ID : 0,
+			'post_url' => $this->url,
+			'referer_searchengine' => '',
+			'referer_request' => '',
+			'referer_url' => $this->referer,
+			'referer_date' => time()
+		);
+		return $this->insert('#izioseo_referers', $insert, array('ignore' => true));
+	}
+
+	/**
+	 * analysiert den Referer einer Suchmaschine und gibt den Suchstring zurueck
+	 *
+	 * @param string $referer
+	 * @return array
+	 */
+	function analyseReferer($referer)
+	{
+		$domain = explode('/', $referer);
+		for($n = 0; $n < count($this->searchengines); $n++)
+		{
+		    if (eregi($this->searchengines[$n][0], $referer))
+		    {
+				$parse = parse_url($referer);
+				parse_str($parse['query'], $output);
+				return array(
+					'searchengine' => $this->searchengines[$n][0],
+					'request' => $output[$this->searchengines[$n][1]]
+				);
+		    }
+		}
+		return null;
 	}
 
 	/**
@@ -333,19 +798,19 @@ class izioSEO
 			{
 				$handlers = array();
 			}
-			if (sizeof($handlers) > 0 && strtolower($handlers[count($handlers) - 1]) == strtolower('izioSeo::outputCallbackForTitle'))
+			if (sizeof($handlers) > 0 && strtolower($handlers[count($handlers) - 1]) == strtolower('izioSEO::outputCallbackForTitle'))
 			{
 				ob_end_flush();
 			}
 			else
 			{
-				$this->log('error', 'another plugin interfering');
+				$this->log('error', __('Probleme mit einem anderen Plugin', 'izioseo'));
 				$this->ob_start_detected = true;
 				if (function_exists('ob_list_handlers'))
 				{
 					foreach (ob_list_handlers() as $handler)
 					{
-						$this->log('attention', 'detected output handler "' . $handler . '"');
+						$this->log('attention', __('Weitere Output-Handler vorhanden:', 'izioseo') . ' ' . $handler);
 					}
 				}
 			}
@@ -356,7 +821,6 @@ class izioSEO
 		$robots = $this->getRobots(); // Robots holen
 		$noodp = $this->getNoOdp(); // Open Directory Project Robots
 		$noydir = $this->getNoYDir(); // Yahoo Directory Robots
-		$lang = $this->getLangId(); // Language der Seite holen
 		if ($noodp)
 		{
 			$robots .= ',' . $noodp;
@@ -378,10 +842,6 @@ class izioSEO
 		if (! empty($robots) && strlen(trim($robots)))
 		{
 			$header .= "\t<meta name=\"robots\" content=\"" . $robots . "\" />\r\n";
-		}
-		if (! empty($lang) && strlen(trim($lang)))
-		{
-			$header .= "\t<meta name=\"language\" content=\"" . $lang . "\" />\r\n";
 		}
 		if (! empty($webmastertools) && strlen(trim($webmastertools)))
 		{
@@ -427,7 +887,7 @@ class izioSEO
 	function getCurPost($reload = false)
 	{
 		global $wp_query;
-		if (empty($this->post) || $reload)
+		if (! empty($wp_query) && (empty($this->post) || $reload))
 		{
 			$this->post = $wp_query->get_queried_object();
 			if (empty($this->post))
@@ -652,8 +1112,8 @@ class izioSEO
 			$format = get_option('izioseo_format_title_404');
 			$title = str_replace('%blog_title%', get_bloginfo('name'), $format);
 			$title = str_replace('%blog_description%', get_bloginfo('description'), $title);
-			$title = str_replace('%request_url%', $_SERVER['REQUEST_URI'], $title);
-			$title = str_replace('%request_words%', $this->requestAsWords($_SERVER['REQUEST_URI']), $title);
+			$title = str_replace('%request_url%', $this->url, $title);
+			$title = str_replace('%request_words%', $this->requestAsWords($this->url), $title);
 			return $this->replaceTitle($header, $title);
 		}
 		return $header;
@@ -782,6 +1242,31 @@ class izioSEO
 	}
 
 	/**
+	 * aendert einen String in einen URL-Namen
+	 *
+	 * @param string $input
+	 * @return string
+	 */
+	function convertToUrlName($input)
+	{
+		$output = strtolower(html_entity_decode($input));
+		$transTable = array(
+			'ä' => 'ae',
+			'ö' => 'oe',
+			'ü' => 'ue',
+			'Ä' => 'Ae',
+			'Ö' => 'Oe',
+			'Ü' => 'Ue',
+			'ß' => 'ss'
+		);
+		$output = strtr($output, $transTable);
+		$output = preg_replace('/[^A-Za-z0-9-\.]/', '-', $output);
+		$output = preg_replace('/-+/', '-', $output);
+		$output = trim($output, '-');
+		return $output;
+	}
+
+	/**
 	 * entfernt aus einem Text die Stopwords
 	 *
 	 * @param string $string komplette Text (in ISO-8859-1)
@@ -818,9 +1303,9 @@ class izioSEO
 	 */
 	function loadStopwords($utf8encode = false)
 	{
-		if ((empty($this->stopwords) || ! count($this->stopwords)) && file_exists(dirname(__FILE__) . '/stopwords.txt'))
+		if ((empty($this->stopwords) || ! count($this->stopwords)) && file_exists(dirname(__FILE__) . '/' . trim($this->stopwordList, '/')))
 		{
-			$raw = file(dirname(__FILE__) . '/stopwords.txt');
+			$raw = file(dirname(__FILE__) . '/' . trim($this->stopwordList, '/'));
 			foreach ($raw as $word)
 			{
 				if (! in_array(trim($word), $this->stopwords))
@@ -841,7 +1326,11 @@ class izioSEO
 	{
 		if ($this->useLog)
 		{
-			error_log('[' . date('Y-m-d H:i:s', time()) . '][' . $type . '] ' . $msg . "\n", 3, $this->logFile);
+			$type = str_replace('[', '(', $type);
+			$type = str_replace(']', ')', $type);
+			$msg = str_replace('[', '(', $msg);
+			$msg = str_replace(']', ')', $msg);
+			error_log('[' . date('Y-m-d H:i:s', time()) . '][' . $type . '][' . $msg . "]\n", 3, $this->logFile);
 		}
 	}
 
@@ -921,7 +1410,7 @@ class izioSEO
 						}
 					}
 					// Tags des Posts holen
-					if (function_exists('get_the_tags') && get_option('izioseo_use_tags'))
+					if (function_exists('get_the_tags') && get_option('izioseo_use_tags', true) == 'on')
 					{
 						$tags = get_the_tags($post->ID);
 						if (is_array($tags) && count($tags))
@@ -936,7 +1425,7 @@ class izioSEO
 						}
 					}
 					// Kategorien mit in die Keywords mit einbeziehen
-					if (get_option('izioseo_use_categories') && ! is_page())
+					if (get_option('izioseo_use_categories', true) == 'on' && ! is_page())
 					{
 						$categories = get_the_category($post->ID);
 						foreach ($categories as $category)
@@ -960,20 +1449,10 @@ class izioSEO
 							}
 						}
 					}
-					// autometa
-					$autometa = stripcslashes(get_post_meta($post->ID, "autometa", true));
-					if (isset($autometa) && ! empty($autometa))
-					{
-						$autometa = explode(' ', $autometa);
-						foreach ($autometa as $keyword)
-						{
-							$keywords[] = $keyword;
-						}
-					}
 				}
 			}
 		}
-		// wenn keine Keywords vorhanden sind, wie sich izioSeo verhalten soll bzw. wenn zu wenige vorhanden sind
+		// wenn keine Keywords vorhanden sind, wie sich izioSEO verhalten soll bzw. wenn zu wenige vorhanden sind
 		if (is_array($keywords) && count($keywords) < $this->keywordLen)
 		{
 			$use = $this->getUse($post->ID);
@@ -1062,7 +1541,7 @@ class izioSEO
 		$return = array();
 		if (strlen(trim($text)))
 		{
-			$clear = $this->stripStopwords(utf8_decode($this->stripHtml($text)));
+			$clear = $this->stripStopwords($this->stripHtml(utf8_decode($text)));
 			$words = explode(' ', $clear);
 			$reg = array();
 			for($i = 0; $i < count($words); $i++)
@@ -1079,11 +1558,15 @@ class izioSEO
 					}
 				}
 			}
+			if (get_option('izioseo_use_referers', true) == 'on')
+			{
+				$reg = $this->getRefererKeywords($reg);
+			}
 			arsort($reg);
 			$all = array_sum($reg);
 			foreach ($reg as $word => $count)
 			{
-				if ($count > 1 && ! preg_match('/^[0-9]+$/', $word) && strlen(trim($word)) > 3)
+				if ($count >= 1 && ! preg_match('/^[0-9]+$/', $word) && strlen(trim($word)) >= 2)
 				{
 					$return[] = preg_replace('/[^0-9a-zA-Z-, \x80-\xFF]/', '', trim($word, ','));
 				}
@@ -1299,7 +1782,7 @@ class izioSEO
 	 */
 	function loadAcronyms()
 	{
-		$file = dirname(__FILE__) . '/acronyms.txt';
+		$file = dirname(__FILE__) . '/' . trim($this->acronymList, '/');
 		if (file_exists($file))
 		{
 			$this->acronyms = file($file);
@@ -1453,7 +1936,11 @@ class izioSEO
 				$robots = 'noindex,follow';
 			}
 		}
-		return strtolower($robots);
+		if ($robots != 'index,follow')
+		{
+			return strtolower($robots);
+		}
+		return null;
 	}
 
 	/**
@@ -1529,8 +2016,8 @@ class izioSEO
 		$format = get_option('izioseo_formate_404_title');
 		$title = str_replace('%blog_title%', get_bloginfo('name'), $format);
 		$title = str_replace('%blog_description%', get_bloginfo('description'), $title);
-		$title = str_replace('%request_url%', $_SERVER['REQUEST_URI'], $title);
-		$title = str_replace('%request_words%', $this->requestAsWords($_SERVER['REQUEST_URI']), $title);
+		$title = str_replace('%request_url%', $this->url, $title);
+		$title = str_replace('%request_words%', $this->requestAsWords($this->url), $title);
 		return $title;
 	}
 
@@ -1626,54 +2113,78 @@ class izioSEO
 	}
 
 	/**
-	 * holen der Sprache
-	 *
-	 * @return string
-	 */
-	function getLangId()
-	{
-		return get_option('izioseo_lang_id', true);
-	}
-
-	/**
 	 * Initialisiert die Multisprachfaehigkeit
 	 */
 	function init()
 	{
-		load_plugin_textdomain('izioSeo', PLUGINDIR . '/' . dirname(plugin_basename(__FILE__)) . '/lang');
+		load_plugin_textdomain('izioSeo', PLUGINDIR . '/' . dirname(plugin_basename(__FILE__)) . '/language');
 	}
 
 	/**
-	 * verknuepft die Einstellungsseite von izioSeo mit dem Adminmenu
+	 * verknuepft die Einstellungsseite von izioSeo mit dem Menu von Wordpress
 	 */
 	function adminMenu()
 	{
-		add_submenu_page('options-general.php', __('izioSEO', 'izioSeo'), __('izioSEO', 'izioSeo'), 10, __FILE__, array($this, 'options'));
+		$this->setBackendTemplate();
+
+		add_menu_page(__('izioSEO Wordpress SEO Plugin', 'izioseo'), __('izioSEO', 'izioseo'), 100, __FILE__, array($this, 'overviewMenu'), $this->images . 'izioseo.png');
+		add_submenu_page(__FILE__, __('&Uuml;bersicht', 'izioseo'), __('&Uuml;bersicht', 'izioseo'), 10, 'overview', array($this, 'overviewMenu'));
+		add_submenu_page(__FILE__, __('Einstellungen', 'izioseo'), __('Einstellungen', 'izioseo'), 10, 'options', array($this, 'optionsMenu'));
+		add_submenu_page(__FILE__, __('Keywords', 'izioseo'), __('Keywords', 'izioseo'), 10, 'keywords', array($this, 'keywordsMenu'));
+		add_submenu_page(__FILE__, __('Statistik', 'izioseo'), __('Statistik', 'izioseo'), 10, 'statistic', array($this, 'statisticMenu'));
+		add_submenu_page(__FILE__, __('robots.txt', 'izioseo'), __('robots.txt', 'izioseo'), 10, 'robots', array($this, 'robotsMenu'));
+		add_submenu_page(__FILE__, __('Zur&uuml;cksetzen', 'izioseo'), __('Zur&uuml;cksetzen', 'izioseo'), 10, 'reset', array($this, 'resetMenu'));
 	}
 
 	/**
-	 * Die Seite mit den Optionen
+	 * Setzt den Template-Ordner fuer die entsprechende Wordpress Version
 	 */
-	function options()
+	function setBackendTemplate()
+	{
+		if ((float)substr($this->wpVersion, 0, 3) >= 2.7)
+		{
+			$this->template = '2.7';
+		}
+		else
+		{
+			wp_admin_css('dashboard');
+			$this->template = '2.6';
+		}
+	}
+
+	/**
+	 * Uebersicht ueber den Umfang und die Funktionen von izioSEO (Dashboard)
+	 */
+	function overviewMenu()
+	{
+		// RSS News holen
+		require_once(ABSPATH . WPINC . '/rss.php');
+		$rss = fetch_rss($this->rss);
+
+		// Pagerank
+		require_once(dirname(__FILE__) . '/classes/PageRank.class.php');
+		$pr = new GooglePR;
+
+		// Messages
+		$messages = $this->getErrorMessages();
+
+		require_once (dirname(__FILE__) . '/templates/' . $this->template . '/overview.tpl.php');
+	}
+
+	/**
+	 * Einstellungsseite fuer das gesamte SEO Plugin
+	 */
+	function optionsMenu()
 	{
 		if (isset($_POST['izioseo']))
 		{
 			$message = $this->saveOptions($_POST['izioseo']);
-		}
-		elseif (isset($_POST['merge']))
-		{
-			$message = $this->mergeFiles($_POST['merge']);
-		}
-		elseif (isset($_POST['robotstxt']))
-		{
-			$message = $this->writeRobotsTxt($_POST['robotstxt']);
 		}
 		$data = array(
 			'izioseo_rewrite_titles' => htmlspecialchars(stripcslashes(get_option('izioseo_rewrite_titles', true))),
 			'izioseo_title' => htmlspecialchars(stripcslashes(get_option('izioseo_title', true))),
 			'izioseo_keywords' => htmlspecialchars(stripcslashes(get_option('izioseo_keywords', true))),
 			'izioseo_description' => htmlspecialchars(stripcslashes(get_option('izioseo_description', true))),
-			'izioseo_lang_id' => htmlspecialchars(stripcslashes(get_option('izioseo_lang_id', true))),
 			'izioseo_analytics_type' => htmlspecialchars(stripcslashes(get_option('izioseo_analytics_type', true))),
 			'izioseo_analytics_tracking_id' => htmlspecialchars(stripcslashes(get_option('izioseo_analytics_tracking_id', true))),
 			'izioseo_wptools' => htmlspecialchars(stripcslashes(get_option('izioseo_wptools', true))),
@@ -1685,6 +2196,7 @@ class izioSEO
 			'izioseo_use_default' => htmlspecialchars(stripcslashes(get_option('izioseo_use_default', true))),
 			'izioseo_use_tags' => htmlspecialchars(stripcslashes(get_option('izioseo_use_tags', true))),
 			'izioseo_use_categories' => htmlspecialchars(stripcslashes(get_option('izioseo_use_categories', true))),
+			'izioseo_use_referers' => htmlspecialchars(stripcslashes(get_option('izioseo_use_referers', true))),
 			'izioseo_format_title_post' => htmlspecialchars(stripcslashes(get_option('izioseo_format_title_post', true))),
 			'izioseo_format_title_page' => htmlspecialchars(stripcslashes(get_option('izioseo_format_title_page', true))),
 			'izioseo_format_title_search' => htmlspecialchars(stripcslashes(get_option('izioseo_format_title_search', true))),
@@ -1705,26 +2217,13 @@ class izioSEO
 			'izioseo_robots_noodp' => htmlspecialchars(stripcslashes(get_option('izioseo_robots_noodp', true))),
 			'izioseo_robots_noydir' => htmlspecialchars(stripcslashes(get_option('izioseo_robots_noydir', true))),
 			'izioseo_log' => htmlspecialchars(stripcslashes(get_option('izioseo_log', true))),
-			'izioseo_collect_keywords' => htmlspecialchars(stripcslashes(get_option('izioseo_collect_keywords', true))),
 			'izioseo_nofollow_categories' => htmlspecialchars(stripcslashes(get_option('izioseo_nofollow_categories', true))),
 			'izioseo_nofollow_bookmarks' => htmlspecialchars(stripcslashes(get_option('izioseo_nofollow_bookmarks', true))),
 			'izioseo_nofollow_tags' => htmlspecialchars(stripcslashes(get_option('izioseo_nofollow_tags', true))),
-			'izioseo_collect_keywords' => htmlspecialchars(stripcslashes(get_option('izioseo_collect_keywords', true))),
-			'izioseo_redirect_permalink' => htmlspecialchars(stripcslashes(get_option('izioseo_redirect_permalink', true)))
+			'izioseo_redirect_permalink' => htmlspecialchars(stripcslashes(get_option('izioseo_redirect_permalink', true))),
+			'izioseo_image_use' => htmlspecialchars(stripcslashes(get_option('izioseo_image_use', true))),
+			'izioseo_image_alt' => htmlspecialchars(stripcslashes(get_option('izioseo_image_alt', true)))
 		);
-		$robotsTxt = $this->loadRobotsTxt();
-		$data = $this->aiospLoadGlobals($data);
-		if (get_option('izioseo_collect_keywords', true) == 'on')
-		{
-			$this->loadKeywords(true);
-			$this->loadStopwords(true);
-			$this->loadAcronyms();
-			$merge = array(
-				'file_keywords' => htmlspecialchars(stripcslashes(implode("\r\n", $this->keywords))),
-				'file_stopwords' => htmlspecialchars(stripcslashes(implode("\r\n", $this->stopwords))),
-				'file_acronyms' => htmlspecialchars(stripcslashes(implode("\r\n", $this->acronyms)))
-			);
-		}
 		$robots = array(
 			'index,follow',
 			'noindex,follow',
@@ -1735,8 +2234,243 @@ class izioSEO
 			'noindex,follow,noarchive',
 			'noindex,nofollow,noarchive'
 		);
-		$php5 = $this->php5;
-		require_once (dirname(__FILE__) . '/templates/option-panel.tpl.php');
+		require_once (dirname(__FILE__) . '/templates/' . $this->template . '/options.tpl.php');
+	}
+
+	/**
+	 * speichern der globalen Optionen von izioSEO
+	 *
+	 * @params array $data
+	 * @return boolean
+	 */
+	function saveOptions($data)
+	{
+		if (! empty($data) && is_array($data) && count($data))
+		{
+			$data['izioseo_analytics_tracking_id'] = preg_match('/UA-(.*)-(.*)/', $data['izioseo_analytics_tracking_id']) ? $data['izioseo_analytics_tracking_id'] : '';
+			$data['izioseo_rewrite_titles'] = isset($data['izioseo_rewrite_titles']) && $data['izioseo_rewrite_titles'] == 'on' ? 'on' : 'off';
+			$data['izioseo_google_adsection'] = isset($data['izioseo_google_adsection']) && $data['izioseo_google_adsection'] == 'on' ? 'on' : 'off';
+			$data['izioseo_noindex_rssfeed'] = isset($data['izioseo_noindex_rssfeed']) && $data['izioseo_noindex_rssfeed'] == 'on' ? 'on' : 'off';
+			$data['izioseo_log'] = isset($data['izioseo_log']) && $data['izioseo_log'] == 'on' ? 'on' : 'off';
+			$data['izioseo_use_categories'] = isset($data['izioseo_use_categories']) && $data['izioseo_use_categories'] == 'on' ? 'on' : 'off';
+			$data['izioseo_use_tags'] = isset($data['izioseo_use_tags']) && $data['izioseo_use_tags'] == 'on' ? 'on' : 'off';
+			$data['izioseo_use_referers'] = isset($data['izioseo_use_referers']) && $data['izioseo_use_referers'] == 'on' ? 'on' : 'off';
+			$data['izioseo_robots_noodp'] = isset($data['izioseo_robots_noodp']) && $data['izioseo_robots_noodp'] == 'on' ? 'on' : 'off';
+			$data['izioseo_robots_noydir'] = isset($data['izioseo_robots_noydir']) && $data['izioseo_robots_noydir'] == 'on' ? 'on' : 'off';
+			$data['izioseo_nofollow_categories'] = isset($data['izioseo_nofollow_categories']) && $data['izioseo_nofollow_categories'] == 'on' ? 'on' : 'off';
+			$data['izioseo_nofollow_bookmarks'] = isset($data['izioseo_nofollow_bookmarks']) && $data['izioseo_nofollow_bookmarks'] == 'on' ? 'on' : 'off';
+			$data['izioseo_nofollow_tags'] = isset($data['izioseo_nofollow_tags']) && $data['izioseo_nofollow_tags'] == 'on' ? 'on' : 'off';
+			$data['izioseo_redirect_permalink'] = isset($data['izioseo_redirect_permalink']) && $data['izioseo_redirect_permalink'] == 'on' ? 'on' : 'off';
+			$data['izioseo_image_use'] = isset($data['izioseo_image_use']) && $data['izioseo_image_use'] == 'on' ? 'on' : 'off';
+			foreach ($data as $key => $value)
+			{
+				update_option($key, trim($value));
+			}
+			return 'true';
+		}
+	}
+
+	/**
+	 * Menu fuer die Keywords, Stopwords und Akronyme
+	 */
+	function keywordsMenu()
+	{
+		if (isset($_POST['keywords']))
+		{
+			$data = $_POST['keywords'];
+			$data['izioseo_collect_keywords'] = isset($data['izioseo_collect_keywords']) && $data['izioseo_collect_keywords'] == 'on' ? 'on' : 'off';
+			update_option('izioseo_collect_keywords', $data['izioseo_collect_keywords']);
+
+			$message = $this->mergeFiles($data);
+		}
+
+		$this->loadKeywords(true);
+		$this->loadStopwords(true);
+		$this->loadAcronyms();
+		$data = array(
+			'izioseo_collect_keywords' => htmlspecialchars(stripcslashes(get_option('izioseo_collect_keywords', true))),
+			'izioseo_file_keywords' => htmlspecialchars(stripcslashes(implode("\r\n", $this->keywords))),
+			'izioseo_file_stopwords' => htmlspecialchars(stripcslashes(implode("\r\n", $this->stopwords))),
+			'izioseo_file_acronyms' => htmlspecialchars(stripcslashes(implode("\r\n", $this->acronyms)))
+		);
+		require_once (dirname(__FILE__) . '/templates/' . $this->template . '/keywords.tpl.php');
+	}
+
+	/**
+	 * speichert die Stopword-, Keyword- und Acronymlisten ab und verschmelzt diese
+	 *
+	 * @param array $data
+	 */
+	function mergeFiles($data)
+	{
+		$error = false;
+		$files = array(
+			'izioseo_file_keywords' => dirname(__FILE__) . '/' . trim($this->keywordList, '/'),
+			'izioseo_file_stopwords' => dirname(__FILE__) . '/' . trim($this->stopwordList, '/'),
+			'izioseo_file_acronyms' => dirname(__FILE__) . '/' . trim($this->acronymList, '/')
+		);
+		foreach ($data as $key => $value)
+		{
+			$data[$key] = array_unique(explode('<br />', nl2br($data[$key])));
+		}
+		$data['izioseo_file_stopwords'] = $this->mergeArrays($data['izioseo_file_stopwords'], $data['izioseo_file_keywords']);
+		$data['izioseo_file_stopwords'] = $this->mergeArrays($data['izioseo_file_stopwords'], $data['izioseo_file_acronyms']);
+		foreach ($files as $key => $file)
+		{
+			// Daten saeubern
+			$tmp = array();
+			foreach ($data[$key] as $word)
+			{
+				if (strlen(trim($word)))
+				{
+					$tmp[] = trim(utf8_decode($word));
+				}
+			}
+			sort($tmp);
+			$data[$key] = $tmp;
+
+			// Daten in Dateien schreiben
+			$hdl = @fopen($file, 'w+');
+			if ($hdl)
+			{
+				fputs($hdl, implode("\r\n", $data[$key]));
+				fclose($hdl);
+			}
+			else
+			{
+				$error = true;
+			}
+			unset($hdl);
+		}
+		if ($error)
+		{
+			return 'error merge';
+		}
+		return 'success merge';
+	}
+
+	/**
+	 * verbindet zwei Arrays miteinander und filtert doppelte Keys heraus
+	 *
+	 * @param array $arr1
+	 * @param array $arr2
+	 * @return array
+	 */
+	function mergeArrays($arr1, $arr2)
+	{
+		$return = array_merge($arr1, $arr2);
+		return array_unique($return);
+	}
+
+	/**
+	 * Statistikmenu fuer die Keywords und Referers
+	 */
+	function statisticMenu()
+	{
+		require_once(dirname(__FILE__) . '/classes/OpenFlashCharts/open_flash_chart_object.php');
+		$pluginDir = WP_PLUGIN_URL . '/' . plugin_basename(dirname(__FILE__)) . '/';
+
+		require_once(dirname(__FILE__) . '/classes/Statistics.class.php');
+		$stats = new Statistics();
+
+		$nr = isset($_GET['nr']) && preg_match('/^[0-9]+$/', $_GET['nr']) ? $_GET['nr'] : 10;
+		$nk = isset($_GET['nk']) && preg_match('/^[0-9]+$/', $_GET['nk']) ? $_GET['nk'] : 10;
+		$nref = isset($_GET['nref']) && preg_match('/^[0-9]+$/', $_GET['nref']) ? $_GET['nref'] : 10;
+		$export = isset($_GET['export']) ? addslashes($_GET['export']) : 'referer-csv';
+
+		require_once (dirname(__FILE__) . '/templates/' . $this->template . '/statistics.tpl.php');
+	}
+
+	/**
+	 * generiert die Daten fuer das Pie-Diagramm (Open Flash Charts)
+	 */
+	function flashData()
+	{
+		@ob_end_clean();
+
+		require_once(dirname(__FILE__) . '/classes/Statistics.class.php');
+		$s = new Statistics();
+
+		require_once(dirname(__FILE__) . '/classes/OpenFlashCharts/open-flash-chart.php');
+		$g = new graph();
+
+		$data = array();
+		$names = array();
+		$stats = $s->getSearchengines();
+		foreach ($this->searchengines as $se)
+		{
+			if (isset($stats[$se[0]]))
+			{
+				$data[] = (int)$stats[$se[0]]['percent'];
+				$names[] = $se[2];
+				$colors[] = $se[3];
+			}
+		}
+		if (!array_sum($data) || array_sum($data) != 100)
+		{
+			$data[] = 100 - array_sum($data);
+			$names[] = __('sonstige', 'izioseo');
+			$colors[] = '#7e7e7e';
+		}
+
+		$g->pie(75, '#e1e1e1','{font-size: 12px; color: #000;', false, 1);
+		$g->pie_values($data, $names);
+		$g->pie_slice_colours($colors);
+		$g->set_tool_tip('#x_label#: #val#%');
+		echo $g->render();
+	}
+
+	/**
+	 * Menu zur Bearbeitung der robots.txt
+	 */
+	function robotsMenu()
+	{
+		if (isset($_POST['robotstxt']))
+		{
+			$message = $this->writeRobotsTxt($_POST['robotstxt']);
+		}
+		$robotsTxt = $this->loadRobotsTxt();
+		require_once (dirname(__FILE__) . '/templates/' . $this->template . '/robots.tpl.php');
+	}
+
+	/**
+	 * Menu um Benutzereinstellung zu laden, loeschen oder zurueck zu setzen
+	 */
+	function resetMenu()
+	{
+		// Importieren
+		if (isset($_FILES['import']['type']) && $_FILES['import']['type'] == 'text/xml')
+		{
+			$xml = @file_get_contents($_FILES['import']['tmp_name']);
+			if ($xml)
+			{
+				$count = $this->importOptions($xml);
+				if ($count)
+				{
+					$message = 'success settings imported';
+				}
+				else
+				{
+					$message = 'error no settings imported';
+				}
+			}
+			else
+			{
+				$message = 'error no import';
+			}
+		}
+		elseif (isset($_FILES['import']))
+		{
+			$message = 'error no valid xml file';
+		}
+
+		// Zuruecksetzen auf Standard
+		if (isset($_GET['reset']) && $this->resetOptions())
+		{
+			$message = 'success reset';
+		}
+
+		require_once (dirname(__FILE__) . '/templates/' . $this->template . '/reset.tpl.php');
 	}
 
 	/**
@@ -1760,95 +2494,6 @@ class izioSEO
 	}
 
 	/**
-	 * speichern der globalen Optionen von izioSEO
-	 *
-	 * @params array $data
-	 * @return boolean
-	 */
-	function saveOptions($data)
-	{
-		if (! empty($data) && is_array($data) && count($data))
-		{
-			$data['izioseo_analytics_tracking_id'] = preg_match('/UA-(.*)-(.*)/', $data['izioseo_analytics_tracking_id']) ? $data['izioseo_analytics_tracking_id'] : '';
-			$data['izioseo_rewrite_titles'] = isset($data['izioseo_rewrite_titles']) && $data['izioseo_rewrite_titles'] == 'on' ? 'on' : 'off';
-			$data['izioseo_google_adsection'] = isset($data['izioseo_google_adsection']) && $data['izioseo_google_adsection'] == 'on' ? 'on' : 'off';
-			$data['izioseo_noindex_rssfeed'] = isset($data['izioseo_noindex_rssfeed']) && $data['izioseo_noindex_rssfeed'] == 'on' ? 'on' : 'off';
-			$data['izioseo_log'] = isset($data['izioseo_log']) && $data['izioseo_log'] == 'on' ? 'on' : 'off';
-			$data['izioseo_use_categories'] = isset($data['izioseo_use_categories']) && $data['izioseo_use_categories'] == 'on' ? 'on' : 'off';
-			$data['izioseo_use_tags'] = isset($data['izioseo_use_tags']) && $data['izioseo_use_tags'] == 'on' ? 'on' : 'off';
-			$data['izioseo_robots_noodp'] = isset($data['izioseo_robots_noodp']) && $data['izioseo_robots_noodp'] == 'on' ? 'on' : 'off';
-			$data['izioseo_robots_noydir'] = isset($data['izioseo_robots_noydir']) && $data['izioseo_robots_noydir'] == 'on' ? 'on' : 'off';
-			$data['izioseo_nofollow_categories'] = isset($data['izioseo_nofollow_categories']) && $data['izioseo_nofollow_categories'] == 'on' ? 'on' : 'off';
-			$data['izioseo_nofollow_bookmarks'] = isset($data['izioseo_nofollow_bookmarks']) && $data['izioseo_nofollow_bookmarks'] == 'on' ? 'on' : 'off';
-			$data['izioseo_nofollow_tags'] = isset($data['izioseo_nofollow_tags']) && $data['izioseo_nofollow_tags'] == 'on' ? 'on' : 'off';
-			$data['izioseo_collect_keywords'] = isset($data['izioseo_collect_keywords']) && $data['izioseo_collect_keywords'] == 'on' ? 'on' : 'off';
-			$data['izioseo_redirect_permalink'] = isset($data['izioseo_redirect_permalink']) && $data['izioseo_redirect_permalink'] == 'on' ? 'on' : 'off';
-			foreach ($data as $key => $value)
-			{
-				update_option($key, trim($value));
-			}
-			if (function_exists('wp_cache_flush'))
-			{
-				wp_cache_flush();
-			}
-			return 'settings';
-		}
-	}
-
-	/**
-	 * speichert die Stopword-, Keyword- und Acronymlisten ab und verschmelzt diese
-	 *
-	 * @param array $data
-	 */
-	function mergeFiles($data)
-	{
-		$files = array('file_keywords' => dirname(__FILE__) . '/' . trim($this->keywordList, '/'), 'file_stopwords' => dirname(__FILE__) . '/stopwords.txt', 'file_acronyms' => dirname(__FILE__) . '/acronyms.txt');
-		foreach ($data as $key => $value)
-		{
-			$data[$key] = array_unique(explode('<br />', nl2br($data[$key])));
-		}
-		$data['file_stopwords'] = $this->mergeArrays($data['file_stopwords'], $data['file_keywords']);
-		$data['file_stopwords'] = $this->mergeArrays($data['file_stopwords'], $data['file_acronyms']);
-		foreach ($files as $key => $file)
-		{
-			// Daten saeubern
-			$tmp = array();
-			foreach ($data[$key] as $word)
-			{
-				if (strlen(trim($word)))
-				{
-					$tmp[] = trim(utf8_decode($word));
-				}
-			}
-			sort($tmp);
-			$data[$key] = $tmp;
-
-			// Daten in Dateien schreiben
-			$hdl = @fopen($file, 'w+');
-			if ($hdl)
-			{
-				fputs($hdl, implode("\r\n", $data[$key]));
-				fclose($hdl);
-			}
-			unset($hdl);
-		}
-		return 'merge';
-	}
-
-	/**
-	 * verbindet zwei Arrays miteinander und filtert doppelte Keys heraus
-	 *
-	 * @param array $arr1
-	 * @param array $arr2
-	 * @return array
-	 */
-	function mergeArrays($arr1, $arr2)
-	{
-		$return = array_merge($arr1, $arr2);
-		return array_unique($return);
-	}
-
-	/**
 	 * Baue das Panel fuer die Posts zusammen
 	 */
 	function addMetaTags()
@@ -1863,7 +2508,10 @@ class izioSEO
 				'keywords' => htmlspecialchars(stripcslashes(get_post_meta($post->ID, 'izioseo_post_keywords', true))),
 				'description' => htmlspecialchars(stripcslashes(get_post_meta($post->ID, 'izioseo_post_description', true))),
 				'robots' => htmlspecialchars(stripcslashes(get_post_meta($post->ID, 'izioseo_post_robots', true))),
-				'use' => htmlspecialchars(stripcslashes(get_post_meta($post->ID, 'izioseo_post_use', true)))
+				'use' => htmlspecialchars(stripcslashes(get_post_meta($post->ID, 'izioseo_post_use', true))),
+				'adsection' => htmlspecialchars(stripcslashes(get_post_meta($post->ID, 'izioseo_post_google_adsection', true))),
+				'seo_image_use' => htmlspecialchars(stripcslashes(get_post_meta($post->ID, 'izioseo_post_image_use', true))),
+				'seo_image_alt' => htmlspecialchars(stripcslashes(get_post_meta($post->ID, 'izioseo_post_image_alt', true)))
 			);
 			if (strlen(trim(implode('', $data))) == 'on')
 			{
@@ -1878,7 +2526,10 @@ class izioSEO
 				'keywords' => '',
 				'description' => '',
 				'robots' => '',
-				'use' => get_option('izioseo_use_default', true)
+				'use' => get_option('izioseo_use_default', true),
+				'adsection' => get_option('izioseo_google_adsection', true),
+				'seo_image_use' => get_option('izioseo_image_use', true),
+				'seo_image_alt' => get_option('izioseo_image_alt', true)
 			);
 		}
 		$data = $this->aiospLoadPost($post->ID, $data);
@@ -1899,7 +2550,7 @@ class izioSEO
 			'generate' => 'Keywords generieren'
 		);
 		$wpVersion = $this->wpVersion;
-		require_once (dirname(__FILE__) . '/templates/tag-panel.tpl.php');
+		require_once (dirname(__FILE__) . '/templates/' . $this->template . '/tags.tpl.php');
 	}
 
 	/**
@@ -1909,8 +2560,10 @@ class izioSEO
 	 */
 	function saveMetaTags($id)
 	{
-		$data = isset($_POST['izioseo']) && is_array($_POST['izioseo']) ? $_POST['izioseo'] : null;
+		$data = isset($_POST['izioseo']) && is_array($_POST['izioseo']) && count($_POST['izioseo']) ? $_POST['izioseo'] : null;
 		$data['izioseo_post_disable'] = !isset($data['izioseo_post_disable']) || $data['izioseo_post_disable'] == 'off' ? 'on' : 'off';
+		$data['izioseo_post_google_adsection'] = isset($data['izioseo_post_google_adsection']) && $data['izioseo_post_google_adsection'] == 'on' ? 'on' : 'off';
+		$data['izioseo_post_image_use'] = isset($data['izioseo_post_image_use']) && $data['izioseo_post_image_use'] == 'on' ? 'on' : 'off';
 		if (! empty($id) && ! empty($data) && is_array($data))
 		{
 			foreach ($data as $key => $value)
@@ -1932,12 +2585,108 @@ class izioSEO
 	 */
 	function setGoogleAdsFilter($data = '')
 	{
-		$post = $this->getCurPost();
-		if ((is_object($post) && isset($post->ID) && get_post_meta($post->ID, 'izioseo_post_google_adsection', true) == 'on') || get_option('izioseo_google_adsection', true) == 'on')
+		$useAdSection = get_option('izioseo_google_adsection', true) == 'on';
+
+		// separat fuer einen bestimmten Post ausschalten
+		$post = $this->getCurPost(true);
+		if (is_object($post) && isset($post->ID))
+		{
+			$useAdSection = get_post_meta($post->ID, 'izioseo_post_google_adsection', true) == 'on';
+		}
+		if ($useAdSection)
 		{
 			return "\n<!-- google_ad_section_start -->\n" . trim($data) . "\n<!-- google_ad_section_end -->\n";
 		}
 		return $data;
+	}
+
+	/**
+	 * umschreiben der Bilder zu einer Suchmaschinenfreundlichen Darstellung
+	 *
+	 * @param string $data
+	 * @return string
+	 */
+	function seoImages($data = '')
+	{
+		$useSeoImages = get_option('izioseo_image_use', true) == 'on';
+
+		// separat fuer einen bestimmten Post ausschalten
+		$post = $this->getCurPost(true);
+		if (is_object($post) && isset($post->ID))
+		{
+			$useSeoImages = get_post_meta($post->ID, 'izioseo_post_image_use', true) == 'on';
+		}
+		if ($useSeoImages)
+		{
+			$data = preg_replace_callback('/<img[^>]+/', array($this, 'processSeoImages'), $data);
+		}
+		return $data;
+	}
+
+
+	/**
+	 * Callback Funktion fuer die Bilder damit diese die korrekte Formatierung erhalten.
+	 *
+	 * @param array $matches
+	 * @return string
+	 */
+	function processSeoImages($matches)
+	{
+		$author = $this->getAuthor();
+		$post = $this->getCurPost(true);
+		$cats = get_the_category();
+		$alt = get_post_meta($post->ID, 'izioseo_post_image_alt', true);
+		if (!strlen(trim($alt)))
+		{
+			$alt = get_option('izioseo_image_alt', true);
+		}
+
+		$matches[0] = preg_replace('|"/$|', '" /', $matches[0]);
+		$matches[0] = preg_replace('|"$|', '" /', $matches[0]);
+		$matches[0] = preg_replace('|" $|', '" /', $matches[0]);
+		$matches[0] = preg_replace('/\s*=\s*/', '=', substr($matches[0], 0, strlen($matches[0]) - 2));
+
+		preg_match('/src\s*=\s*([\'"])?((?(1).+?|[^\s>]+))(?(1)\1)/', $matches[0], $source);
+		$saved = $source[2];
+
+		preg_match('%[^/]+(?=\.[a-z]{3}\z)%', $source[2], $source);
+		$pieces = preg_split('/(\w+=)/', $matches[0], -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
+
+		if (in_array('title=', $pieces))
+		{
+			$key = array_search('title=', $pieces);
+			$pieces[$key] = '';
+			$pieces[$key+1] = '';
+		}
+		if (! in_array('alt=', $pieces))
+		{
+			$alt = str_replace('%blog_title%', get_bloginfo('name'), $alt);
+			$alt = str_replace('%post_title%', $post->post_title, $alt);
+			$alt = str_replace('%image_title%', $this->requestAsWords($source[0]), $alt);
+			$alt = str_replace('%category_title%', $cats[0]->slug, $alt);
+			$alt = str_replace('%post_author%', $author->display_name, $alt);
+			$alt = str_replace('"', '', $alt);
+			$alt = str_replace('\'', '', $alt);
+
+			array_push($pieces, ' alt="' . $alt . '"');
+		}
+		else
+		{
+			$key = array_search('alt=', $pieces);
+			if (strlen(trim($pieces[$key+1])) || strpos($saved, str_replace('"', '', trim($pieces[$key+1]))))
+			{
+				$alt = str_replace('%blog_title%', get_bloginfo('name'), $alt);
+				$alt = str_replace('%post_title%', $post->post_title, $alt);
+				$alt = str_replace('%image_title%', $this->requestAsWords($source[0]), $alt);
+				$alt = str_replace('%category_title%', $cats[0]->slug, $alt);
+				$alt = str_replace('%post_author%', $author->display_name, $alt);
+				$alt = str_replace('"', '', $alt);
+				$alt = str_replace('\'', '', $alt);
+
+				$pieces[$key+1] = '"' . $alt . '" ';
+			}
+		}
+		return implode('', $pieces) . ' /';
 	}
 
 	/**
@@ -2052,9 +2801,9 @@ class izioSEO
 			fputs($hdl, $content);
 			fclose($hdl);
 
-			return 'robots';
+			return 'success robots';
 		}
-		return false;
+		return 'error robots';
 	}
 
 	/**
@@ -2109,24 +2858,13 @@ class izioSEO
 	}
 
 	/**
-	 * Pruefen der aktuellen PHP Version, ob diese mit PHP 5 kompatibel ist
-	 *
-	 * @ignore
-	 * @return boolean
-	 */
-	function checkPHP5()
-	{
-		return version_compare($this->requirePHPVersion, phpversion(), '<');
-	}
-
-	/**
 	 * Weiterleiten von Permalinks
 	 */
 	function redirectPermalink()
 	{
 		if (is_404())
 		{
-		 	$url = basename($_SERVER['REQUEST_URI']);
+		 	$url = basename($this->url);
 		 	if ($postId = $this->getPostIdByUrl($url))
 		 	{
 		 		$permalink = get_permalink($postId);
@@ -2145,9 +2883,321 @@ class izioSEO
 	 */
 	function getPostIdByUrl($url)
 	{
-	 	global $wpdb;
+	 	return $this->fetchOne('SELECT ID FROM #posts WHERE post_name="' . $url . '" AND post_status="publish" ');
+	}
 
-	 	return $wpdb->get_var('SELECT ID FROM ' . $wpdb->posts . ' WHERE post_name="' . $url . '" AND post_status="publish" ');
+	/**
+	 * Hilfe fuer den Adminbereich von izioSEO
+	 *
+	 * @param string $content
+	 * @return string
+	 */
+	function showHelp($content)
+	{
+		return $content . '
+	<h5>' . __('Hilfe f&uuml;r das Wordpress SEO Plugin izioSEO ', 'izioseo') . '</h5>
+	<div class="metabox-prefs">' . __('Alle Einstellungsm&ouml;glichkeiten besitzen einen Hilfelink. Mit einem Klick auf das Symbol <img src="' . $this->images . 'help.png" alt="Hilfe" height="12" width="12" /> gelangen Sie zur Dokumentation und Beschreibung f&uuml;r die jeweilige Einstellungsm&ouml;glickeit.', 'izioseo') . '</div>
+	<h5>' . __('Weitere Informationen', 'izioseo') . '</h5>
+	<div class="metabox-prefs">
+		<a href="' . trim($this->website, '/') . '/">' . __('Plugin Homepage', 'izioseo') . '</a> |
+		<a href="' . trim($this->website, '/') . '/dokumentation/">Dokumentation</a> |
+		<a href="' . trim($this->website, '/') . '/downloads/">' . __('Aktuelle Version downloaden', 'izioseo') . '</a> |
+		<a href="http://wordpress.org/extend/plugins/izioseo/">' . __('Wordpress Plugin Datenbank', 'izioseo') . '</a> |
+		<a href="https://svn.wp-plugins.org/izioseo/">' . __('SVN Repository', 'izioseo') . '</a>
+	</div>';
+	}
+
+	/**
+	 * erstellt einen Hilfe-Button mit Verlinkung zu der entsprechenden Funktionen
+	 *
+	 * @param string $name
+	 * @return string
+	 */
+	function helpButton($name)
+	{
+		$url = trim($this->website, '/') . '/dokumentation/' . $this->convertToUrlName($name) . '/';
+		return '<a href="' . $url . '"><img src="' . $this->images . 'help.png" alt="' . $name . '" height="12" width="12" /></a>';
+	}
+
+	/**
+	 * liest den AlexaRank ueber die API von alexa.com aus
+	 *
+	 * @return string
+	 */
+	function getAlexaRank()
+	{
+		$xml = @simplexml_load_file('http://data.alexa.com/data?cli=10&dat=snbamz&url=' . get_option('siteurl', true));
+		if (isset($xml->SD->POPULARITY['TEXT']))
+		{
+			return number_format($xml->SD->POPULARITY['TEXT'], 0, ',', '.');
+		}
+		return 'n/a';
+	}
+
+	/**
+	 * gibt ein Array mit allen Fehlermeldungen und Hinweisen zurueck
+	 *
+	 * @return array
+	 */
+	function getErrorMessages()
+	{
+		$logs = $this->readLog();
+		$warnings = $this->getTemplateWarnings();
+		return array_merge($logs, $warnings);
+	}
+
+	/**
+	 * liest den Error-Log von izioSEO aus und gibt diesen als Array zurueck
+	 *
+	 * @return array
+	 */
+	function readLog()
+	{
+		$return = array();
+		if (file_exists($this->logFile))
+		{
+			$logs = @file($this->logFile);
+			if (is_array($logs) && count($logs))
+			{
+				foreach ($logs as $log)
+				{
+					if (strlen(trim($log)))
+					{
+						preg_match('/\[(.*?)\]\[(.*?)\]\[(.*?)\]/si', trim($log), $matches);
+						$return[] = array(
+							'timestamp' => strtotime($matches[1]),
+							'type' => trim($matches[2]),
+							'msg' => trim($matches[3])
+						);
+					}
+				}
+			}
+		}
+		return $return;
+	}
+
+	/**
+	 * ueberprueft das bestehende Template auf doppelte META-Daten, sowie Analytics und Webmastertools Code
+	 *
+	 * @return array
+	 */
+	function getTemplateWarnings()
+	{
+		$return = array();
+		$html = @file_get_contents(get_option('siteurl', true));
+		if ($html)
+		{
+			$this->detectWarning($html, '/<title>(.*?)<\/title>/si', '&lt;title&gt;...&lt;/title&gt; kommt mehr als einmal bei der Ausgabe vor', &$return);
+			$this->detectWarning($html, '/description[\'"]\scontent=[\'"](.*?)[\'"]/si', 'Beschreibung (&lt;meta type="description" ... /&gt;) wird mehr als einmal bei der Ausgabe verwendet', &$return);
+			$this->detectWarning($html, '/keywords[\'"]\scontent=[\'"](.*?)[\'"]/si', 'Keywords (&lt;meta type="keywords" ... /&gt;) werden mehr als einmal bei der Ausgabe verwendet', &$return);
+			$this->detectWarning($html, '/robots[\'"]\scontent=[\'"](.*?)[\'"]/si', 'META-Robots (&lt;meta type="robots" ... /&gt;) werden mehr als einmal bei der Ausgabe verwendet', &$return);
+			$this->detectWarning($html, '/verify-v1[\'"]\scontent=[\'"](.*?)[\'"]/si', 'Das Google Webmastertools Tracking ist mehr als einmal bei der Ausgabe vorhanden', &$return);
+			$trackingId = get_option('izioseo_analytics_tracking_id', true);
+			if (strlen(trim($trackingId)) && substr_count($html, $trackingId) > 1)
+			{
+				$return[] = array(
+					'timestamp' => time(),
+					'type' => 'warning',
+					'msg' => __('Es wird mehr als einmal die selbe Google Analytics Tracking ID bei der Ausgabe verwendet', 'izioseo')
+				);
+			}
+			$trackingId = get_option('izioseo_wptools', true);
+			if (strlen(trim($trackingId)) && substr_count($html, $trackingId) > 1)
+			{
+				$return[] = array(
+					'timestamp' => time(),
+					'type' => 'warning',
+					'msg' => __('Es wird mehr als einmal die selbe Google Webmastertools Tracking ID bei der Ausgabe verwendet', 'izioseo')
+				);
+			}
+		}
+		return $return;
+	}
+
+	/**
+	 * Sucht ueber einen RegEx einen bestimmten HTML-Ausschnitt in der Website und gibt eine Fehlermeldung aus, wenn
+	 * diese doppelt vorkommt
+	 *
+	 * @param string $html
+	 * @param string $regex
+	 * @param string $msg
+	 * @param array $return
+	 */
+	function detectWarning($html, $regex, $msg, &$return)
+	{
+		preg_match_all($regex, $html, $matches);
+		if (count($matches[0]) > 1)
+		{
+			$return[] = array(
+				'timestamp' => time(),
+				'type' => 'warning',
+				'msg' => __($msg, 'izioseo')
+			);
+		}
+	}
+
+	/**
+	 * generiert eine XML-Datei mit den Einstellungen von izioSEO und stellt diese zum Download bereit
+	 */
+	function exportOptions()
+	{
+		update_option('__izioseo_reset_export', time());
+
+		$xml = "<?xml version=\"1.0\" encoding=\"" . get_option('blog_charset', true) . "\"?>\n<izioseo>\n";
+		$options = $this->fetchResults('SELECT option_name, option_value FROM #options WHERE option_name LIKE "izioseo_%"');
+		foreach ($options as $option)
+		{
+			$key = $option->option_name;
+			$value = stripslashes($option->option_value);
+			if (preg_match('/^[0-9]*$/', $value))
+			{
+				$xml .= "\t<" . $key . ">" . $value . "</" . $key . ">\n";
+			}
+			else
+			{
+				$xml .= "\t<" . $key . "><![CDATA[" . $value . "]]></" . $key . ">\n";
+			}
+		}
+		$xml .= "</izioseo>";
+
+		@ob_end_clean();
+		header('Content-Description: File Transfer');
+		header('Content-Disposition: attachment; filename=izioseo-options-' . date('Y-m-d-H-i-s', time()) . '.xml');
+		header('Content-Length: ' . strlen($xml));
+		header('Content-type: text/xml; charset=' . get_option('blog_charset', true), true);
+
+		echo $xml;
+		exit;
+	}
+
+	/**
+	 * Importiert eine XML-Datei mit den Einstellungen fuer izioSEO
+	 *
+	 * @param string $xml
+	 * @return integer
+	 */
+	function importOptions($xml)
+	{
+		$n = 0;
+		$xml = str_replace(array('<![CDATA[', ']]>'), '', $xml);
+
+		preg_match_all('/<(.*?)>(.*?)<\/.*?>/', $xml, $matches);
+
+		for ($m = 0; $m < count($matches[1]); $m++)
+		{
+			$key = $matches[1][$m];
+			$value = $matches[2][$m];
+			if (substr($key, 0, 8) == 'izioseo_')
+			{
+				update_option($key, $value);
+				$n++;
+			}
+		}
+		if ($n)
+		{
+			return $n;
+		}
+		return false;
+	}
+
+	/**
+	 * setzte die Einstellungen von izioSEO auf die Standardwerte zurueck
+	 *
+	 * @return boolean
+	 */
+	function resetOptions()
+	{
+		if ($this->delete('#options', 'option_name LIKE "izioseo_%"'))
+		{
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * exportieren der Keywords als CSV-Datei
+	 */
+	function exportKeywords()
+	{
+		require_once(dirname(__FILE__) . '/classes/Statistics.class.php');
+		$stats = new Statistics();
+
+		$name = 'izioseo-keywords-' . date('Y-m-d-h-i-s', time()) . '.csv';
+		$header = array(__('URL', 'izioseo'), __('Keyword', 'izioseo'), __('Anzahl', 'izioseo'));
+		$keywords = $stats->getKeywordsToUrls(get_option('siteurl', true));
+		$this->exportAsCSV($name, $header, $keywords);
+	}
+
+	/**
+	 * exportieren der Suchanfragen als CSV-Datei
+	 */
+	function exportRequests()
+	{
+		require_once(dirname(__FILE__) . '/classes/Statistics.class.php');
+		$stats = new Statistics();
+
+		$name = 'izioseo-requests-' . date('Y-m-d-h-i-s', time()) . '.csv';
+		$header = array(__('URL', 'izioseo'), __('Suchanfrage', 'izioseo'), __('Suchmaschine', 'izioseo'), __('Anfragende URL', 'izioseo'), __('Anzahl', 'izioseo'));
+		$requests = $stats->getRequestsToUrls(get_option('siteurl', true));
+		$this->exportAsCSV($name, $header, $requests);
+	}
+
+	/**
+	 * exportieren der verlinkenden Seiten als CSV-Datei
+	 */
+	function exportReferers()
+	{
+		require_once(dirname(__FILE__) . '/classes/Statistics.class.php');
+		$stats = new Statistics();
+
+		$name = 'izioseo-referers-' . date('Y-m-d-h-i-s', time()) . '.csv';
+		$header = array(__('URL', 'izioseo'), __('Verweisende URL', 'izioseo'),__('Anzahl', 'izioseo'));
+		$requests = $stats->getReferersToUrls(get_option('siteurl', true));
+		$this->exportAsCSV($name, $header, $requests);
+	}
+
+	/**
+	 * Erstellt eine CSV-Datei und stellt diese zum Download bereit
+	 *
+	 * @param string $name
+	 * @param array $header
+	 * @param array $content
+	 */
+	function exportAsCSV($name, $header, $keywords)
+	{
+		$csv = implode(';', $header) . ";\n";
+		foreach ($keywords as $keyword)
+		{
+			$keyword = str_replace(';', '', $keyword);
+			$csv .= implode(';', $keyword) . ";\n";
+		}
+
+		@ob_end_clean();
+		header('Content-Description: File Transfer');
+		header('Content-Disposition: attachment; filename=' . $name);
+		header('Content-Length: ' . strlen($csv));
+		header('Content-type: text/csv; charset=' . get_option('blog_charset', true), true);
+
+		echo $csv;
+		exit;
+	}
+
+	/**
+	 * Pruefen ob eine neue Version von izioSEO vorhanden ist und gibt die neue Versionsnummer zurueck
+	 *
+	 * @return string
+	 */
+	function newVersion()
+	{
+		$current = get_option('update_plugins');
+		if ($current->response && isset($current->response['izioseo/izioseo.php']))
+		{
+			$plugin = $current->response['izioseo/izioseo.php'];
+			$url = admin_url('plugin-install.php?tab=plugin-information&plugin=izioseo&TB_iframe=true&width=640&height=480');
+
+			echo '<br /><br />';
+			printf(__('There is a new version of %1$s available. <a href="%2$s" class="thickbox" title="%1$s">View version %3$s Details</a> or <a href="%4$s">upgrade automatically</a>.'), 'izioSEO', $url, $plugin->new_version, wp_nonce_url('update.php?action=upgrade-plugin&amp;plugin=izioseo', 'upgrade-plugin_izioseo'));
+		}
 	}
 
 }
