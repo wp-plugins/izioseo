@@ -609,7 +609,7 @@ class izioSEO
 	function getReferer()
 	{
 		$blogUrl = get_option('siteurl', true);
-		if (isset($_SERVER['HTTP_REFERER']) && strlen(trim($_SERVER['HTTP_REFERER'])) && substr($_SERVER['HTTP_REFERER'], 0, strlen($blogUrl)) != $blogUrl)
+		if (isset($_SERVER['HTTP_REFERER']) && strlen(trim($_SERVER['HTTP_REFERER'])) && substr($_SERVER['HTTP_REFERER'], 0, strlen($blogUrl)) != $blogUrl && substr($_SERVER['HTTP_REFERER'], 0, strlen(str_replace('www.', '', $blogUrl))) != str_replace('www.', '', $blogUrl))
 		{
 			$this->referer = $_SERVER['HTTP_REFERER'];
 			$search = $this->analyseReferer($this->referer);

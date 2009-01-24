@@ -148,7 +148,7 @@ class Statistics
 		foreach ($res as $entry)
 		{
 			$return[] = array(
-				'referer_request' => $entry->referer_request,
+				'referer_request' => utf8_decode($entry->referer_request),
 				'referer_url' => $entry->referer_url,
 				'referer_count' => $entry->referer_count
 			);
@@ -170,7 +170,7 @@ class Statistics
 		{
 			$return[] = array(
 				'post_url' => trim($baseUrl, '/') . $entry->post_url,
-				'referer_request' => $entry->referer_request,
+				'referer_request' => $this->utf8Decode($entry->referer_request),
 				'referer_searchengine' => $entry->referer_searchengine,
 				'referer_url' => $entry->referer_url,
 				'referer_count' => $entry->referer_count
@@ -192,7 +192,7 @@ class Statistics
 		foreach ($res as $entry)
 		{
 			$return[] = array(
-				'referer_keyword' => $entry->referer_keyword,
+				'referer_keyword' => utf8_decode($entry->referer_keyword),
 				'keyword_count' => $entry->keyword_count
 			);
 		}
@@ -213,7 +213,7 @@ class Statistics
 		{
 			$return[] = array(
 				'post_url' => trim($baseUrl, '/') . $entry->post_url,
-				'referer_keyword' => $entry->referer_keyword,
+				'referer_keyword' => $this->utf8Decode($entry->referer_keyword),
 				'keyword_count' => $entry->keyword_count
 			);
 		}
@@ -259,6 +259,28 @@ class Statistics
 			);
 		}
 		return $return;
+	}
+
+	/**
+	 * Dekodiert einen String solange UTF-8 bis es passt
+	 *
+	 * @param string $string
+	 * @return string
+	 */
+	function utf8Decode($string)
+	{
+		$tmp = $string;
+		$count = 0;
+		while (mb_detect_encoding($tmp) == 'UTF-8')
+		{
+			$tmp = utf8_decode($tmp);
+			$count++;
+		}
+		for ($i = 0; $i < $count-1 ; $i++)
+		{
+			$string = utf8_decode($string);
+		}
+		return $string;
 	}
 
 }
