@@ -1,45 +1,45 @@
 <div class="wrap">
-	<? if (isset($message)) : ?>
-		<? if ($message == 'success merge') : ?>
+	<?php if (isset($message)) : ?>
+		<?php if ($message == 'success merge') : ?>
 			<div id="message" class="updated fade" style="background-color: rgb(255, 251, 204); margin-bottom:13px;">
-				<p><? _e('Die Einstellungen f&uuml;r izioSEO wurden gespeichert.', 'izioseo') ?></p>
+				<p><?php _e('Die Einstellungen f&uuml;r izioSEO wurden gespeichert.', 'izioseo') ?></p>
 			</div>
-		<? else : ?>
+		<?php else : ?>
 			<div class="error below-h2" style="margin-bottom:13px;">
-				<p><strong><? _e('Error') ?></strong>: <? _e('Es trat ein Fehler beim Erstellen der Stopwordliste auf.', 'izioseo') ?></p>
+				<p><strong><?php _e('Error') ?></strong>: <?php _e('Es trat ein Fehler beim Erstellen der Stopwordliste auf.', 'izioseo') ?></p>
 			</div>
-		<? endif; ?>
-	<? endif; ?>
-	<h2><? _e('izioSEO Wordpress SEO Plugin › Keywords', 'izioseo') ?></h2>
+		<?php endif; ?>
+	<?php endif; ?>
+	<h2><?php _e('izioSEO Wordpress SEO Plugin › Keywords', 'izioseo') ?></h2>
 	<form method="post">
-		<p><? _e('Bearbeiten Sie die Stopword-Liste und die Liste mit den Keywords und Akronymen. Dadurch k&ouml;nnen Sie geziehlt steuern, welche W&ouml;rter f&uuml;r die Generierung von META-Daten verwendet werden sollen.', 'izioseo'); ?></p>
+		<p><?php _e('Bearbeiten Sie die Stopword-Liste und die Liste mit den Keywords und Akronymen. Dadurch k&ouml;nnen Sie geziehlt steuern, welche W&ouml;rter f&uuml;r die Generierung von META-Daten verwendet werden sollen.', 'izioseo'); ?></p>
 		<table class="form-table">
 			<tbody>
 				<tr valign="top">
-					<th scope="row"><?= $this->helpButton('Keywords sammeln') ?> <label for="izioseo_collect_keywords"><? _e('Keywords sammeln', 'izioseo') ?></label></th>
+					<th scope="row"><?php echo $this->helpButton('Keywords sammeln') ?> <label for="izioseo_collect_keywords"><?php _e('Keywords sammeln', 'izioseo') ?></label></th>
 					<td>
-						<input type="checkbox" name="keywords[izioseo_collect_keywords]" id="izioseo_collect_keywords" onclick="javascript:disableTextareas();"<? if ($data['izioseo_collect_keywords'] == 'on') : ?> checked<? endif; ?> />
+						<input type="checkbox" name="keywords[izioseo_collect_keywords]" id="izioseo_collect_keywords" onclick="javascript:disableTextareas();"<?php if ($data['izioseo_collect_keywords'] == 'on') : ?> checked<?php endif; ?> />
 						<div style="text-align:justify;">
-							<? _e('Sollen die Keywords in der "keywords.txt" Datei gesammelt werden, wenn die Generierung der META-Keywords und META-Description f&uuml;r die jeweilige Unterseite aktiviert ist. Dadurch k&ouml;nnen Sie auf einfache Weise ihre Stopword-Liste individuell erweitern.', 'izioseo'); ?>
+							<?php _e('Sollen die Keywords in der &quot;keywords.txt&quot; Datei gesammelt werden, wenn die Generierung der META-Keywords und META-Description f&uuml;r die jeweilige Unterseite aktiviert ist. Dadurch k&ouml;nnen Sie auf einfache Weise ihre Stopword-Liste individuell erweitern.', 'izioseo'); ?>
 						</div>
 					</td>
 				</tr>
 				<tr>
-					<th scope="row"><?= $this->helpButton('Stopword Liste') ?> <label for="izioseo_file_stopwords"><? _e('Stopword Liste', 'izioseo') ?></label></th>
-					<td><textarea name="keywords[izioseo_file_stopwords]" id="izioseo_file_stopwords" style="width: 450px; height: 150px;"><? if (isset($data['izioseo_file_stopwords'])) : ?><?= $data['izioseo_file_stopwords'] ?><? endif; ?></textarea></td>
+					<th scope="row"><?php echo $this->helpButton('Stopword Liste') ?> <label for="izioseo_file_stopwords"><?php _e('Stopword Liste', 'izioseo') ?></label></th>
+					<td><textarea name="keywords[izioseo_file_stopwords]" id="izioseo_file_stopwords" style="width: 450px; height: 150px;"><?php if (isset($data['izioseo_file_stopwords'])) : ?><?php echo $data['izioseo_file_stopwords'] ?><?php endif; ?></textarea></td>
 				</tr>
 				<tr>
-					<th scope="row"><?= $this->helpButton('Keyword Liste') ?> <label for="izioseo_file_keywords"><? _e('Keyword Liste', 'izioseo') ?></label></th>
-					<td><textarea name="keywords[izioseo_file_keywords]" id="izioseo_file_keywords" style="width: 450px; height: 150px;"><? if (isset($data['izioseo_file_keywords'])) : ?><?= $data['izioseo_file_keywords'] ?><? endif; ?></textarea></td>
+					<th scope="row"><?php echo $this->helpButton('Keyword Liste') ?> <label for="izioseo_file_keywords"><?php _e('Keyword Liste', 'izioseo') ?></label></th>
+					<td><textarea name="keywords[izioseo_file_keywords]" id="izioseo_file_keywords" style="width: 450px; height: 150px;"><?php if (isset($data['izioseo_file_keywords'])) : ?><?php echo $data['izioseo_file_keywords'] ?><?php endif; ?></textarea></td>
 				</tr>
 				<tr>
-					<th scope="row"><?= $this->helpButton('Acronym Liste') ?> <label for="izioseo_file_acronyms"><? _e('Acronyme', 'izioseo') ?></label></th>
-					<td><textarea name="keywords[izioseo_file_acronyms]" id="izioseo_file_acronyms" style="width: 450px; height: 150px;"><? if (isset($data['izioseo_file_acronyms'])) : ?><?= $data['izioseo_file_acronyms'] ?><? endif; ?></textarea></td>
+					<th scope="row"><?php echo $this->helpButton('Acronym Liste') ?> <label for="izioseo_file_acronyms"><?php _e('Acronyme', 'izioseo') ?></label></th>
+					<td><textarea name="keywords[izioseo_file_acronyms]" id="izioseo_file_acronyms" style="width: 450px; height: 150px;"><?php if (isset($data['izioseo_file_acronyms'])) : ?><?php echo $data['izioseo_file_acronyms'] ?><?php endif; ?></textarea></td>
 				</tr>
 			</tbody>
 		</table>
 		<p class="submit">
-			<input type="submit" class="button-primary" value="<? _e('Einstellungen speichern', 'izioseo')?>" />
+			<input type="submit" class="button-primary" value="<?php _e('Einstellungen speichern', 'izioseo')?>" />
 		</p>
 	</form>
 </div>

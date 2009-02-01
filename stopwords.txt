@@ -37,9 +37,11 @@ ai
 al
 all
 alle
+allein
 allem
 allen
 aller
+allerdings
 alles
 almost
 alone
@@ -64,6 +66,7 @@ anderm
 andern
 anderr
 anders
+anderthalb
 another
 any
 anyhow
@@ -110,11 +113,14 @@ behind
 bei
 being
 below
+benötigten
 beside
 besides
 bessere
 besten
 between
+bevor
+bevorsteht
 beyond
 bf
 bg
@@ -131,6 +137,7 @@ bn
 bo
 both
 br
+brüchige
 bs
 bt
 but
@@ -207,6 +214,8 @@ der
 derer
 derselbe
 derselben
+derweil
+derzeit
 des
 deshalb
 desselben
@@ -236,6 +245,7 @@ doesn\'t
 don
 don\'t
 dort
+dorthin
 down
 du
 durch
@@ -243,6 +253,7 @@ during
 dz
 e
 each
+ebenso
 ec
 edu
 ee
@@ -281,6 +292,7 @@ es
 et
 etc
 etc.
+etwa
 etwas
 euch
 euer
@@ -313,6 +325,7 @@ folgenden
 for
 former
 formerly
+fort
 forty
 found
 four
@@ -332,6 +345,7 @@ gd
 ge
 gegen
 gegenüber
+gehe
 genauso
 genäht
 gerade
@@ -354,6 +368,7 @@ gov
 gp
 gq
 gr
+grundsätzliche
 gs
 gt
 gu
@@ -412,6 +427,7 @@ html
 http
 hu
 hundred
+hätten
 i
 i.e.
 i\'d
@@ -440,6 +456,7 @@ inc
 inc.
 indeed
 indem
+indirekten
 information
 ins
 instead
@@ -490,6 +507,7 @@ keines
 kg
 kh
 ki
+klar
 kleine
 kleines
 km
@@ -497,6 +515,7 @@ kn
 konnte
 kp
 kr
+kurz
 kw
 ky
 kz
@@ -504,6 +523,8 @@ könne
 können
 könnt
 könnte
+könnten
+kündigte
 l
 la
 lang
@@ -514,6 +535,7 @@ latterly
 lb
 lc
 least
+leicht
 leider
 length
 less
@@ -534,6 +556,7 @@ ly
 m
 ma
 machen
+machte
 made
 make
 makes
@@ -551,6 +574,7 @@ me
 meantime
 meanwhile
 mehr
+mehrere
 mehreren
 mein
 meine
@@ -566,6 +590,7 @@ microsoft
 might
 mil
 million
+mindestens
 mir
 miss
 mit
@@ -586,8 +611,6 @@ ms
 msie
 mt
 mu
-mu?
-mu?t
 much
 muss
 musst
@@ -603,6 +626,7 @@ my
 myself
 mz
 möglich
+müsse
 müssen
 müsst
 müßt
@@ -610,6 +634,7 @@ n
 na
 nach
 nachdem
+nahegelegt
 namely
 natürlich
 nbsp
@@ -622,6 +647,7 @@ neither
 net
 netscape
 neuen
+neuerliche
 never
 nevertheless
 new
@@ -631,6 +657,8 @@ ng
 ni
 nicht
 nichts
+nieder
+niemand
 nine
 ninety
 nl
@@ -652,6 +680,7 @@ nun
 nur
 nz
 nächsten
+nötig
 o
 ob
 oder
@@ -706,6 +735,7 @@ rather
 re
 recent
 recently
+reichen
 reserved
 ring
 ro
@@ -740,6 +770,7 @@ seit
 seitdem
 selber
 selbst
+setzte
 seven
 seventy
 several
@@ -794,6 +825,7 @@ soweit
 sowie
 sr
 st
+stehen
 steuern
 still
 stop
@@ -806,6 +838,7 @@ sz
 szlig
 t
 taking
+tatsächlich
 tc
 td
 ten
@@ -879,6 +912,7 @@ ua
 ug
 uk
 um
+ums
 und
 under
 ungemein
@@ -922,6 +956,7 @@ von
 vor
 vorallem
 vu
+völlige
 w
 wann
 war
@@ -939,6 +974,7 @@ we\'ve
 web
 webpage
 website
+weder
 weg
 weil
 weiter
@@ -1010,8 +1046,10 @@ woher
 wohin
 wollen
 wollte
+womöglich
 won
 won\'t
+worden
 would
 wouldn
 wouldn\'t
@@ -1047,8 +1085,10 @@ zr
 zu
 zum
 zur
+zurzeit
 zurück
 zurückzahlen
+zuzurechnen
 zwar
 zweiten
 zwischen

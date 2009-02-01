@@ -4,7 +4,7 @@ Donate link: http://www.goizio.com/downloads/
 Tags: seo, plugin, suchmaschinenoptimierung, google, meta, robots, description, keywords, analytics, search engine optimization, posts, title, meta description, meta keywords, duplicate content
 Requires at least: 2.6
 Tested up to: 2.7.0
-Stable tag: 1.1
+Stable tag: 1.1.1
 
 Das Wordpress SEO Plugin izioSEO ist ein wirkungsvolles und vollautomatisches Plugin fuer Ihren Blog, welches ohne viel Aufwand Ihren Wordpress Blog nach den Kriterien der OnPage Suchmaschinenoptimierung (SEO) optimiert.
 
@@ -20,7 +20,7 @@ Wordpress Plugin optimiert unter anderem den Seitentitel, die META-Daten, wie ME
 und die META-Robots eines Artikels oder einer Seite. Doch izioSEO kann noch weit aus mehr, als nur die Zuweisung 
 von META-Daten und Seitentitel. izioSEO besticht durch die dynamische und automatisierte Generierung der META-Tags 
 und der Seitentitel unter Verwendung einer Stopword-Liste. Diese Stopword-Liste ist frei nach Ihren Wuenschen 
-erweiterbar und anpassbar, so können Sie Ihre Keywords und Seitenbeschreibungen beliebig definieren. Ausserdem 
+erweiterbar und anpassbar, so koennen Sie Ihre Keywords und Seitenbeschreibungen beliebig definieren. Ausserdem 
 verhindert izioSEO gezielt Duplicate Content auf ihrer Website, was sich wiederum sehr positiv auf die 
 Suchmaschinenplatzierungen auswirkt. Doch dies ist nur ein Bruchteil der Funktionen, welche izioSEO besitzt. Mit 
 mehr als 50 verschiedenen Funktionen ist izioSEO schon jetzt eines der umfangreichsten SEO Plugins fuer Wordpress 
@@ -124,3 +124,12 @@ Version 1.1 vom 22.01.2009
  * Add: csv-Export fuer die Statistiken
  * Add: Automatischer Versionshinweis mit Updatelink auf der Uebersichtsseite
  * Remove: &lt;meta name="language" ... /&gt; wurde entfernt
+
+Version 1.1.1 vom 01.02.2009
+
+ * Bugfix: Analytics wurde nicht genutzt, wenn Webmastertools nicht verwendet wurden
+ * Bugfix: Optimierung der Generierung von Keywords und Description
+ * Bugfix: PHP Short Open Tags wurden entfernt
+ * Change: Optimierung von des Referer-Trackings
+ * Remove: noydir-Tag wurde entfernt
+ * Add: Umlaute werden fuer URL's richtig umgewandelt
