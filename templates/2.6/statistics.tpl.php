@@ -131,6 +131,34 @@
 				</div>
 			</div>
 		</div>
+		<div class="dashboard-widget-holder widget_rss wp_dashboard_empty" style="width:475px; margin:3px 0px 10px 0px;">
+			<div class="dashboard-widget" style="margin-right:0px; height:310px;">
+				<h3 class="dashboard-widget-title">
+					<span><?php _e('Meistbesuchteste Links', 'izioseo') ?> (<?php _e('Top', 'izioseo') ?> <?php echo $nl ?>)</span>
+					<br class="clear">
+				</h3>
+				<div class="dashboard-widget-content">
+					<p style="font-size:13px;">
+						<?php _e('Anzahl festlegen', 'izioseo') ?>
+						<a href="<?php if (!isset($_GET['nl'])) : ?><?php echo $_SERVER['REQUEST_URI'] ?>&amp;nl=10<?php else : ?><?php echo str_replace('nl=' . $nl, 'nl=' . 10, $_SERVER['REQUEST_URI']) ?><?php endif; ?>">10</a> |
+						<a href="<?php if (!isset($_GET['nl'])) : ?><?php echo $_SERVER['REQUEST_URI'] ?>&amp;nl=20<?php else : ?><?php echo str_replace('nl=' . $nl, 'nl=' . 20, $_SERVER['REQUEST_URI']) ?><?php endif; ?>">20</a> |
+						<a href="<?php if (!isset($_GET['nl'])) : ?><?php echo $_SERVER['REQUEST_URI'] ?>&amp;nl=50<?php else : ?><?php echo str_replace('nl=' . $nl, 'nl=' . 50, $_SERVER['REQUEST_URI']) ?><?php endif; ?>">50</a> |
+						<a href="<?php if (!isset($_GET['nl'])) : ?><?php echo $_SERVER['REQUEST_URI'] ?>&amp;nl=100<?php else : ?><?php echo str_replace('nl=' . $nl, 'nl=' . 100, $_SERVER['REQUEST_URI']) ?><?php endif; ?>">100</a><br />
+						<?php _e('Links downloaden als', 'izioseo') ?>
+						<a href="<?php if (!isset($_GET['export'])) : ?><?php echo $_SERVER['REQUEST_URI'] ?>&amp;export=referer-csv<?php else : ?><?php echo str_replace('export=' . $export, 'export=referer-csv', $_SERVER['REQUEST_URI']) ?><?php endif; ?>"><?php _e('csv - Datei', 'izioseo') ?></a>
+					</p>
+					<table style="width:100%;">
+						<?php foreach ($stats->getPopularLinks($nl) as $key => $link) : ?>
+							<tr>
+								<td style="width:18px;"><a href="<?php echo $link['link_url'] ?>"><img src="<?php echo $this->images ?>folder.png" alt="<?php _e('Link aufrufen', 'izioseo') ?>" height="16" width="16" /></a></td>
+								<td style="font-size:13px; margin-right: 12px;"><?php echo $this->truncate($link['link_url'], 45, 'h') ?></td>
+								<td style="color:#2583ad; font-size:13px; font-weight:bold; text-align:right;"><?php echo $link['link_hits'] ?></td>
+							</tr>
+						<?php endforeach; ?>
+					</table>
+				</div>
+			</div>
+		</div>
 		<br class="clear" />
 	</div>
 </div>

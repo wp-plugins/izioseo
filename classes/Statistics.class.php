@@ -283,4 +283,24 @@ class Statistics
 		return $string;
 	}
 
+	/**
+	 * holt alle externen Links
+	 * 
+	 * @param integer $limit
+	 * @return array
+	 */
+	function getPopularLinks($limit = 100)
+	{
+		$return = array();
+		$res = $this->fetchResults('SELECT link_url, link_hits FROM #izioseo_anonym_links ORDER BY link_hits DESC, link_url ASC' . ($limit ? ' LIMIT ' . addslashes($limit) : ''));
+		foreach ($res as $entry)
+		{
+			$return[] = array(
+				'link_url' => $entry->link_url,
+				'link_hits' => $entry->link_hits
+			);
+		}
+		return $return;
+	}
+
 }

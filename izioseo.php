@@ -4,7 +4,7 @@
 Plugin Name: izioSEO
 Plugin URI: http://www.goizio.com/izioseo/
 Description: Ein umfangreiches Plugin zur Suchmaschinenoptimierung f&uuml;r Wordpress. Einfache "on-the-fly" SEO-L&ouml;sung mit vielen m&ouml;glichen <a href="options-general.php?page=izioseo/izioseo.php">Einstellungen</a>.
-Version: 1.1.1
+Version: 1.1.2
 Author: Mathias 'United20' Schmidt
 Author URI: http://www.goizio.com/
 */
@@ -54,11 +54,15 @@ add_option('izioseo_nofollow_tags', 'off', 'Tagcloud auf nofollow setzen', 'yes'
 add_option('izioseo_redirect_permalink', 'on', '301-Weiterleitung verwenden bei geanderten Permalinks', 'yes');
 add_option('izioseo_image_use', 'on', 'Suchmaschinenfreundliche Bilder verwenden', 'yes');
 add_option('izioseo_image_alt', '%image_title% in %post_title%', 'Formatierung des alt-Textes eines Bildes', 'yes');
+add_option('izioseo_anonym_content_link', 'off', 'Alle externen Contentlinks anonymisieren.', 'yes');
+add_option('izioseo_anonym_comment_link', 'off', 'Alle externen Commentlinks anonymisieren.', 'yes');
+add_option('izioseo_anonym_bookmark_link', 'off', 'Alle externen Links der Blogroll anonymisieren.', 'yes');
 
 /**
  * Statusvariablen
  */
 add_option('__izioseo_firstrun_v11', 'on', 'izioSEO v1.1 wurde noch nie ausgefuehrt', 'yes');
+add_option('__izioseo_firstrun_v112', 'on', 'izioSEO v1.1.2 wurde noch nie ausgefuehrt', 'yes');
 add_option('__izioseo_reset_export', '0', 'Datum des letzten Exports', 'yes');
 
 /*
@@ -69,6 +73,10 @@ $izioseo = new izioSEO();
 /**
  * Action-Hooks setzen
  */
+if (isset($_GET['goto']) && preg_match('/^[a-zA-Z0-9]{32}$/', $_GET['goto']))
+{
+	add_action('init', array($izioseo, 'redirectLink'), 1);
+}
 if (isset($_GET['export']) && isset($_GET['page']) && $_GET['page'] == 'reset')
 {
 	add_action('init', array($izioseo, 'exportOptions'), 1);
@@ -84,6 +92,10 @@ if (isset($_GET['export']) && $_GET['export'] == 'request-csv' && isset($_GET['p
 if (isset($_GET['export']) && $_GET['export'] == 'referer-csv' && isset($_GET['page']) && $_GET['page'] == 'statistic')
 {
 	add_action('init', array($izioseo, 'exportReferers'), 1);
+}
+if (isset($_GET['export']) && $_GET['export'] == 'links-csv' && isset($_GET['page']) && $_GET['page'] == 'statistic')
+{
+	add_action('init', array($izioseo, 'exportLinks'), 1);
 }
 if (isset($_GET['flash']) && isset($_GET['page']) && $_GET['page'] == 'statistic')
 {
@@ -117,19 +129,23 @@ if ((float)substr($izioseo->wpVersion, 0, 3) >= 2.7)
 {
 	add_filter('contextual_help', array($izioseo, 'showHelp'));
 }
-if (get_option('izioseo_nofollow_categories', true) == 'on')
+if (get_option('izioseo_nofollow_categories') == 'on')
 {
 	add_filter('wp_list_categories', array($izioseo, 'setNofollowLinks'));
 	add_filter('the_category', array($izioseo, 'setNofollowLinks'));
 }
-if (get_option('izioseo_nofollow_bookmarks', true) == 'on')
+if (get_option('izioseo_nofollow_bookmarks') == 'on')
 {
 	add_filter('wp_list_bookmarks', array($izioseo, 'setNofollowLinks'));
 }
-if (get_option('izioseo_nofollow_tags', true) == 'on')
+if (get_option('izioseo_nofollow_tags') == 'on')
 {
 	add_filter('wp_generate_tag_cloud', array($izioseo, 'setNofollowLinks'));
 }
+add_filter('the_content', array($izioseo, 'anonymContentLinks'), 1000000);
+add_filter('comment_author_link', array($izioseo, 'anonymCommentLinks'), 1000000);
+add_filter('comment_text', array($izioseo, 'anonymCommentLinks'), 1000000);
+add_filter('wp_list_bookmarks', array($izioseo, 'anonymBookmarkLinks'), 1000000);
 
 /**
  * Umlaute aus URL's entfernen
@@ -150,7 +166,7 @@ class izioSEO
 	 *
 	 * @var string
 	 */
-	var $version = '1.1.1';
+	var $version = '1.1.2';
 
 	/**
 	 * Website von izioSEO
@@ -539,6 +555,25 @@ class izioSEO
 
 			// Status setzen
 			update_option('__izioseo_firstrun_v11', 'off');
+		}
+		if (get_option('__izioseo_firstrun_v112') == 'on')
+		{
+			if (! is_int($this->query('SELECT * FROM #izioseo_referers_keywords')))
+			{
+				$this->query('
+					CREATE TABLE IF NOT EXISTS #izioseo_anonym_links (
+						link_id int(10) unsigned NOT NULL auto_increment,
+						link_url varchar(255) NOT NULL,
+						link_hash varchar(32) NOT NULL,
+						link_hits int(10) unsigned NOT NULL default "0",
+						PRIMARY KEY  (link_id),
+						UNIQUE KEY izioseo_hash (link_hash)
+					) ENGINE=MyISAM DEFAULT CHARSET=' . DB_CHARSET . ';
+				');
+			}
+
+			// Status setzen
+			update_option('__izioseo_firstrun_v112', 'off');
 		}
 	}
 
@@ -2215,7 +2250,10 @@ class izioSEO
 			'izioseo_nofollow_tags' => htmlspecialchars(stripcslashes(get_option('izioseo_nofollow_tags'))),
 			'izioseo_redirect_permalink' => htmlspecialchars(stripcslashes(get_option('izioseo_redirect_permalink'))),
 			'izioseo_image_use' => htmlspecialchars(stripcslashes(get_option('izioseo_image_use'))),
-			'izioseo_image_alt' => htmlspecialchars(stripcslashes(get_option('izioseo_image_alt')))
+			'izioseo_image_alt' => htmlspecialchars(stripcslashes(get_option('izioseo_image_alt'))),
+			'izioseo_anonym_content_link' => htmlspecialchars(stripcslashes(get_option('izioseo_anonym_content_link'))),
+			'izioseo_anonym_comment_link' => htmlspecialchars(stripcslashes(get_option('izioseo_anonym_comment_link'))),
+			'izioseo_anonym_bookmark_link' => htmlspecialchars(stripcslashes(get_option('izioseo_anonym_bookmark_link')))
 		);
 		$robots = array(
 			'index,follow',
@@ -2226,6 +2264,11 @@ class izioSEO
 			'index,nofollow,noarchive',
 			'noindex,follow,noarchive',
 			'noindex,nofollow,noarchive'
+		);
+		$anonym = array(
+			'no' => __('Deaktiviert', 'izioseo'),
+			'standard' => __('Standard (mit Linktracking)', 'izioseo'),
+			'anonym.to' => __('anonym.to (kein Linktracking)', 'izioseo'),
 		);
 		require_once (dirname(__FILE__) . '/templates/' . $this->template . '/options.tpl.php');
 	}
@@ -2368,6 +2411,7 @@ class izioSEO
 		$nr = isset($_GET['nr']) && preg_match('/^[0-9]+$/', $_GET['nr']) ? $_GET['nr'] : 10;
 		$nk = isset($_GET['nk']) && preg_match('/^[0-9]+$/', $_GET['nk']) ? $_GET['nk'] : 10;
 		$nref = isset($_GET['nref']) && preg_match('/^[0-9]+$/', $_GET['nref']) ? $_GET['nref'] : 10;
+		$nl = isset($_GET['nl']) && preg_match('/^[0-9]+$/', $_GET['nl']) ? $_GET['nl'] : 10;
 		$export = isset($_GET['export']) ? addslashes($_GET['export']) : 'referer-csv';
 
 		require_once (dirname(__FILE__) . '/templates/' . $this->template . '/statistics.tpl.php');
@@ -3134,6 +3178,19 @@ class izioSEO
 	}
 
 	/**
+	 * exportieren die anonymisierten Links
+	 */
+	function exportLinks()
+	{
+		require_once(dirname(__FILE__) . '/classes/Statistics.class.php');
+		$stats = new Statistics();
+
+		$name = 'izioseo-links-' . date('Y-m-d-h-i-s', time()) . '.csv';
+		$header = array(__('Link URL', 'izioseo'), __('Aufrufe', 'izioseo'));
+		$this->exportAsCSV($name, $header, $stats->getPopularLinks());
+	}
+
+	/**
 	 * exportieren der verlinkenden Seiten als CSV-Datei
 	 */
 	function exportReferers()
@@ -3201,6 +3258,160 @@ class izioSEO
 	{
 		$title = $this->convertToUrlName($title, true);
 	    return sanitize_title_with_dashes($title);
+	}
+
+	/**
+	 * Externe Links im Content anonymisieren
+	 *
+	 * @param string $content
+	 * @return string
+	 */
+	function anonymContentLinks($content)
+	{
+		if (($type = get_option('izioseo_anonym_content_link')) != 'off')
+		{
+			return $this->anonymLinks($content, $type);
+		}
+		return $content;
+	}
+
+	/**
+	 * Externe Links in den Kommentaren anonymisieren
+	 *
+	 * @param string $content
+	 * @return string
+	 */
+	function anonymCommentLinks($content)
+	{
+		if (($type = get_option('izioseo_anonym_comment_link')) != 'off')
+		{
+			return $this->anonymLinks($content, $type);
+		}
+		return $content;
+	}
+
+	/**
+	 * Externe Links in der Blogroll anonymisieren
+	 *
+	 * @param string $content
+	 * @return string
+	 */
+	function anonymBookmarkLinks($content)
+	{
+		if (($type = get_option('izioseo_anonym_bookmark_link')) != 'off')
+		{
+			return $this->anonymLinks($content, $type);
+		}
+		return $content;
+	}
+
+	/**
+	 * anonymisiere externe Links und schreibe diese in die Datenbank
+	 *
+	 * @param string $content
+	 * @param string $type
+	 * @return string
+	 */
+	function anonymLinks($content, $type)
+	{
+		if ($type == 'standard')
+		{
+			return preg_replace_callback('/<a (.*?)href=["|\'](.*?)\/\/(.*?)["|\'](.*?)>(.*?)<\/a>/i', array($this, 'parseExternalLinks'), $content);
+		}
+		elseif ($type == 'anonym.to')
+		{
+			return preg_replace_callback('/<a (.*?)href=["|\'](.*?)\/\/(.*?)["|\'](.*?)>(.*?)<\/a>/i', array($this, 'parseExternalLinksForProxy'), $content);
+		}
+		return $content;
+	}
+
+	/**
+	 * Parst alle externen Links und gibt diese Anonymisiert zurueck
+	 *
+	 * @param array $matches
+	 * @return string
+	 */
+	function parseExternalLinks($matches)
+	{
+		if ($this->getDomainFromUrl($matches[3]) != $this->getDomainFromUrl($_SERVER['HTTP_HOST']))
+		{
+			$md5 = $this->insertAnonymLinks($matches[2] . '//' . $matches[3]);
+			$link = '<a href="' . $this->generateAnonymLink($md5) . '"' . $matches[1] . $matches[4] . '>' . $matches[5] . '</a>';
+			$link = preg_replace_callback('/\<a[^>]+?\>/', array($this, 'linkPart'), $link);
+			return $link;
+		}
+		return '<a href="' . $matches[2] . '//' . $matches[3] . '"' . $matches[1] . $matches[4] . '>' . $matches[5] . '</a>';	 
+	}
+
+	/**
+	 * Parst alle externen Links und gibt diese fuer einen Anonymisierungs-Proxy (anonym.to) zurueck
+	 *
+	 * @param array $matches
+	 * @return string
+	 */
+	function parseExternalLinksForProxy($matches)
+	{
+		if ($this->getDomainFromUrl($matches[3]) != $this->getDomainFromUrl($_SERVER['HTTP_HOST']))
+		{
+			$link = '<a href="http://anonym.to/?' . $matches[2] . '//' . $matches[3] . '"' . $matches[1] . $matches[4] . '>' . $matches[5] . '</a>';	 
+			$link = preg_replace_callback('/\<a[^>]+?\>/', array($this, 'linkPart'), $link);
+			return $link;
+		}
+		return '<a href="' . $matches[2] . '//' . $matches[3] . '"' . $matches[1] . $matches[4] . '>' . $matches[5] . '</a>';	 
+	}
+
+	/**
+	 * Fuegt einen Link in die Datenbank hinzu und gibt den MD5-Hash des Links zurueck
+	 *
+	 * @param string $url
+	 * @return string
+	 */
+	function insertAnonymLinks($url)
+	{
+		$insert = array(
+			'link_url' => $url,
+			'link_hash' => md5($url),
+		);
+		$this->insert('#izioseo_anonym_links', $insert, array('ignore' => true));
+		return $insert['link_hash'];
+	}
+
+	/**
+	 * holt die Domain aus einer URL
+	 *
+	 * @param string $url
+	 * @return string
+	 */
+	function getDomainFromUrl($url)
+	{
+		preg_match('/^([http|ftp|news|irc]:\/\/)?([^\/]+)/i', $url, $matches);
+		preg_match('/[^\.\/]+\.[^\.\/]+$/', $matches[2], $matches);
+		return $matches[0];	   
+	}
+
+	/**
+	 * generiert den Anonymisierten Link
+	 *
+	 * @param string $md5
+	 * @return string
+	 */
+	function generateAnonymLink($md5)
+	{
+		return trim(get_option('siteurl'), '/') . '?goto=' . $md5;
+	}
+
+	/**
+	 * Leitet den anonymen Link weiter und zaehlt die Hits
+	 */
+	function redirectLink()
+	{
+		// header('HTTP/1.1 404 Not Found');
+		if ($link = $this->fetchResults('SELECT * FROM #izioseo_anonym_links WHERE link_hash="' . mysql_escape_string($_GET['goto']) . '"'))
+		{
+			$this->update('#izioseo_anonym_links', 'link_hits=link_hits+1', 'WHERE link_id=' . $link[0]->link_id);
+			header('Location: ' . $link[0]->link_url);
+		}
+		exit;
 	}
 
 }

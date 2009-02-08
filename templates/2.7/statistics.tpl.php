@@ -117,6 +117,31 @@
 							</div>
 						</div>
 					</div>
+					<div class="postbox">
+						<h3><?php _e('Meistbesuchteste Links', 'izioseo') ?> (<?php _e('Top', 'izioseo') ?> <?php echo $nl ?>)</h3>
+						<div class="inside">
+							<div style="clear:both; margin:12px; text-align:justify;">
+								<p>
+									<?php _e('Anzahl festlegen', 'izioseo') ?>
+									<a href="<?php if (!isset($_GET['nl'])) : ?><?php echo $_SERVER['REQUEST_URI'] ?>&amp;nl=10<?php else : ?><?php echo str_replace('nl=' . $nl, 'nl=' . 10, $_SERVER['REQUEST_URI']) ?><?php endif; ?>">10</a> |
+									<a href="<?php if (!isset($_GET['nl'])) : ?><?php echo $_SERVER['REQUEST_URI'] ?>&amp;nl=20<?php else : ?><?php echo str_replace('nl=' . $nl, 'nl=' . 20, $_SERVER['REQUEST_URI']) ?><?php endif; ?>">20</a> |
+									<a href="<?php if (!isset($_GET['nl'])) : ?><?php echo $_SERVER['REQUEST_URI'] ?>&amp;nl=50<?php else : ?><?php echo str_replace('nl=' . $nl, 'nl=' . 50, $_SERVER['REQUEST_URI']) ?><?php endif; ?>">50</a> |
+									<a href="<?php if (!isset($_GET['nl'])) : ?><?php echo $_SERVER['REQUEST_URI'] ?>&amp;nl=100<?php else : ?><?php echo str_replace('nl=' . $nl, 'nl=' . 100, $_SERVER['REQUEST_URI']) ?><?php endif; ?>">100</a><br />
+									<?php _e('Links downloaden als', 'izioseo') ?>
+									<a href="<?php if (!isset($_GET['export'])) : ?><?php echo $_SERVER['REQUEST_URI'] ?>&amp;export=links-csv<?php else : ?><?php echo str_replace('export=' . $export, 'export=links-csv', $_SERVER['REQUEST_URI']) ?><?php endif; ?>"><?php _e('csv - Datei', 'izioseo') ?></a>
+								</p>
+								<table style="width:100%;">
+									<?php foreach ($stats->getPopularLinks($nl) as $key => $link) : ?>
+										<tr>
+											<td style="width:18px;"><a href="<?php echo $link['link_url'] ?>"><img src="<?php echo $this->images ?>folder.png" alt="<?php _e('Link aufrufen', 'izioseo') ?>" height="16" width="16" /></a></td>
+											<td style="margin-right: 12px;"><?php echo $this->truncate($link['link_url'], 60, 'h') ?></td>
+											<td style="color:#21759b; font-size:18px; font-family:Georgia,Times New Roman,Bitstream Charter,Times,serif; text-align:right;"><?php echo $link['link_hits'] ?></td>
+										</tr>
+									<?php endforeach; ?>
+								</table>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
