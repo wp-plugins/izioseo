@@ -558,7 +558,7 @@ class izioSEO
 		}
 		if (get_option('__izioseo_firstrun_v112') == 'on')
 		{
-			if (! is_int($this->query('SELECT * FROM #izioseo_referers_keywords')))
+			if (! is_int($this->query('SELECT * FROM #izioseo_anonym_links')))
 			{
 				$this->query('
 					CREATE TABLE IF NOT EXISTS #izioseo_anonym_links (
