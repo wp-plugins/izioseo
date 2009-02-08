@@ -507,7 +507,7 @@
 					</td>
 				</tr>
 				<tr>
-					<th scope="row"><?php echo $this->helpButton('Links anonymisieren') ?> <label for="izioseo_anonym_comment_link"><?php _e('CommentLinks anonymisieren', 'izioseo') ?></label></th>
+					<th scope="row"><?php echo $this->helpButton('Links anonymisieren') ?> <label for="izioseo_anonym_comment_link"><?php _e('Kommentarlinks anonymisieren', 'izioseo') ?></label></th>
 					<td>
 						<select name="izioseo[izioseo_anonym_comment_link]" id="izioseo_anonym_comment_link">
 							<?php foreach ($anonym as $key => $value) : ?>

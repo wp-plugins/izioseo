@@ -136,4 +136,4 @@ Version 1.1.1 vom 01.02.2009
 
 Version 1.1.2 vom 08.02.2009
 
- * Anonymisierung von externen Links fuer ContentLinks, Commentarlinks und Blogroll
+ * Add: Anonymisierung von externen Links fuer ContentLinks, Kommentarlinks und Blogroll
