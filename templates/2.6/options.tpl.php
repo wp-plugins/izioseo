@@ -492,6 +492,42 @@
 				</tr>
 			</tbody>
 		</table>
+		<h3><?php echo _e('Externe Links anonymisieren', 'izioseo') ?></h3>
+		<p><?php _e('Mit diesen Links k&ouml;nnen Sie alle externen Links inidividuell anonymisieren. Dies ist vorallem f&uuml; Partnerprogramme interessant.', 'izioseo') ?></p>
+		<table class="form-table">
+			<tbody>
+				<tr>
+					<th scope="row"><?php echo $this->helpButton('Links anonymisieren') ?> <label for="izioseo_anonym_content_link"><?php _e('ContentLinks anonymisieren', 'izioseo') ?></label></th>
+					<td>
+						<select name="izioseo[izioseo_anonym_content_link]" id="izioseo_anonym_content_link">
+							<?php foreach ($anonym as $key => $value) : ?>
+								<option value="<?php echo $key ?>"<?php if ($data['izioseo_anonym_content_link'] == $key) : ?> selected<?php endif; ?>><?php echo $value ?></option>
+							<?php endforeach; ?>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><?php echo $this->helpButton('Links anonymisieren') ?> <label for="izioseo_anonym_comment_link"><?php _e('CommentLinks anonymisieren', 'izioseo') ?></label></th>
+					<td>
+						<select name="izioseo[izioseo_anonym_comment_link]" id="izioseo_anonym_comment_link">
+							<?php foreach ($anonym as $key => $value) : ?>
+								<option value="<?php echo $key ?>"<?php if ($data['izioseo_anonym_comment_link'] == $key) : ?> selected<?php endif; ?>><?php echo $value ?></option>
+							<?php endforeach; ?>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><?php echo $this->helpButton('Links anonymisieren') ?> <label for="izioseo_anonym_bookmark_link"><?php _e('Links in der Blogroll anonymisieren', 'izioseo') ?></label></th>
+					<td>
+						<select name="izioseo[izioseo_anonym_bookmark_link]" id="izioseo_anonym_bookmark_link">
+							<?php foreach ($anonym as $key => $value) : ?>
+								<option value="<?php echo $key ?>"<?php if ($data['izioseo_anonym_bookmark_link'] == $key) : ?> selected<?php endif; ?>><?php echo $value ?></option>
+							<?php endforeach; ?>
+						</select>
+					</td>
+				</tr>
+			</tbody>
+		</table>
 		<p class="submit">
 			<input type="submit" class="button-primary" value="<?php _e('Einstellungen speichern', 'izioseo')?>" />
 		</p>

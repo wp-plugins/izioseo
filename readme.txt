@@ -4,7 +4,7 @@ Donate link: http://www.goizio.com/downloads/
 Tags: seo, plugin, suchmaschinenoptimierung, google, meta, robots, description, keywords, analytics, search engine optimization, posts, title, meta description, meta keywords, duplicate content
 Requires at least: 2.6
 Tested up to: 2.7.0
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 
 Das Wordpress SEO Plugin izioSEO ist ein wirkungsvolles und vollautomatisches Plugin fuer Ihren Blog, welches ohne viel Aufwand Ihren Wordpress Blog nach den Kriterien der OnPage Suchmaschinenoptimierung (SEO) optimiert.
 
@@ -133,3 +133,7 @@ Version 1.1.1 vom 01.02.2009
  * Change: Optimierung von des Referer-Trackings
  * Remove: noydir-Tag wurde entfernt
  * Add: Umlaute werden fuer URL's richtig umgewandelt
+
+Version 1.1.2 vom 08.02.2009
+
+ * Anonymisierung von externen Links fuer ContentLinks, Commentarlinks und Blogroll
