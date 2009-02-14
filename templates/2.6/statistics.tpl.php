@@ -67,7 +67,7 @@
 						<?php foreach ($stats->getRequests($nr) as $key => $referer) : ?>
 							<tr>
 								<td style="width:18px;"><a href="<?php echo $referer['referer_url'] ?>"><img src="<?php echo $this->images ?>folder.png" alt="<?php _e('Suchanfrage aufrufen', 'izioseo') ?>" height="16" width="16" /></a></td>
-								<td style="font-size:13px; margin-right: 12px;"><?php echo $this->truncate($referer['referer_request'], 45, 'h') ?></td>
+								<td style="font-size:13px; margin-right: 12px;"><?php echo stripslashes($this->truncate($referer['referer_request'], 45, 'h')) ?></td>
 								<td style="color:#2583ad; font-size:13px; font-weight:bold; text-align:right;"><?php echo $referer['referer_count'] ?></td>
 							</tr>
 						<?php endforeach; ?>
@@ -123,7 +123,7 @@
 					<table style="width:100%;">
 						<?php foreach ($stats->getKeywords($nk) as $key => $keyword) : ?>
 							<tr>
-								<td style="font-size:13px; margin-right: 12px;"><?php echo $keyword['referer_keyword'] ?></td>
+								<td style="font-size:13px; margin-right: 12px;"><?php echo stripslashes($keyword['referer_keyword']) ?></td>
 								<td style="color:#2583ad; font-size:13px; font-weight:bold; text-align:right;"><?php echo $keyword['keyword_count'] ?></td>
 							</tr>
 						<?php endforeach; ?>

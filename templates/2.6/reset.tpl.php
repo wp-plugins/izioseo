@@ -38,7 +38,10 @@
 		<p><?php _e('Datei w&auml;hlen:', 'izioseo') ?> <input id="upload" type="file" size="25" name="import" /></p>
 		<p class="submit" style="border:0px; margin-top:0px; padding-top:0px;"><input class="button-primary" type="submit" value="<?php echo _e('Einstellungen importieren', 'izioseo') ?>" /></p>
 	</form>
+	<h3><?php echo $this->helpButton('Statistik zuruecksetzen') ?> <?php _e('Statistik zur&uuml;cksetzen', 'izioseo') ?></h3>
+	<p><?php _e('Mit dem dieser Funktion l&ouml;schen Sie alle gesammelten Daten f&uuml;r die Statistik. <strong>Hinweis:</strong> Durch die Benutzung der Funktion werden alle Daten der Statistik unwiederruflich gel&ouml;scht.', 'izioseo') ?></p>
+	<p style="margin-bottom:37px;"><a class="button rbutton" href="<?php echo str_replace('&reset', '', $_SERVER['REQUEST_URI']) ?><?php if (!isset($_GET['truncate'])) : ?>&amp;truncate<?php endif; ?>" onclick="return confirm('<?php _e('Wollen Sie wirklich alle gesammelten Daten der Statistik l&ouml;schen?', 'izioseo') ?>');"><?php _e('Statistik zur&uuml;cksetzen', 'izioseo') ?></a></p>
 	<h3><?php echo $this->helpButton('Standardeinstellungen laden') ?> <?php _e('Standardeinstellungen laden', 'izioseo') ?></h3>
 	<p><?php _e('Laden Sie die Standardeinstellungen von izioSEO und setzen Sie somit alle gespeicherten Einstellungen von izioSEO zur&uuml;ck. <strong>Hinweis:</strong> Durch den Aufruf dieser Funktion gehen alle bisher gespeicherten Einstellungen verloren.', 'izioseo') ?></p>
-	<p style="margin-bottom:30px;"><a class="button rbutton" href="<?php echo $_SERVER['REQUEST_URI'] ?><?php if (!isset($_GET['reset'])) : ?>&amp;reset<?php endif; ?>"><?php _e('Standardeinstellungen laden', 'izioseo') ?></a></p>
+	<p style="margin-bottom:30px;"><a class="button rbutton" href="<?php echo str_replace('&truncate', '', $_SERVER['REQUEST_URI']) ?><?php if (!isset($_GET['reset'])) : ?>&amp;reset<?php endif; ?>" onclick="return confirm('<?php _e('Wollen Sie wirklich die Einstellungen von izioSEO zur&uuml;cksetzen?', 'izioseo') ?>');"><?php _e('Standardeinstellungen laden', 'izioseo') ?></a></p>
 </div>

@@ -4,71 +4,20 @@
 Plugin Name: izioSEO
 Plugin URI: http://www.goizio.com/izioseo/
 Description: Ein umfangreiches Plugin zur Suchmaschinenoptimierung f&uuml;r Wordpress. Einfache "on-the-fly" SEO-L&ouml;sung mit vielen m&ouml;glichen <a href="options-general.php?page=izioseo/izioseo.php">Einstellungen</a>.
-Version: 1.1.2
+Version: 1.1.3
 Author: Mathias 'United20' Schmidt
 Author URI: http://www.goizio.com/
 */
-
-/**
- * Options erstellen
- */
-add_option('izioseo_log', 'on', 'Logs aktivieren/deaktivieren', 'yes');
-add_option('izioseo_rewrite_titles', 'on', 'Umschreiben der Seitentitel', 'yes');
-add_option('izioseo_title', '', 'Titel fuer die Startseite und als standard Titel', 'yes');
-add_option('izioseo_keywords', '', 'Hauptkeywords fuer die Startseite und als standard Keywords', 'yes');
-add_option('izioseo_description', '', 'Beschreibung fuer die Startseite und als standard Beschreibung', 'yes');
-add_option('izioseo_analytics_type', 'urchin', 'Typ des Google Analytics Tracking Codes (urchin = alter Code, ga = neuer Code)', 'yes');
-add_option('izioseo_analytics_tracking_id', '', 'Google Analytics Tracking ID', 'yes');
-add_option('izioseo_wptools', '', 'Google Webmastertools Identifikations ID', 'yes');
-add_option('izioseo_google_adsection', 'on', 'Relevante Bereiche fuer Google AdSense markieren', 'yes');
-add_option('izioseo_noindex_rssfeed', 'on', 'RSS Feeds nicht fuer Suchmaschinen indizieren', 'yes');
-add_option('izioseo_collect_keywords', 'off', 'Generierte Keywords in eine seperate Datei speichern', 'yes');
-add_option('izioseo_lenght_description_min', '100', 'Minimale Laenge der META-Beschreibung', 'yes');
-add_option('izioseo_lenght_description', '170', 'Maximale Laenge der META-Beschreibung', 'yes');
-add_option('izioseo_lenght_keywords', '6', 'Anzahl der maximalen Keywords', 'yes');
-add_option('izioseo_use_default', 'generate', 'Was soll als default Werte verwendet werden (none = META-Tags werden weggelassen, generate = META-Tags werden aus Text und Tags generiert, default = die Werte fuer die Startseite)', 'yes');
-add_option('izioseo_use_tags', 'off', 'Tags fuer Keywords mit einbeziehen', 'yes');
-add_option('izioseo_use_categories', 'off', 'Kategoriename fuer Keywords mit einbeziehen', 'yes');
-add_option('izioseo_use_referers', 'off', 'Bezieht in die Generierung der Keywords den Referer mit ein', 'yes');
-add_option('izioseo_format_title_post', '%post_title% - %blog_title%', 'Formatierung des Titels fuer einen Artikel', 'yes');
-add_option('izioseo_format_title_page', '%page_title% - %blog_title%', 'Formatierung des Titels fuer eine Seite', 'yes');
-add_option('izioseo_format_title_search', 'Suchergebnisse zu %search% - %blog_title%', 'Formatierung des Titels fuer Suchergebnisse', 'yes');
-add_option('izioseo_format_title_category', '%category_title% - %blog_title%', 'Formatierung des Titels fuer eine Kategorie', 'yes');
-add_option('izioseo_format_title_paged', ' - Seite %page%', 'Formatierung des zusaetzlichen Titels fuer Seitenzahlen', 'yes');
-add_option('izioseo_format_title_tag', '%tag% - %blog_title%', 'Formatierung des Titels fuer einen Tag', 'yes');
-add_option('izioseo_format_title_archive', '%date% - %blog_title%', 'Formatierung des Titels fuer eine Archivseite', 'yes');
-add_option('izioseo_format_title_404', 'Seite %request_words% wurde nicht gefunden - %blog_title%', 'Formatierung des Titels fuer die 404 Fehlerseite', 'yes');
-add_option('izioseo_format_description', '%description%', 'Formatierung der META-Beschreibung.', 'yes');
-add_option('izioseo_robots_home', 'index,follow', 'META-Robots fuer den Blog', 'yes');
-add_option('izioseo_robots_post', 'index,follow', 'META-Robots fuer einen Artikel', 'yes');
-add_option('izioseo_robots_page', 'index,follow', 'META-Robots fuer eine Seite', 'yes');
-add_option('izioseo_robots_search', 'noindex,follow', 'META-Robots fuer die Suchergebnissseiten ', 'yes');
-add_option('izioseo_robots_category', 'noindex,follow', 'META-Robots fuer eine Kategorie', 'yes');
-add_option('izioseo_robots_archive', 'noindex,follow', 'META-Robots fuer eine Archivseite', 'yes');
-add_option('izioseo_robots_tag', 'noindex,follow', 'META-Robots fuer einen Tag', 'yes');
-add_option('izioseo_robots_404', 'noindex,follow', 'META-Robots fuer die 404 Fehlerseite', 'yes');
-add_option('izioseo_robots_noodp', 'off', 'META-Robots fuer das Open Directory Project', 'yes');
-add_option('izioseo_nofollow_categories', 'off', 'Kategorieauflistung auf nofollow setzen', 'yes');
-add_option('izioseo_nofollow_bookmarks', 'off', 'Blogroll auf nofollow setzen', 'yes');
-add_option('izioseo_nofollow_tags', 'off', 'Tagcloud auf nofollow setzen', 'yes');
-add_option('izioseo_redirect_permalink', 'on', '301-Weiterleitung verwenden bei geanderten Permalinks', 'yes');
-add_option('izioseo_image_use', 'on', 'Suchmaschinenfreundliche Bilder verwenden', 'yes');
-add_option('izioseo_image_alt', '%image_title% in %post_title%', 'Formatierung des alt-Textes eines Bildes', 'yes');
-add_option('izioseo_anonym_content_link', 'off', 'Alle externen Contentlinks anonymisieren.', 'yes');
-add_option('izioseo_anonym_comment_link', 'off', 'Alle externen Commentlinks anonymisieren.', 'yes');
-add_option('izioseo_anonym_bookmark_link', 'off', 'Alle externen Links der Blogroll anonymisieren.', 'yes');
-
-/**
- * Statusvariablen
- */
-add_option('__izioseo_firstrun_v11', 'on', 'izioSEO v1.1 wurde noch nie ausgefuehrt', 'yes');
-add_option('__izioseo_firstrun_v112', 'on', 'izioSEO v1.1.2 wurde noch nie ausgefuehrt', 'yes');
-add_option('__izioseo_reset_export', '0', 'Datum des letzten Exports', 'yes');
 
 /*
  * Initialisieren der Klasse
  */
 $izioseo = new izioSEO();
+
+/**
+ * Einstellungen fuer das Plugin setzen
+ */
+$izioseo->activate();
 
 /**
  * Action-Hooks setzen
@@ -77,29 +26,32 @@ if (isset($_GET['goto']) && preg_match('/^[a-zA-Z0-9]{32}$/', $_GET['goto']))
 {
 	add_action('init', array($izioseo, 'redirectLink'), 1);
 }
-if (isset($_GET['export']) && isset($_GET['page']) && $_GET['page'] == 'reset')
+if (preg_match('!wp\-admin!', $_SERVER['PHP_SELF']))
 {
-	add_action('init', array($izioseo, 'exportOptions'), 1);
-}
-if (isset($_GET['export']) && $_GET['export'] == 'keywords-csv' && isset($_GET['page']) && $_GET['page'] == 'statistic')
-{
-	add_action('init', array($izioseo, 'exportKeywords'), 1);
-}
-if (isset($_GET['export']) && $_GET['export'] == 'request-csv' && isset($_GET['page']) && $_GET['page'] == 'statistic')
-{
-	add_action('init', array($izioseo, 'exportRequests'), 1);
-}
-if (isset($_GET['export']) && $_GET['export'] == 'referer-csv' && isset($_GET['page']) && $_GET['page'] == 'statistic')
-{
-	add_action('init', array($izioseo, 'exportReferers'), 1);
-}
-if (isset($_GET['export']) && $_GET['export'] == 'links-csv' && isset($_GET['page']) && $_GET['page'] == 'statistic')
-{
-	add_action('init', array($izioseo, 'exportLinks'), 1);
-}
-if (isset($_GET['flash']) && isset($_GET['page']) && $_GET['page'] == 'statistic')
-{
-	add_action('init', array($izioseo, 'flashData'), 1);
+	if (isset($_GET['export']) && isset($_GET['page']) && $_GET['page'] == 'reset')
+	{
+		add_action('init', array($izioseo, 'exportOptions'), 1);
+	}
+	if (isset($_GET['export']) && $_GET['export'] == 'keywords-csv' && isset($_GET['page']) && $_GET['page'] == 'statistic')
+	{
+		add_action('init', array($izioseo, 'exportKeywords'), 1);
+	}
+	if (isset($_GET['export']) && $_GET['export'] == 'request-csv' && isset($_GET['page']) && $_GET['page'] == 'statistic')
+	{
+		add_action('init', array($izioseo, 'exportRequests'), 1);
+	}
+	if (isset($_GET['export']) && $_GET['export'] == 'referer-csv' && isset($_GET['page']) && $_GET['page'] == 'statistic')
+	{
+		add_action('init', array($izioseo, 'exportReferers'), 1);
+	}
+	if (isset($_GET['export']) && $_GET['export'] == 'links-csv' && isset($_GET['page']) && $_GET['page'] == 'statistic')
+	{
+		add_action('init', array($izioseo, 'exportLinks'), 1);
+	}
+	if (isset($_GET['flash']) && isset($_GET['page']) && $_GET['page'] == 'statistic')
+	{
+		add_action('init', array($izioseo, 'flashData'), 1);
+	}
 }
 if (get_option('izioseo_redirect_permalink', true) == 'on')
 {
@@ -142,10 +94,13 @@ if (get_option('izioseo_nofollow_tags') == 'on')
 {
 	add_filter('wp_generate_tag_cloud', array($izioseo, 'setNofollowLinks'));
 }
-add_filter('the_content', array($izioseo, 'anonymContentLinks'), 1000000);
-add_filter('comment_author_link', array($izioseo, 'anonymCommentLinks'), 1000000);
-add_filter('comment_text', array($izioseo, 'anonymCommentLinks'), 1000000);
-add_filter('wp_list_bookmarks', array($izioseo, 'anonymBookmarkLinks'), 1000000);
+if (!preg_match('!wp\-admin!', $_SERVER['PHP_SELF']))
+{
+	add_filter('the_content', array($izioseo, 'anonymContentLinks'), 1000000);
+	add_filter('comment_author_link', array($izioseo, 'anonymCommentLinks'), 1000000);
+	add_filter('comment_text', array($izioseo, 'anonymCommentLinks'), 1000000);
+	add_filter('wp_list_bookmarks', array($izioseo, 'anonymBookmarkLinks'), 1000000);
+}
 
 /**
  * Umlaute aus URL's entfernen
@@ -166,7 +121,7 @@ class izioSEO
 	 *
 	 * @var string
 	 */
-	var $version = '1.1.2';
+	var $version = '1.1.3';
 
 	/**
 	 * Website von izioSEO
@@ -376,6 +331,64 @@ class izioSEO
 	}
 
 	/**
+	 * Optionen beim aktiveren des Plugins erstellen
+	 */
+	function activate()
+	{
+		// Options erstellen
+		add_option('izioseo_log', 'on', 'Logs aktivieren/deaktivieren', 'yes');
+		add_option('izioseo_rewrite_titles', 'on', 'Umschreiben der Seitentitel', 'yes');
+		add_option('izioseo_title', '', 'Titel fuer die Startseite und als standard Titel', 'yes');
+		add_option('izioseo_keywords', '', 'Hauptkeywords fuer die Startseite und als standard Keywords', 'yes');
+		add_option('izioseo_description', '', 'Beschreibung fuer die Startseite und als standard Beschreibung', 'yes');
+		add_option('izioseo_analytics_type', 'urchin', 'Typ des Google Analytics Tracking Codes (urchin = alter Code, ga = neuer Code)', 'yes');
+		add_option('izioseo_analytics_tracking_id', '', 'Google Analytics Tracking ID', 'yes');
+		add_option('izioseo_wptools', '', 'Google Webmastertools Identifikations ID', 'yes');
+		add_option('izioseo_google_adsection', 'on', 'Relevante Bereiche fuer Google AdSense markieren', 'yes');
+		add_option('izioseo_noindex_rssfeed', 'on', 'RSS Feeds nicht fuer Suchmaschinen indizieren', 'yes');
+		add_option('izioseo_collect_keywords', 'off', 'Generierte Keywords in eine seperate Datei speichern', 'yes');
+		add_option('izioseo_lenght_description_min', '100', 'Minimale Laenge der META-Beschreibung', 'yes');
+		add_option('izioseo_lenght_description', '170', 'Maximale Laenge der META-Beschreibung', 'yes');
+		add_option('izioseo_lenght_keywords', '6', 'Anzahl der maximalen Keywords', 'yes');
+		add_option('izioseo_use_default', 'generate', 'Was soll als default Werte verwendet werden (none = META-Tags werden weggelassen, generate = META-Tags werden aus Text und Tags generiert, default = die Werte fuer die Startseite)', 'yes');
+		add_option('izioseo_use_tags', 'off', 'Tags fuer Keywords mit einbeziehen', 'yes');
+		add_option('izioseo_use_categories', 'off', 'Kategoriename fuer Keywords mit einbeziehen', 'yes');
+		add_option('izioseo_use_referers', 'off', 'Bezieht in die Generierung der Keywords den Referer mit ein', 'yes');
+		add_option('izioseo_format_title_post', '%post_title% - %blog_title%', 'Formatierung des Titels fuer einen Artikel', 'yes');
+		add_option('izioseo_format_title_page', '%page_title% - %blog_title%', 'Formatierung des Titels fuer eine Seite', 'yes');
+		add_option('izioseo_format_title_search', 'Suchergebnisse zu %search% - %blog_title%', 'Formatierung des Titels fuer Suchergebnisse', 'yes');
+		add_option('izioseo_format_title_category', '%category_title% - %blog_title%', 'Formatierung des Titels fuer eine Kategorie', 'yes');
+		add_option('izioseo_format_title_paged', ' - Seite %page%', 'Formatierung des zusaetzlichen Titels fuer Seitenzahlen', 'yes');
+		add_option('izioseo_format_title_tag', '%tag% - %blog_title%', 'Formatierung des Titels fuer einen Tag', 'yes');
+		add_option('izioseo_format_title_archive', '%date% - %blog_title%', 'Formatierung des Titels fuer eine Archivseite', 'yes');
+		add_option('izioseo_format_title_404', 'Seite %request_words% wurde nicht gefunden - %blog_title%', 'Formatierung des Titels fuer die 404 Fehlerseite', 'yes');
+		add_option('izioseo_format_description', '%description%', 'Formatierung der META-Beschreibung.', 'yes');
+		add_option('izioseo_robots_home', 'index,follow', 'META-Robots fuer den Blog', 'yes');
+		add_option('izioseo_robots_post', 'index,follow', 'META-Robots fuer einen Artikel', 'yes');
+		add_option('izioseo_robots_page', 'index,follow', 'META-Robots fuer eine Seite', 'yes');
+		add_option('izioseo_robots_search', 'noindex,follow,noarchive', 'META-Robots fuer die Suchergebnissseiten ', 'yes');
+		add_option('izioseo_robots_category', 'noindex,follow,noarchive', 'META-Robots fuer eine Kategorie', 'yes');
+		add_option('izioseo_robots_archive', 'noindex,follow,noarchive', 'META-Robots fuer eine Archivseite', 'yes');
+		add_option('izioseo_robots_tag', 'noindex,follow,noarchive', 'META-Robots fuer einen Tag', 'yes');
+		add_option('izioseo_robots_404', 'noindex,follow,noarchive', 'META-Robots fuer die 404 Fehlerseite', 'yes');
+		add_option('izioseo_robots_noodp', 'off', 'META-Robots fuer das Open Directory Project', 'yes');
+		add_option('izioseo_nofollow_categories', 'on', 'Kategorieauflistung auf nofollow setzen', 'yes');
+		add_option('izioseo_nofollow_bookmarks', 'on', 'Blogroll auf nofollow setzen', 'yes');
+		add_option('izioseo_nofollow_tags', 'off', 'Tagcloud auf nofollow setzen', 'yes');
+		add_option('izioseo_redirect_permalink', 'on', '301-Weiterleitung verwenden bei geanderten Permalinks', 'yes');
+		add_option('izioseo_image_use', 'on', 'Suchmaschinenfreundliche Bilder verwenden', 'yes');
+		add_option('izioseo_image_alt', '%image_title% in %post_title%', 'Formatierung des alt-Textes eines Bildes', 'yes');
+		add_option('izioseo_anonym_content_link', 'off', 'Alle externen Contentlinks anonymisieren.', 'yes');
+		add_option('izioseo_anonym_comment_link', 'off', 'Alle externen Commentlinks anonymisieren.', 'yes');
+		add_option('izioseo_anonym_bookmark_link', 'off', 'Alle externen Links der Blogroll anonymisieren.', 'yes');
+		
+		// Statusvariablen
+		add_option('__izioseo_firstrun_v11', 'on', 'izioSEO v1.1 wurde noch nie ausgefuehrt', 'yes');
+		add_option('__izioseo_firstrun_v112', 'on', 'izioSEO v1.1.2 wurde noch nie ausgefuehrt', 'yes');
+		add_option('__izioseo_reset_export', '0', 'Datum des letzten Exports', 'yes');
+	}
+
+	/**
 	 * initialisieren des Datenbankobjektes
 	 */
 	function initWpDB()
@@ -409,6 +422,17 @@ class izioSEO
 	function delete($table, $where)
 	{
 		return $this->query('DELETE FROM ' . $table . ' WHERE ' . $where);
+	}
+
+	/**
+	 * Leeren einer Datenbanktabelle
+	 *
+	 * @param string $table
+	 * @return integer
+	 */
+	function emptyTable($table)
+	{
+		return $this->query('TRUNCATE ' . $table);
 	}
 
 	/**
@@ -1220,7 +1244,7 @@ class izioSEO
 		$text = str_replace('&nbsp;', ' ', $text);
 		$text = str_replace("\r\n", ' ', $text);
 		$text = str_replace("\n", ' ', $text);
-		$text = preg_replace('/[^0-9a-zA-Z-&.,;:#!?\/\' \x80-\xFF]/', ' ', $text);
+		$text = preg_replace('/[^0-9a-zA-Z-&.,;:\(\)#!?\/\' \x80-\xFF]/', ' ', $text);
 		$text = preg_replace('/\s\s+/', ' ', $text);
 		$text = str_replace(' . ', '. ', $text);
 		return trim($text);
@@ -2505,6 +2529,11 @@ class izioSEO
 		{
 			$message = 'success reset';
 		}
+		// Statistik loeschen
+		if (isset($_GET['truncate']) && $this->deleteStatistic())
+		{
+			$message = 'success truncate';
+		}
 
 		require_once (dirname(__FILE__) . '/templates/' . $this->template . '/reset.tpl.php');
 	}
@@ -2950,7 +2979,7 @@ class izioSEO
 	 */
 	function helpButton($name)
 	{
-		$url = trim($this->website, '/') . '/dokumentation/' . $this->convertToUrlName($name . 'äöü') . '/';
+		$url = trim($this->website, '/') . '/dokumentation/' . $this->convertToUrlName($name) . '/';
 		return '<a href="' . $url . '"><img src="' . $this->images . 'help.png" alt="' . $name . '" height="12" width="12" /></a>';
 	}
 
@@ -3150,6 +3179,19 @@ class izioSEO
 	}
 
 	/**
+	 * loescht alle Statistiken
+	 *
+	 * @return boolean
+	 */
+	function deleteStatistic()
+	{
+		$this->emptyTable('#izioseo_anonym_links');
+		$this->emptyTable('#izioseo_referers');
+		$this->emptyTable('#izioseo_referers_keywords');
+		return true;
+	}
+
+	/**
 	 * exportieren der Keywords als CSV-Datei
 	 */
 	function exportKeywords()
@@ -3217,7 +3259,7 @@ class izioSEO
 		foreach ($keywords as $keyword)
 		{
 			$keyword = str_replace(';', '', $keyword);
-			$csv .= implode(';', $keyword) . ";\n";
+			$csv .= stripslashes(implode(';', $keyword)) . ";\n";
 		}
 
 		@ob_end_clean();
