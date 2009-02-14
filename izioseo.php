@@ -2609,9 +2609,9 @@ class izioSEO
 			'noindex,nofollow,noarchive'
 		);
 		$use = array(
-			'none' => 'keine Nutzen',
-			'default' => 'Standardwerte nutzen',
-			'generate' => 'Keywords generieren'
+			'none' => __('Keine nutzen', 'izioseo'),
+			'default' => __('Standardwerte nutzen', 'izioseo'),
+			'generate' => __('Keywords generieren', 'izioseo')
 		);
 		$wpVersion = $this->wpVersion;
 		require_once (dirname(__FILE__) . '/templates/' . $this->template . '/tags.tpl.php');
