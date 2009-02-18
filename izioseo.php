@@ -4,7 +4,7 @@
 Plugin Name: izioSEO
 Plugin URI: http://www.goizio.com/izioseo/
 Description: Ein umfangreiches Plugin zur Suchmaschinenoptimierung f&uuml;r Wordpress. Einfache "on-the-fly" SEO-L&ouml;sung mit vielen m&ouml;glichen <a href="options-general.php?page=izioseo/izioseo.php">Einstellungen</a>.
-Version: 1.1.3
+Version: 1.1.4
 Author: Mathias 'United20' Schmidt
 Author URI: http://www.goizio.com/
 */
@@ -121,7 +121,7 @@ class izioSEO
 	 *
 	 * @var string
 	 */
-	var $version = '1.1.3';
+	var $version = '1.1.4';
 
 	/**
 	 * Website von izioSEO
@@ -1482,7 +1482,7 @@ class izioSEO
 							{
 								if (! in_array($tag->name, $keywords))
 								{
-									$keywords[] = $tag->name;
+									$keywords[] = utf8_decode($tag->name);
 								}
 							}
 						}
@@ -1495,7 +1495,7 @@ class izioSEO
 						{
 							if (! in_array($category->cat_name, $keywords))
 							{
-								$keywords[] = $category->cat_name;
+								$keywords[] = utf8_decode($category->cat_name);
 							}
 						}
 					}
