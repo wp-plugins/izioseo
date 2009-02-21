@@ -6,7 +6,8 @@ Requires at least: 2.6
 Tested up to: 2.7.0
 Stable tag: 1.1
 
-Das Wordpress SEO Plugin izioSEO ist ein wirkungsvolles und vollautomatisches Plugin fuer Ihren Blog, welches ohne viel Aufwand Ihren Wordpress Blog nach den Kriterien der OnPage Suchmaschinenoptimierung (SEO) optimiert.
+Das Wordpress SEO Plugin izioSEO ist ein wirkungsvolles und vollautomatisches Plugin fuer Ihren Blog, welches ohne 
+viel Aufwand Ihren Wordpress Blog nach den Kriterien der OnPage Suchmaschinenoptimierung (SEO) optimiert.
 
 == Description ==
 Sie wollen Ihren Wordpress Blog in den Suchergebnissen (SERPS) von Google und anderen Suchmaschinen besser 
@@ -20,7 +21,7 @@ Wordpress Plugin optimiert unter anderem den Seitentitel, die META-Daten, wie ME
 und die META-Robots eines Artikels oder einer Seite. Doch izioSEO kann noch weit aus mehr, als nur die Zuweisung 
 von META-Daten und Seitentitel. izioSEO besticht durch die dynamische und automatisierte Generierung der META-Tags 
 und der Seitentitel unter Verwendung einer Stopword-Liste. Diese Stopword-Liste ist frei nach Ihren Wuenschen 
-erweiterbar und anpassbar, so können Sie Ihre Keywords und Seitenbeschreibungen beliebig definieren. Ausserdem 
+erweiterbar und anpassbar, so koennen Sie Ihre Keywords und Seitenbeschreibungen beliebig definieren. Ausserdem 
 verhindert izioSEO gezielt Duplicate Content auf ihrer Website, was sich wiederum sehr positiv auf die 
 Suchmaschinenplatzierungen auswirkt. Doch dies ist nur ein Bruchteil der Funktionen, welche izioSEO besitzt. Mit 
 mehr als 50 verschiedenen Funktionen ist izioSEO schon jetzt eines der umfangreichsten SEO Plugins fuer Wordpress 
@@ -56,10 +57,10 @@ Version 1.01 vom 15.09.2008
 
  * Bugfix: UTF-8 Fehler beseitigt
  * Bugfix: Behebung einiger kleiner Fehler in der Adminoberflaeche
- * Add: wird keine META-Description extrahiert, so wird bei der Generierung der Description auf die ersten Saetze des 
-   Textes zurueckgegriffen
- * Add: zu wenige Keywords werden bei der Generierung mit den standard Keywords erweitert und auf die gewuenschte 
-   Anzahl erweitert
+ * Add: wird keine META-Description extrahiert, so wird bei der Generierung der Description auf die ersten Saetze 
+   des Textes zurueckgegriffen
+ * Add: zu wenige Keywords werden bei der Generierung mit den standard Keywords erweitert und auf die 
+   gewuenschte Anzahl erweitert
 
 Version 1.02 vom 16.10.2008
 
@@ -108,7 +109,7 @@ Version 1.1 vom 22.01.2009
  * Change: META-Robots werden bei dem Wert "index,follow" ausgeblendet
  * Change: AdSection kann nun seperat fuer einen Artikel/eine Seite de-/aktiviert werden
  * Change: Menustruktur beinhaltet als Hauptmenupunkt izioSEO
- * Change: Optionsseite wurde in die Bereiche: Uebersicht, Einstellungen, robots.txt und 
+ * Change: Optionsseite wurde in die Bereiche: Uebersicht, Einstellungen, robots.txt, Statistik und 
    Zuruecksetzen aufgeteilt
  * Add: Seitenzahl frei positionierbar im Seitentitel
  * Add: Link aus der Uebersicht der Plugins zu den Einstellungen fuer das Plugin
