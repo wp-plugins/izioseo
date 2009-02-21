@@ -16,7 +16,7 @@ Suchmaschinenoptimierung ist eine wertvolle Grundlage fuer eine hoehere und erfo
 Suchergebnissen. Durch dieses SEO Plugin haben Sie einen perfekten Ausgangspunkt fuer die oftmals schwierige 
 und langwierige OffPage Suchmaschinenoptimierung.
 
-Was bietet Ihnen izioSEO? izioSEO bietet eine solide Optimierung aller seitenspezifischer Merkmale. Dieser 
+Was bietet Ihnen izioSEO? izioSEO bietet eine solide Optimierung aller seitenspezifischer Merkmale. Das 
 Wordpress Plugin optimiert unter anderem den Seitentitel, die META-Daten, wie META-Keywords, META-Beschreibung 
 und die META-Robots eines Artikels oder einer Seite. Doch izioSEO kann noch weit aus mehr, als nur die Zuweisung 
 von META-Daten und Seitentitel. izioSEO besticht durch die dynamische und automatisierte Generierung der META-Tags 
