@@ -1631,7 +1631,7 @@ class izioSEO
 			{
 				if ($count >= 1 && ! preg_match('/^[0-9]+$/', $word) && strlen(trim($word)) >= 2)
 				{
-					$return[] = preg_replace('/[^0-9a-zA-Z-, \x80-\xFF]/', '', trim($word, ','));
+					$return[] = preg_replace('/[^0-9a-zA-Z-, \x80-\xFF]/', '', trim(utf8_decode($word), ','));
 				}
 			}
 			if (get_option('izioseo_collect_keywords') == 'on' && is_array($return))
