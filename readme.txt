@@ -6,7 +6,8 @@ Requires at least: 2.6
 Tested up to: 2.7.1
 Stable tag: 1.1.3
 
-Das Wordpress SEO Plugin izioSEO ist ein wirkungsvolles und vollautomatisches Plugin fuer Ihren Blog, welches ohne viel Aufwand Ihren Wordpress Blog nach den Kriterien der OnPage Suchmaschinenoptimierung (SEO) optimiert.
+Das Wordpress SEO Plugin izioSEO ist ein wirkungsvolles und vollautomatisches Plugin fuer Ihren Blog, welches ohne 
+viel Aufwand Ihren Wordpress Blog nach den Kriterien der OnPage Suchmaschinenoptimierung (SEO) optimiert.
 
 == Description ==
 Sie wollen Ihren Wordpress Blog in den Suchergebnissen (SERPS) von Google und anderen Suchmaschinen besser 
@@ -56,10 +57,10 @@ Version 1.01 vom 15.09.2008
 
  * Bugfix: UTF-8 Fehler beseitigt
  * Bugfix: Behebung einiger kleiner Fehler in der Adminoberflaeche
- * Add: wird keine META-Description extrahiert, so wird bei der Generierung der Description auf die ersten Saetze des 
-   Textes zurueckgegriffen
- * Add: zu wenige Keywords werden bei der Generierung mit den standard Keywords erweitert und auf die gewuenschte 
-   Anzahl erweitert
+ * Add: wird keine META-Description extrahiert, so wird bei der Generierung der Description auf die ersten Saetze 
+   des Textes zurueckgegriffen
+ * Add: zu wenige Keywords werden bei der Generierung mit den standard Keywords erweitert und auf die 
+   gewuenschte Anzahl erweitert
 
 Version 1.02 vom 16.10.2008
 
@@ -108,7 +109,7 @@ Version 1.1 vom 22.01.2009
  * Change: META-Robots werden bei dem Wert "index,follow" ausgeblendet
  * Change: AdSection kann nun seperat fuer einen Artikel/eine Seite de-/aktiviert werden
  * Change: Menustruktur beinhaltet als Hauptmenupunkt izioSEO
- * Change: Optionsseite wurde in die Bereiche: Uebersicht, Einstellungen, robots.txt und 
+ * Change: Optionsseite wurde in die Bereiche: Uebersicht, Einstellungen, robots.txt, Statistik und 
    Zuruecksetzen aufgeteilt
  * Add: Seitenzahl frei positionierbar im Seitentitel
  * Add: Link aus der Uebersicht der Plugins zu den Einstellungen fuer das Plugin
@@ -130,7 +131,7 @@ Version 1.1.1 vom 01.02.2009
  * Bugfix: Analytics wurde nicht genutzt, wenn Webmastertools nicht verwendet wurden
  * Bugfix: Optimierung der Generierung von Keywords und Description
  * Bugfix: PHP Short Open Tags wurden entfernt
- * Change: Optimierung von des Referer-Trackings
+ * Change: Optimierung des Referer-Trackings
  * Remove: noydir-Tag wurde entfernt
  * Add: Umlaute werden fuer URL's richtig umgewandelt
 
