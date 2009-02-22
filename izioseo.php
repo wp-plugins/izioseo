@@ -2750,7 +2750,7 @@ class izioSEO
 	}
 
 	/**
-	 * Setzt alle Links des Strings auf nofollow (RegEx und Callback bei Ronald Kirschler <ronald.kirschler@absofort.de>)
+	 * Setzt alle Links des Strings auf nofollow
 	 *
 	 * @param string $content
 	 * @return string
