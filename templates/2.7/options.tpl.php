@@ -96,15 +96,6 @@
 						</div>
 					</td>
 				</tr>
-				<tr>
-					<th scope="row"><?php echo $this->helpButton('Log-System') ?> <label for="izioseo_log"><?php _e('Log-System aktivieren', 'izioseo') ?></label></th>
-					<td>
-						<input type="checkbox" name="izioseo[izioseo_log]" id="izioseo_log"<?php if ($data['izioseo_log'] == 'on') : ?> checked<?php endif; ?> />
-						<div style="text-align:justify;">
-							<?php _e('Log-System aktivieren um Fehler mit anderen Plugins aufzusp&uuml;ren.', 'izioseo'); ?>
-						</div>
-					</td>
-				</tr>
 			</tbody>
 		</table>
 		<h3><?php echo _e('Generierung der META-Angaben', 'izioseo') ?></h3>

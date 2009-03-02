@@ -5,36 +5,6 @@
 		<div class="metabox-holder">
 			<div class="inner-sidebar">
 				<div class="meta-box-sortables ui-sortable" style="position: relative;">
-					<?php if (count($messages)) : ?>
-						<div class="postbox">
-							<h3><?php _e('Fehler/Hinweis', 'izioseo') ?></h3>
-							<div class="inside">
-								<p style="margin:12px; text-align:justify;"><?php echo $this->helpButton('Fehlermeldungen') ?> <?php _e('Es traten Fehler beim Aufruf von Wordpress auf. Verwenden Sie die folgende Liste, um die Fehler zu lokalisieren:', 'izioseo') ?></p>
-								<ul style="margin:12px;">
-									<?php foreach($messages as $message) : ?>
-										<?php
-											switch($message['type'])
-											{
-												case 'error':
-													$color = '#f00';
-													break;
-												case 'attention':
-													$color = '#21759b';
-													break;
-												case 'warning':
-													$color = '#ff6600';
-													break;
-												default:
-													$color = '#000';
-											}
-										?>
-										<li style="color:<?php echo $color ?>; font-size:10px;"><strong><?php echo date('d.m.Y, H:i:s', $message['timestamp']) ?></strong> <?php echo $message['msg'] ?></li>
-									<?php endforeach; ?>
-								</ul>
-								<p style="clear:both;"></p>
-							</div>
-						</div>
-					<?php endif; ?>
 					<div class="postbox">
 						<h3><?php _e('Linkdiagnosis', 'izioseo') ?></h3>
 						<div class="inside">
@@ -58,23 +28,10 @@
 									</tr>
 									<tr>
 										<td style="margin-right: 12px;"><?php _e('AlexaRank', 'izioseo') ?></td>
-										<td style="color:#21759b; font-size:18px; font-family:Georgia,Times New Roman,Bitstream Charter,Times,serif; text-align:right;"><?php echo $this->getAlexaRank() ?></td>
+										<td style="color:#21759b; font-size:18px; font-family:Georgia,Times New Roman,Bitstream Charter,Times,serif; text-align:right;"><?php echo $this->alexaRank() ?></td>
 									</tr>
 								</table>
 							</div>
-						</div>
-					</div>
-					<div class="postbox">
-						<h3><?php _e('Schnellhilfe', 'izioseo') ?></h3>
-						<div class="inside">
-							<form method="post" action="<?php echo $this->website ?>">
-								<p style="margin:12px; text-align:justify;"><?php _e('Sie wollen mehr &uuml;ber eine Funktion von izioSEO wissen. &Uuml;ber das Eingabefeld durchsuchen Sie die Dokumentation nach relevanten Themen.', 'izioseo') ?></p>
-								<p style="text-align:center; width:100%;">
-									<input type="text" name="s" onblur="if (this.value == '') this.value='<?php _e('Suchbegriff', 'izioseo') ?>';" onfocus="if (this.value == '<?php _e('Suchbegriff', 'izioseo') ?>') this.value='';" value="<?php _e('Suchbegriff', 'izioseo') ?>" />
-									<input class="button-primary" type="submit" value="<?php _e('Suchen', 'izioseo') ?>" />
-								</p>
-								<p style="clear:both;"></p>
-							</form>
 						</div>
 					</div>
 				</div>
@@ -86,7 +43,7 @@
 							<h3><?php _e('&Uuml;bersicht', 'izioseo') ?></h3>
 							<div class="inside">
 								<p style="margin:12px; text-align:justify;">
-									<?php printf(__('Das Wordpress SEO Plugin izioSEO ist ein vollautomatisches Plugin zur OnPage-Suchmaschinenoptimierung. Sie benutzen <a href="http://www.goizio.com/">izioSEO Version %s</a> mit <a href="http://www.wordpres.org/">Wordpress Version %s</a>.', 'izioseo'), $this->version, $this->wpVersion) ?>
+									<?php printf(__('Das Wordpress SEO Plugin izioSEO ist ein vollautomatisches Plugin zur OnPage-Suchmaschinenoptimierung. Sie benutzen <a href="http://www.goizio.com/">izioSEO Version %s</a> mit <a href="http://www.wordpres.org/">Wordpress Version %s</a>.', 'izioseo'), $this->version, $this->wpv) ?>
 									<?php $this->newVersion() ?>
 								</p>
 								<p style="clear:both;"></p>

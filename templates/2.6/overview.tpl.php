@@ -6,7 +6,7 @@
 			<br class="clear"/>
 		</h3>
 		<p class="youhave">
-			<?php printf(__('Das Wordpress SEO Plugin izioSEO ist ein vollautomatisches Plugin zur OnPage-Suchmaschinenoptimierung. Sie benutzen <a href="http://www.goizio.com/">izioSEO Version %s</a> mit <a href="http://www.wordpres.org/">Wordpress Version %s</a>.', 'izioseo'), $this->version, $this->wpVersion) ?>
+			<?php printf(__('Das Wordpress SEO Plugin izioSEO ist ein vollautomatisches Plugin zur OnPage-Suchmaschinenoptimierung. Sie benutzen <a href="http://www.goizio.com/">izioSEO Version %s</a> mit <a href="http://www.wordpres.org/">Wordpress Version %s</a>.', 'izioseo'), $this->version, $this->wpv) ?>
 			<?php $this->newVersion() ?>
 		</p>
 		<p class="youare">
@@ -25,7 +25,7 @@
 				<?php else : ?>
 					<input name="submit" class="button-primary" type="submit" style="margin-top:12px;" value="<?php _e('Jetzt spenden', 'izioseo') ?>" />
 				<?php endif; ?>
-				<img src="https://www.paypal.com/de_DE/i/scr/pixel.gif" alt="" width="1" border="0" height="1"><br>
+				<img src="https://www.paypal.com/de_DE/i/scr/pixel.gif" alt="" width="1" border="0" height="1"><br />
 			</p>
 			<p style="float:left; width:85%; text-align:justify;"><?php _e('Sie finden izioSEO super gelungen und m&ouml;chten helfen weitere Features und Funktionen f&uuml;r dieses Wordpress Plugin umzusetzen. Dann <a href="http://www.goizio.com/kontakt/">sagen</a> Sie uns ihre W&uuml;nsche und Vorschl&auml;ge f&uuml;r izioSEO. Und spenden Sie uns den Betrag, wie Sie meinen, was izioSEO Ihnen wert ist!'); ?></p>
 			<p style="clear:both;"></p>
@@ -52,7 +52,7 @@
 							</tr>
 							<tr>
 								<td style="font-size:13px; margin-right: 12px;"><?php _e('AlexaRank', 'izioseo') ?></td>
-								<td style="color:#2583ad; font-size:13px; font-weight:bold; text-align:right;"><?php echo $this->getAlexaRank() ?></td>
+								<td style="color:#2583ad; font-size:13px; font-weight:bold; text-align:right;"><?php echo $this->alexaRank() ?></td>
 							</tr>
 						</table>
 					</div>
@@ -96,59 +96,6 @@
 				</div>
 			</div>
 		<?php endif; ?>
-		<?php if (count($messages)) : ?>
-			<div class="dashboard-widget-holder widget_rss wp_dashboard_empty" style="width:475px; margin:10px 0px 5px 0px;">
-				<div class="dashboard-widget" style="margin-right:0px;">
-					<h3 class="dashboard-widget-title">
-						<span><?php _e('Fehler/Hinweis', 'izioseo') ?></span>
-						<br class="clear">
-					</h3>
-					<div class="dashboard-widget-content">
-						<p style="text-align:justify; font-size:13px;"><?php echo $this->helpButton('Fehlermeldungen') ?> <?php _e('Es traten Fehler beim Aufruf von Wordpress auf. Verwenden Sie die folgende Liste, um die Fehler zu lokalisieren:', 'izioseo') ?></p>
-						<ul>
-							<?php foreach($messages as $message) : ?>
-								<?php
-									switch($message['type'])
-									{
-										case 'error':
-											$color = '#f00';
-											break;
-										case 'attention':
-											$color = '#21759b';
-											break;
-										case 'warning':
-											$color = '#ff6600';
-											break;
-										default:
-											$color = '#000';
-									}
-								?>
-								<li style="color:<?php echo $color ?>; font-size:10px;"><strong><?php echo date('d.m.Y, H:i:s', $message['timestamp']) ?></strong> <?php echo $message['msg'] ?></li>
-							<?php endforeach; ?>
-						</ul>
-					</div>
-				</div>
-			</div>
-		<?php endif; ?>
-		<br class="clear" />
-		<div class="dashboard-widget-holder widget_rss wp_dashboard_empty" style="width:495px; margin:10px 0px 5px 16px;">
-			<div class="dashboard-widget" style="height: 170px;">
-				<h3 class="dashboard-widget-title">
-					<span><?php _e('Schnellhilfe', 'izioseo') ?></span>
-					<br class="clear">
-				</h3>
-				<div class="dashboard-widget-content">
-					<form method="post" action="<?php echo $this->website ?>">
-						<p style="font-size:13px; text-align:justify;"><?php _e('Sie wollen mehr &uuml;ber eine Funktion von izioSEO wissen. &Uuml;ber das Eingabefeld durchsuchen Sie die Dokumentation nach relevanten Themen.', 'izioseo') ?></p>
-						<p style="text-align:center; width:100%;">
-							<input type="text" name="s" onblur="if (this.value == '') this.value='<?php _e('Suchbegriff', 'izioseo') ?>';" onfocus="if (this.value == '<?php _e('Suchbegriff', 'izioseo') ?>') this.value='';" value="<?php _e('Suchbegriff', 'izioseo') ?>" />
-							<input class="button-primary" type="submit" value="<?php _e('Suchen', 'izioseo') ?>" />
-						</p>
-						<p style="clear:both;"></p>
-					</form>
-				</div>
-			</div>
-		</div>
 	</div>
 	<br class="clear" />
 </div>

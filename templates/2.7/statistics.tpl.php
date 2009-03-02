@@ -84,7 +84,7 @@
 									<?php foreach ($stats->getRequests($nr) as $key => $referer) : ?>
 										<tr>
 											<td style="width:18px;"><a href="<?php echo $referer['referer_url'] ?>"><img src="<?php echo $this->images ?>folder.png" alt="<?php _e('Suchanfrage aufrufen', 'izioseo') ?>" height="16" width="16" /></a></td>
-											<td style="margin-right: 12px;"><?php echo stripslashes($this->truncate($referer['referer_request'], 60, 'h')) ?></td>
+											<td style="margin-right: 12px;"><?php echo $this->truncate($referer['referer_request'], 60, 'h') ?></td>
 											<td style="color:#21759b; font-size:18px; font-family:Georgia,Times New Roman,Bitstream Charter,Times,serif; text-align:right;"><?php echo $referer['referer_count'] ?></td>
 										</tr>
 									<?php endforeach; ?>

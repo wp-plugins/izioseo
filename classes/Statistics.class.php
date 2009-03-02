@@ -20,64 +20,8 @@ class Statistics
 	 */
 	function Statistics()
 	{
-		$this->initWpDB();
-	}
-
-	/**
-	 * initialisieren des Datenbankobjektes
-	 */
-	function initWpDB()
-	{
-		global $wpdb;
-		if (! defined('DB_PREFIX'))
-		{
-			define('DB_PREFIX', $wpdb->prefix);
-		}
-		$this->db = $wpdb;
-	}
-
-	/**
-	 * fuehrt einen MySQL-Query aus
-	 *
-	 * @param string $query
-	 * @return ressource
-	 */
-	function query($query)
-	{
-		return $this->db->query($this->replacePrefix($query));
-	}
-
-	/**
-	 * gibt die Resultate eines Queries zurueck
-	 *
-	 * @param string $query
-	 * @return array
-	 */
-	function fetchResults($query)
-	{
-		return $this->db->get_results($this->replacePrefix($query));
-	}
-
-	/**
-	 * gibt einen Wert eines Queries zurueck
-	 *
-	 * @param string $query
-	 * @return mixed
-	 */
-	function fetchOne($query)
-	{
-		return $this->db->get_var($this->replacePrefix($query));
-	}
-
-	/**
-	 * ersetzen des Platzhalters # in einem Query
-	 *
-	 * @param string $query
-	 * @return string
-	 */
-	function replacePrefix($query)
-	{
-		return str_replace('#', DB_PREFIX, $query);
+		require_once(dirname(__FILE__) . '/DB.class.php');
+		$this->db = new DB();
 	}
 
 	/**
@@ -88,7 +32,7 @@ class Statistics
 	function getSearchengines()
 	{
 		$all = $this->numReferers('searchengines');
-		$res = $this->fetchResults('SELECT referer_searchengine, COUNT(referer_id) AS referer_searchengine_count FROM #izioseo_referers GROUP BY referer_searchengine ORDER BY referer_searchengine_count DESC, referer_searchengine ASC');
+		$res = $this->db->fetchResults('SELECT referer_searchengine, COUNT(referer_id) AS referer_searchengine_count FROM #izioseo_referers GROUP BY referer_searchengine ORDER BY referer_searchengine_count DESC, referer_searchengine ASC');
 		$data = array();
 		foreach ($res as $se)
 		{
@@ -117,7 +61,7 @@ class Statistics
 		{
 			$where = ' WHERE referer_searchengine=""';
 		}
-		$num = $this->fetchOne('SELECT COUNT(referer_id) FROM #izioseo_referers' . $where);
+		$num = $this->db->fetchOne('SELECT COUNT(referer_id) FROM #izioseo_referers' . $where);
 		if (empty($num))
 		{
 			return 0;
@@ -132,7 +76,7 @@ class Statistics
 	 */
 	function numKeywords()
 	{
-		return $this->fetchOne('SELECT COUNT(DISTINCT referer_keyword) FROM #izioseo_referers_keywords');
+		return $this->db->fetchOne('SELECT COUNT(DISTINCT referer_keyword) FROM #izioseo_referers_keywords');
 	}
 
 	/**
@@ -144,7 +88,7 @@ class Statistics
 	function getRequests($limit = 100)
 	{
 		$return = array();
-		$res = $this->fetchResults('SELECT referer_request, referer_url, COUNT(referer_url) AS referer_count FROM #izioseo_referers WHERE referer_searchengine!="" AND referer_request!="" GROUP BY referer_url ORDER BY referer_count DESC' . ($limit ? ' LIMIT ' . addslashes($limit) : ''));
+		$res = $this->db->fetchResults('SELECT referer_request, referer_url, COUNT(referer_url) AS referer_count FROM #izioseo_referers WHERE referer_searchengine!="" AND referer_request!="" GROUP BY referer_url ORDER BY referer_count DESC' . ($limit ? ' LIMIT ' . addslashes($limit) : ''));
 		foreach ($res as $entry)
 		{
 			$return[] = array(
@@ -165,7 +109,7 @@ class Statistics
 	function getRequestsToUrls($baseUrl)
 	{
 		$return = array();
-		$res = $this->fetchResults('SELECT post_url, referer_request, referer_searchengine, referer_url, COUNT(referer_url) AS referer_count FROM #izioseo_referers WHERE referer_searchengine!="" AND referer_request!="" GROUP BY referer_url ORDER BY post_url ASC, referer_count ASC');
+		$res = $this->db->fetchResults('SELECT post_url, referer_request, referer_searchengine, referer_url, COUNT(referer_url) AS referer_count FROM #izioseo_referers WHERE referer_searchengine!="" AND referer_request!="" GROUP BY referer_url ORDER BY post_url ASC, referer_count ASC');
 		foreach ($res as $entry)
 		{
 			$return[] = array(
@@ -188,7 +132,7 @@ class Statistics
 	function getKeywords($limit = 100)
 	{
 		$return = array();
-		$res = $this->fetchResults('SELECT referer_keyword, COUNT(referer_keyword) AS keyword_count FROM #izioseo_referers_keywords WHERE referer_keyword!="" GROUP BY referer_keyword ORDER BY keyword_count DESC' . ($limit ? ' LIMIT ' . addslashes($limit) : ''));
+		$res = $this->db->fetchResults('SELECT referer_keyword, COUNT(referer_keyword) AS keyword_count FROM #izioseo_referers_keywords WHERE referer_keyword!="" GROUP BY referer_keyword ORDER BY keyword_count DESC' . ($limit ? ' LIMIT ' . addslashes($limit) : ''));
 		foreach ($res as $entry)
 		{
 			$return[] = array(
@@ -208,7 +152,7 @@ class Statistics
 	function getKeywordsToUrls($baseUrl)
 	{
 		$return = array();
-		$res = $this->fetchResults('SELECT r.post_url, k.referer_keyword, COUNT(k.referer_keyword) AS keyword_count FROM goizio__izioseo_referers_keywords AS k JOIN goizio__izioseo_referers AS r ON r.referer_id=k.referer_id WHERE k.referer_keyword!="" GROUP BY k.referer_keyword ORDER BY post_url ASC, keyword_count ASC');
+		$res = $this->db->fetchResults('SELECT r.post_url, k.referer_keyword, COUNT(k.referer_keyword) AS keyword_count FROM goizio__izioseo_referers_keywords AS k JOIN goizio__izioseo_referers AS r ON r.referer_id=k.referer_id WHERE k.referer_keyword!="" GROUP BY k.referer_keyword ORDER BY post_url ASC, keyword_count ASC');
 		foreach ($res as $entry)
 		{
 			$return[] = array(
@@ -229,7 +173,7 @@ class Statistics
 	function getReferers($limit = 100)
 	{
 		$return = array();
-		$res = $this->fetchResults('SELECT referer_url, COUNT(referer_url) AS referer_count FROM #izioseo_referers WHERE referer_searchengine="" AND referer_request="" GROUP BY referer_url ORDER BY referer_count DESC' . ($limit ? ' LIMIT ' . addslashes($limit) : ''));
+		$res = $this->db->fetchResults('SELECT referer_url, COUNT(referer_url) AS referer_count FROM #izioseo_referers WHERE referer_searchengine="" AND referer_request="" GROUP BY referer_url ORDER BY referer_count DESC' . ($limit ? ' LIMIT ' . addslashes($limit) : ''));
 		foreach ($res as $entry)
 		{
 			$return[] = array(
@@ -249,13 +193,33 @@ class Statistics
 	function getReferersToUrls($baseUrl)
 	{
 		$return = array();
-		$res = $this->fetchResults('SELECT post_url, referer_url, COUNT(referer_url) AS referer_count FROM #izioseo_referers WHERE referer_searchengine="" AND referer_request="" GROUP BY referer_url ORDER BY post_url ASC, referer_count ASC');
+		$res = $this->db->fetchResults('SELECT post_url, referer_url, COUNT(referer_url) AS referer_count FROM #izioseo_referers WHERE referer_searchengine="" AND referer_request="" GROUP BY referer_url ORDER BY post_url ASC, referer_count ASC');
 		foreach ($res as $entry)
 		{
 			$return[] = array(
 				'post_url' => trim($baseUrl, '/') . $entry->post_url,
 				'referer_url' => $entry->referer_url,
 				'referer_count' => $entry->referer_count
+			);
+		}
+		return $return;
+	}
+
+	/**
+	 * holt alle externen Links
+	 * 
+	 * @param integer $limit
+	 * @return array
+	 */
+	function getPopularLinks($limit = 100)
+	{
+		$return = array();
+		$res = $this->db->fetchResults('SELECT link_url, link_hits FROM #izioseo_anonym_links ORDER BY link_hits DESC, link_url ASC' . ($limit ? ' LIMIT ' . addslashes($limit) : ''));
+		foreach ($res as $entry)
+		{
+			$return[] = array(
+				'link_url' => $entry->link_url,
+				'link_hits' => $entry->link_hits
 			);
 		}
 		return $return;
@@ -281,26 +245,6 @@ class Statistics
 			$string = utf8_decode($string);
 		}
 		return $string;
-	}
-
-	/**
-	 * holt alle externen Links
-	 * 
-	 * @param integer $limit
-	 * @return array
-	 */
-	function getPopularLinks($limit = 100)
-	{
-		$return = array();
-		$res = $this->fetchResults('SELECT link_url, link_hits FROM #izioseo_anonym_links ORDER BY link_hits DESC, link_url ASC' . ($limit ? ' LIMIT ' . addslashes($limit) : ''));
-		foreach ($res as $entry)
-		{
-			$return[] = array(
-				'link_url' => $entry->link_url,
-				'link_hits' => $entry->link_hits
-			);
-		}
-		return $return;
 	}
 
 }
