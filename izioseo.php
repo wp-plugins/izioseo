@@ -422,7 +422,6 @@ class izioSEO
 	 */
 	function analyseReferer($referer)
 	{
-		$domain = explode('/', $referer);
 		for($n = 0; $n < count($this->searchengines); $n++)
 		{
 		    if (eregi($this->searchengines[$n][0], $referer))
@@ -1881,7 +1880,7 @@ class izioSEO
 	{
 		if (is_404())
 		{
-		 	if ($postId = $this->fetchOne('SELECT ID FROM #posts WHERE post_name="' . mysql_escape_string(basename($this->url)) . '" AND post_status="publish"'))
+		 	if ($postId = $this->db->fetchOne('SELECT ID FROM #posts WHERE post_name="' . mysql_escape_string(basename($this->url)) . '" AND post_status="publish"'))
 		 	{
 		 		$permalink = get_permalink($postId);
 				header('HTTP/1.1 301 Moved Permanently');
