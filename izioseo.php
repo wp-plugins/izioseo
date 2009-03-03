@@ -469,8 +469,9 @@ class izioSEO
 	 */
 	function getDomain($url)
 	{
+		$url = trim($url, '/');
 		$matches = parse_url($url);
-		return isset($matches['host']) ? $matches['host'] : false;
+		return isset($matches['host']) ? $matches['host'] : $matches['path'];
 	}
 
 	/**
