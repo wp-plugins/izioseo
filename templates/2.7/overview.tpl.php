@@ -44,7 +44,6 @@
 							<div class="inside">
 								<p style="margin:12px; text-align:justify;">
 									<?php printf(__('Das Wordpress SEO Plugin izioSEO ist ein vollautomatisches Plugin zur OnPage-Suchmaschinenoptimierung. Sie benutzen <a href="http://www.goizio.com/">izioSEO Version %s</a> mit <a href="http://www.wordpres.org/">Wordpress Version %s</a>.', 'izioseo'), $this->version, $this->wpv) ?>
-									<?php $this->newVersion() ?>
 								</p>
 								<p style="clear:both;"></p>
 							</div>

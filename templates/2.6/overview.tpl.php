@@ -7,7 +7,6 @@
 		</h3>
 		<p class="youhave">
 			<?php printf(__('Das Wordpress SEO Plugin izioSEO ist ein vollautomatisches Plugin zur OnPage-Suchmaschinenoptimierung. Sie benutzen <a href="http://www.goizio.com/">izioSEO Version %s</a> mit <a href="http://www.wordpres.org/">Wordpress Version %s</a>.', 'izioseo'), $this->version, $this->wpv) ?>
-			<?php $this->newVersion() ?>
 		</p>
 		<p class="youare">
 			<p style="float:left; width:10%; text-align:center;">

@@ -4,7 +4,7 @@
 Plugin Name: izioSEO
 Plugin URI: http://www.goizio.com/izioseo/
 Description: Ein umfangreiches Plugin zur Suchmaschinenoptimierung f&uuml;r Wordpress. Einfache "on-the-fly" SEO-L&ouml;sung mit vielen m&ouml;glichen <a href="/wp-admin/admin.php?page=options">Einstellungen</a>.
-Version: 1.2
+Version: 1.2.1
 Author: Mathias 'United20' Schmidt
 Author URI: http://www.goizio.com/
 */
@@ -54,7 +54,8 @@ if (preg_match('!wp\-admin!', $_SERVER['PHP_SELF'])) // nur Adminbereich
 
 	// Einstellungspannel fuer Artikel und Seiten und die damit verbundene Speicherfunktion
 	add_action('save_post', array($izioseo, 'savePostMeta'));
-	add_action('edit_form_advanced', array($izioseo, 'addPostMeta'), 1);
+	add_action('edit_form_advanced', array($izioseo, 'addPostMeta'));
+	add_action('edit_page_form', array($izioseo, 'addPostMeta'));
 
 	// Umlaute korrekt aus URL entfernen
 	remove_filter('sanitize_title', 'sanitize_title_with_dashes');
@@ -123,7 +124,7 @@ class izioSEO
 	 *
 	 * @var string
 	 */
-	var $version = '1.2';
+	var $version = '1.2.1';
 
 	/**
 	 * Website von izioSEO
@@ -345,7 +346,7 @@ class izioSEO
 	function getRefererKeywords($keywords)
 	{
 		$referers = $this->db->fetchResults('SELECT referer_keyword, COUNT(referer_keyword) AS referer_keyword_count FROM #izioseo_referers_keywords AS rk INNER JOIN #izioseo_referers AS r ON r.referer_id=rk.referer_id WHERE r.post_url="' . $this->url . '" GROUP BY rk.referer_keyword');
-		$weighting = 1 / array_sum($keywords);
+		$weighting = ($sum = array_sum($keywords)) ? 1 / $sum : 0;
 		foreach ($referers as $referer)
 		{
 			if (isset($keywords[$referer->referer_keyword]))
@@ -422,6 +423,7 @@ class izioSEO
 	 */
 	function analyseReferer($referer)
 	{
+		$domain = explode('/', $referer);
 		for($n = 0; $n < count($this->searchengines); $n++)
 		{
 		    if (eregi($this->searchengines[$n][0], $referer))
@@ -846,25 +848,6 @@ class izioSEO
 			return number_format($xml->SD->POPULARITY['TEXT'], 0, ',', '.');
 		}
 		return 'n/a';
-	}
-
-	/**
-	 * Pruefen ob eine neue Version von izioSEO vorhanden ist und gibt die neue Versionsnummer zurueck
-	 *
-	 * @return string
-	 */
-	function newVersion()
-	{
-		$current = get_option('update_plugins');
-		if ($current->response && isset($current->response['izioseo/izioseo.php']))
-		{
-			$plugin = $current->response['izioseo/izioseo.php'];
-			$url = admin_url('plugin-install.php?tab=plugin-information&plugin=izioseo&TB_iframe=true&width=640&height=480');
-
-			// @TODO Fehler in Updatelink beheben
-			echo '<br /><br />';
-			printf(__('There is a new version of %1$s available. <a href="%2$s" class="thickbox" title="%1$s">View version %3$s Details</a> or <a href="%4$s">upgrade automatically</a>.'), 'izioSEO', $url, $plugin->new_version, wp_nonce_url('update.php?action=upgrade-plugin&amp;plugin=' . plugin_basename(dirname(__FILE__)) . '/izioseo.php', 'upgrade-plugin_izioseo'));
-		}
 	}
 
 	/**
