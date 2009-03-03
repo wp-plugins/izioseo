@@ -469,9 +469,8 @@ class izioSEO
 	 */
 	function getDomain($url)
 	{
-		preg_match('/^([http|ftp|news|irc]:\/\/)?([^\/]+)/i', $url, $matches);
-		preg_match('/[^\.\/]+\.[^\.\/]+$/', $matches[2], $matches);
-		return isset($matches[0]) ? $matches[0] : null;
+		$matches = parse_url($url);
+		return isset($matches['host']) ? $matches['host'] : false;
 	}
 
 	/**
