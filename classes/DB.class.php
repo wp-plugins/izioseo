@@ -16,7 +16,7 @@ class DB
 	/**
 	 * Klassenkonstruktor
 	 */
-	function __construct()
+	function DB()
 	{
 		global $wpdb;
 		$this->db = $wpdb;
