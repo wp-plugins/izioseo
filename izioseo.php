@@ -124,7 +124,7 @@ class izioSEO
 	 *
 	 * @var string
 	 */
-	var $version = '1.2.1';
+	var $version = '1.2.2';
 
 	/**
 	 * Website von izioSEO
