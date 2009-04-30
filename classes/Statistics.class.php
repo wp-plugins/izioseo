@@ -5,23 +5,25 @@
  *
  * @author Mathias Schmidt <united20@united20.de>
  */
-class Statistics
+class IzioStatistics
 {
 
 	/**
 	 * Datenbank von Wordpress
 	 *
-	 * @var object
+	 * @var IzioDB
 	 */
 	var $db = null;
 
 	/**
 	 * Konstruktor
+	 * 
+	 * @return IzioStatistics
 	 */
-	function Statistics()
+	function IzioStatistics()
 	{
 		require_once(dirname(__FILE__) . '/DB.class.php');
-		$this->db = new DB();
+		$this->db = new IzioDB();
 	}
 
 	/**

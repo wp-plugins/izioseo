@@ -5,18 +5,22 @@
  *
  * @author Mathias Schmidt <united20@united20.de>
  */
-class DB
+class IzioDB
 {
 
 	/**
 	 * Datenbankobjekt von Wordpress
+	 * 
+	 * @var object
 	 */
 	var $db = null;
 
 	/**
 	 * Klassenkonstruktor
+	 * 
+	 * @return IzioDB
 	 */
-	function DB()
+	function IzioDB()
 	{
 		global $wpdb;
 		$this->db = $wpdb;

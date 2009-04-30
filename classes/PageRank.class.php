@@ -67,7 +67,7 @@ echo $gpr->GetPR("http://www.progen.com.tr");
 //echo "<pre>";print_r($gpr->debugResult);echo "</pre>";
 
  **********************************************************************/
-class GooglePR
+class IzioGooglePR
 {
 
 	var $googleDomains = array(

@@ -4,7 +4,7 @@
 Plugin Name: izioSEO
 Plugin URI: http://www.goizio.com/izioseo/
 Description: Ein umfangreiches Plugin zur Suchmaschinenoptimierung f&uuml;r Wordpress. Einfache "on-the-fly" SEO-L&ouml;sung mit vielen m&ouml;glichen <a href="/wp-admin/admin.php?page=options">Einstellungen</a>.
-Version: 1.2.1
+Version: 1.2.2
 Author: Mathias 'United20' Schmidt
 Author URI: http://www.goizio.com/
 */
@@ -223,6 +223,8 @@ class izioSEO
 
 	/**
 	 * das Datenbankobjekt von Wordpress
+	 * 
+	 * @var IzioDB
 	 */
 	var $db = null;
 
@@ -285,6 +287,8 @@ class izioSEO
 
 	/**
 	 * Konstruktor der Klasse
+	 * 
+	 * @return izioSEO
 	 */
 	function izioSEO()
 	{
@@ -496,7 +500,7 @@ class izioSEO
 			wp_admin_css('dashboard');
 			$this->template = '2.6';
 		}
-		$this->template = '/' . trim(dirname(__FILE__), '/') . '/templates/' . $this->template . '/';
+		$this->template = dirname(__FILE__) . '/templates/' . $this->template . '/';
 	}
 
 	/**
@@ -557,7 +561,7 @@ class izioSEO
 	function initDB()
 	{
 		require_once(dirname(__FILE__) . '/classes/DB.class.php');
-		$this->db = new DB();
+		$this->db = new IzioDB();
 	}
 
 	/**
@@ -830,7 +834,7 @@ class izioSEO
 
 		// Pagerank
 		require_once(dirname(__FILE__) . '/classes/PageRank.class.php');
-		$pr = new GooglePR;
+		$pr = new IzioGooglePR;
 
 		require_once($this->template . 'overview.tpl.php');
 	}
@@ -944,7 +948,7 @@ class izioSEO
 		$this->loadStopwords();
 		$data = array(
 			'izioseo_collect_keywords' => htmlspecialchars(stripcslashes(get_option('izioseo_collect_keywords'))),
-			'izioseo_file_keywords' => htmlspecialchars(stripcslashes(utf8_encode(implode("\r\n", $this->keywords)))),
+			'izioseo_file_keywords' => htmlspecialchars(stripcslashes(implode("\r\n", $this->keywords))),
 			'izioseo_file_stopwords' => htmlspecialchars(stripcslashes(implode("\r\n", $this->stopwords))),
 			'izioseo_file_acronyms' => htmlspecialchars(stripcslashes(implode("\r\n", $this->acronyms)))
 		);
@@ -1116,7 +1120,7 @@ class izioSEO
 		$pluginDir = WP_PLUGIN_URL . '/' . plugin_basename(dirname(__FILE__)) . '/';
 
 		require_once(dirname(__FILE__) . '/classes/Statistics.class.php');
-		$stats = new Statistics();
+		$stats = new IzioStatistics;
 
 		$nr = isset($_GET['nr']) && preg_match('/^[0-9]+$/', $_GET['nr']) ? $_GET['nr'] : 10;
 		$nk = isset($_GET['nk']) && preg_match('/^[0-9]+$/', $_GET['nk']) ? $_GET['nk'] : 10;
@@ -1135,7 +1139,7 @@ class izioSEO
 		@ob_end_clean();
 
 		require_once(dirname(__FILE__) . '/classes/Statistics.class.php');
-		$s = new Statistics();
+		$s = new IzioStatistics;
 
 		require_once(dirname(__FILE__) . '/classes/OpenFlashCharts/open-flash-chart.php');
 		$g = new graph();
@@ -1173,7 +1177,7 @@ class izioSEO
 	function exportKeywords()
 	{
 		require_once(dirname(__FILE__) . '/classes/Statistics.class.php');
-		$stats = new Statistics();
+		$stats = new IzioStatistics;
 
 		$name = 'izioseo-keywords-' . date('Y-m-d-h-i-s', time()) . '.csv';
 		$header = array(__('URL', 'izioseo'), __('Keyword', 'izioseo'), __('Anzahl', 'izioseo'));
@@ -1187,7 +1191,7 @@ class izioSEO
 	function exportRequests()
 	{
 		require_once(dirname(__FILE__) . '/classes/Statistics.class.php');
-		$stats = new Statistics();
+		$stats = new IzioStatistics;
 
 		$name = 'izioseo-requests-' . date('Y-m-d-h-i-s', time()) . '.csv';
 		$header = array(__('URL', 'izioseo'), __('Suchanfrage', 'izioseo'), __('Suchmaschine', 'izioseo'), __('Anfragende URL', 'izioseo'), __('Anzahl', 'izioseo'));
@@ -1201,7 +1205,7 @@ class izioSEO
 	function exportLinks()
 	{
 		require_once(dirname(__FILE__) . '/classes/Statistics.class.php');
-		$stats = new Statistics();
+		$stats = new IzioStatistics;
 
 		$name = 'izioseo-links-' . date('Y-m-d-h-i-s', time()) . '.csv';
 		$header = array(__('Link URL', 'izioseo'), __('Aufrufe', 'izioseo'));
@@ -1214,7 +1218,7 @@ class izioSEO
 	function exportReferers()
 	{
 		require_once(dirname(__FILE__) . '/classes/Statistics.class.php');
-		$stats = new Statistics();
+		$stats = new IzioStatistics();
 
 		$name = 'izioseo-referers-' . date('Y-m-d-h-i-s', time()) . '.csv';
 		$header = array(__('URL', 'izioseo'), __('Verweisende URL', 'izioseo'),__('Anzahl', 'izioseo'));
