@@ -4,7 +4,7 @@
 Plugin Name: izioSEO
 Plugin URI: http://www.goizio.com/izioseo/
 Description: Ein umfangreiches Plugin zur Suchmaschinenoptimierung f&uuml;r Wordpress. Einfache "on-the-fly" SEO-L&ouml;sung mit vielen m&ouml;glichen <a href="/wp-admin/admin.php?page=options">Einstellungen</a>.
-Version: 1.2.2
+Version: 1.2.3
 Author: Mathias 'United20' Schmidt
 Author URI: http://www.goizio.com/
 */
@@ -92,6 +92,12 @@ else
 	{
 		add_filter('wp_generate_tag_cloud', array($izioseo, 'setNofollow'), 1000000);
 	}
+	
+	// Kategorien ohne "category" oder ein anders Keyword
+	if (get_option('izioseo_nice_categories') == 'on')
+	{
+		add_filter('category_link', array($izioseo, 'doNiceCategories'));
+	}
 
 	// Anonymisierung von Links
 	if (isset($_GET['goto']) && preg_match('/^[a-zA-Z0-9]{32}$/', $_GET['goto']))
@@ -124,7 +130,7 @@ class izioSEO
 	 *
 	 * @var string
 	 */
-	var $version = '1.2.2';
+	var $version = '1.2.3';
 
 	/**
 	 * Website von izioSEO
@@ -190,6 +196,7 @@ class izioSEO
 		'izioseo_anonym_content_link' => 'off',
 		'izioseo_anonym_comment_link' => 'off',
 		'izioseo_anonym_bookmark_link' => 'off',
+		'izioseo_nice_categories' => 'off',
 		'__izioseo_reset_export' => 0
 	);
 
@@ -1433,6 +1440,8 @@ class izioSEO
 	 */
 	function addPostMeta()
 	{
+		$this->getTemplate();
+
 		$post = $this->getCurPost(true);
 		if ($post->ID > 0 && preg_match('/^[0-9]{1,10}$/', $post->ID))
 		{
@@ -2805,6 +2814,27 @@ class izioSEO
 		$keywords = implode(', ', $keywords);
 		$keywords = utf8_encode($keywords);
 		return $keywords;
+	}
+
+	/**
+	 * Es wird aus dem Permalink fuer Kategorien ein Link ohne "category" und Keyword gemacht 
+	 *
+	 * @param string $link
+	 * @param integer $id
+	 * @return string
+	 */
+	function doNiceCategories($link)
+	{
+		if (substr_count(get_option('permalink_structure'), '/%category%/'))
+		{
+			$base = get_option('category_base', '/category/');
+			if (empty($base))
+			{
+				$base = '/category/';
+			}
+			$link = str_replace('/' . trim($base, '/') . '/', '/', $link);
+		}
+		return $link;
 	}
 
 }

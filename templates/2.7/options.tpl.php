@@ -88,6 +88,15 @@
 					</td>
 				</tr>
 				<tr>
+					<th scope="row"><?php echo $this->helpButton('Kategorielinks') ?> <label for="izioseo_nice_categories"><?php _e('Kategorielinks ohne Kategorie-Basis verwenden', 'izioseo') ?></label></th>
+					<td>
+						<input type="checkbox" name="izioseo[izioseo_nice_categories]" id="izioseo_nice_categories"<?php if ($data['izioseo_nice_categories'] == 'on') : ?> checked<?php endif; ?> />
+						<div style="text-align:justify;">
+							<?php _e('Diese Funktion entfernt aus der Struktur der Links f&uuml;r Links das Keyword &quot;category&quot; oder die individuell vergebene Kategoriebasis. Diese Funktion wird nur verwendet, wenn in der Linkstruktor die folgenden Zeichenkette enthalten ist: <strong>/%category%/</strong>. Diese Funktion funktioniert nur bei Kategorien auf der ersten Ebene.', 'izioseo'); ?>
+						</div>
+					</td>
+				</tr>
+				<tr>
 					<th scope="row"><?php echo $this->helpButton('RSS Feeds indexieren') ?> <label for="izioseo_noindex_rssfeed"><?php _e('RSS Feeds nicht indexieren', 'izioseo') ?></label></th>
 					<td>
 						<input type="checkbox" name="izioseo[izioseo_noindex_rssfeed]" id="izioseo_noindex_rssfeed"<?php if ($data['izioseo_noindex_rssfeed'] == 'on') : ?> checked<?php endif; ?> />
