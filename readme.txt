@@ -174,4 +174,4 @@ Version 1.2.2 vom 30.04.2009
 Version 1.2.3 vom 28.05.2009
 
  * Bugfix: Templatepfad fuer addPostMeta() behoben
- * Add: Kategorien koenen nun ohne das Schlagwort "category" oder die individuell eingestellte Kategorie-Basis verwendet werden
+ * Add: Kategorien koennen nun ohne das Schlagwort "category" oder die individuell eingestellte Kategorie-Basis verwendet werden
